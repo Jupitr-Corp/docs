@@ -1,0 +1,32 @@
+---
+title: "Website health"
+description: "Make sure your site is properly configured for AI discoverability."
+---
+
+The Health page checks whether your website follows best practices for being discoverable and citable by AI platforms.
+
+## Health signals
+
+Hikoo evaluates the following signals:
+
+| Signal | What it checks |
+|---|---|
+| **robots.txt AI access** | Whether your `robots.txt` file allows AI crawlers to access your content. |
+| **llms.txt** | Whether your site publishes an `llms.txt` file - a standard for signaling AI-ready content. |
+| **Sitemap** | Whether a valid sitemap is present to help crawlers discover your pages. |
+
+Each signal is shown as a status card - passing, failing, or not yet checked.
+
+## Improvement suggestions
+
+Below the status cards, Hikoo provides AI-generated suggestions to improve your site's health. These are tailored recommendations based on your current configuration.
+
+Click **Regenerate suggestions** to refresh them after making changes to your site.
+
+## Refreshing health checks
+
+Health data is collected automatically when you add a website. To re-check at any time, click **Refresh**. Health refreshes count against your monthly quota (visible on the page).
+
+## llms.txt generator
+
+If your site does not have an `llms.txt` file yet, Hikoo includes a built-in generator tool. Provide your site URL and Hikoo will produce a ready-to-use `llms.txt` file you can add to your domain root.
