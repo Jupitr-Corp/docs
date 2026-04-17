@@ -42,6 +42,14 @@
           "guides/settings",
           "guides/billing"
         ]
+      },
+      {
+        "group": "MCP server",
+        "pages": [
+          "guides/mcp/overview",
+          "guides/mcp/setup",
+          "guides/mcp/tools"
+        ]
       }
     ],
     "global": {

@@ -1,0 +1,106 @@
+---
+title: "Connecting the MCP"
+description: "Generate an API key and wire up Claude Desktop, Claude Code, or any MCP client to your Hikoo workspace."
+---
+
+Setup is two steps: create an API key for the website you want to expose, then plug the key into your MCP client.
+
+<Steps>
+
+### Generate an API key
+
+Each key is scoped to a single website. If you track multiple sites, create one key per site.
+
+1. Open the website you want to expose and go to **Settings > API keys**.
+2. Click **Create API key**.
+3. Give it a descriptive name like `Claude Desktop` or `Analyst workflow`.
+4. **Copy the key immediately.** It starts with `geo_` and is only shown once.
+
+<Warning>
+Keys inherit the website's subscription access. Treat them like passwords: never commit them, rotate if leaked via **Revoke**.
+</Warning>
+
+### Point your MCP client at Hikoo
+
+The Hikoo MCP endpoint is:
+
+```
+https://mcp.tryhikoo.com/mcp
+```
+
+It uses the streamable-HTTP transport. Pass your API key in the `Authorization` header.
+
+<Tabs>
+
+<Tab title="Claude Desktop">
+
+Edit `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "hikoo": {
+      "type": "http",
+      "url": "https://mcp.tryhikoo.com/mcp",
+      "headers": {
+        "Authorization": "Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop. You should see the **Hikoo** server appear in the tools menu.
+
+</Tab>
+
+<Tab title="Claude Code">
+
+Use the `claude mcp add` command (or edit `.mcp.json`):
+
+```bash
+claude mcp add hikoo --transport http \
+  --url https://mcp.tryhikoo.com/mcp \
+  --header "Authorization: Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+</Tab>
+
+<Tab title="Other MCP clients">
+
+Any client that supports the **streamable HTTP** transport works. Configure:
+
+- **URL**: `https://mcp.tryhikoo.com/mcp`
+- **Header**: `Authorization: Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+
+Check your client's documentation for how to supply custom headers.
+
+</Tab>
+
+</Tabs>
+
+### Try it out
+
+Start a new chat and ask something like:
+
+> *"What are my top AI platforms citing my site this month?"*
+
+The client will use a Hikoo tool to fetch live data from your workspace and answer in context.
+
+</Steps>
+
+## Managing keys
+
+- **List your keys** on the website's **Settings > API keys** page, with their last-used timestamps.
+- **Revoke** a key to deactivate it immediately. Clients using it will receive a `401 Unauthorized`.
+- **Expiration** is optional. Set it when creating a key if you want automatic rotation.
+
+## Troubleshooting
+
+| Symptom | Likely cause |
+|---|---|
+| `401 Invalid or expired API key` | The key was revoked, expired, or typed incorrectly. Create a fresh one. |
+| `403 Forbidden` | The client is not sending the expected MCP headers. Verify your config. |
+| Tools don't appear in Claude | Check the client restarted after editing the config, and the transport is set to `http` (not `sse`). |
+
+See the [tools reference](/guides/mcp/tools) for what you can ask once connected.

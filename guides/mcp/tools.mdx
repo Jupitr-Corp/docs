@@ -1,0 +1,160 @@
+---
+title: "Tools reference"
+description: "Every tool the Hikoo MCP exposes, grouped by what you can ask."
+---
+
+The Hikoo MCP currently ships **18 tools** across 7 areas. You never call them directly. Describe what you want in natural language and your AI client picks the right one.
+
+All tools operate on the single website bound to your API key. No `website_id` parameter is needed.
+
+## Website
+
+<ResponseField name="geo_get_website" type="read-only">
+Returns the website metadata, topics, competitors list, language, and subscription status.
+
+<Expandable title="Example ask">
+> *"What do you know about my site?"*
+</Expandable>
+</ResponseField>
+
+## Audits
+
+<ResponseField name="geo_list_audits" type="read-only">
+List every audit ever run for this website (most recent first), with scores, status, and audited-page count.
+</ResponseField>
+
+<ResponseField name="geo_get_audit" type="read-only">
+Detail of a single audit: overall score, timing, and the list of audited pages.
+
+**Args:** `audit_id`
+</ResponseField>
+
+<ResponseField name="geo_get_audit_page" type="read-only">
+Page-level audit result with **every criterion and its validation status**, plus the recommendations attached to each failing criterion. This is the most detailed audit view.
+
+**Args:** `audit_id`, `page_id`
+
+<Expandable title="Example ask">
+> *"Why did this page fail in my latest audit? Walk me through each criterion."*
+</Expandable>
+</ResponseField>
+
+<ResponseField name="geo_start_audit" type="write">
+Queue a new full-site audit. Runs asynchronously. Poll `geo_list_audits` or `geo_get_audit` for status.
+
+Fails if the website's audit quota for the current billing period is exhausted.
+</ResponseField>
+
+## Citations
+
+<ResponseField name="geo_list_citations" type="read-only">
+Paginated list of raw AI citations: the actual content the LLM produced, its sources, and which competitors were mentioned.
+
+**Args:** `page`, `page_size`, `time_range`, `website_cited` (filter to cited/not-cited only)
+
+<Expandable title="Example ask">
+> *"Show me the last 5 citations where my site was mentioned."*
+</Expandable>
+</ResponseField>
+
+<ResponseField name="geo_get_top_platforms" type="read-only">
+Top AI platforms by citation count.
+
+**Args:** `time_range`
+</ResponseField>
+
+<ResponseField name="geo_get_platforms_share_of_voice" type="read-only">
+Visibility trend data per platform (share of voice over time).
+
+**Args:** `time_range`
+</ResponseField>
+
+<ResponseField name="geo_get_top_sources" type="read-only">
+Top source domains (or URLs) that appear in AI citations. Useful to understand where LLMs get their answers.
+
+**Args:** `time_range`, `group_by` (`domain` or `url`), `limit`
+</ResponseField>
+
+## Prompts
+
+<ResponseField name="geo_get_prompts_quota" type="read-only">
+Current prompt count vs the subscription limit. Call this **before** bulk-creating prompts. Every create past the limit fails.
+
+Returns `{ used, limit, remaining }`.
+</ResponseField>
+
+<ResponseField name="geo_list_prompts" type="read-only">
+All prompts tracked for the website, grouped by topic, each with its visibility score.
+
+**Args:** `topic_id` (optional filter)
+</ResponseField>
+
+<ResponseField name="geo_create_prompt" type="write">
+Create a new prompt. Fails if the website's prompt quota is reached. Check `geo_get_prompts_quota` first.
+
+**Args:** `content`, `topic_id`, `localizations`
+
+<Expandable title="Example ask">
+> *"Add a prompt 'best project management tool for startups' under the productivity topic."*
+</Expandable>
+</ResponseField>
+
+<ResponseField name="geo_update_prompt" type="write">
+Update an existing prompt. Only fields you provide are changed.
+
+**Args:** `prompt_id`, `content`, `topic_id`, `localizations`
+</ResponseField>
+
+<ResponseField name="geo_delete_prompt" type="destructive">
+Delete a prompt.
+
+**Args:** `prompt_id`
+</ResponseField>
+
+<ResponseField name="geo_get_prompt_citations" type="read-only">
+Paginated citations tied to a specific prompt.
+
+**Args:** `prompt_id`, `page`, `page_size`
+</ResponseField>
+
+## Topics
+
+<ResponseField name="geo_list_topics" type="read-only">
+List every topic tracked for the website.
+</ResponseField>
+
+## Competitors
+
+<ResponseField name="geo_list_competitors" type="read-only">
+Competitor ranking (share of voice) against your website.
+
+**Args:** `time_range`
+
+<Expandable title="Example ask">
+> *"How do I rank against my competitors this quarter?"*
+</Expandable>
+</ResponseField>
+
+## Health
+
+<ResponseField name="geo_get_health" type="read-only">
+Global website health (AI crawlers allowed, `llms.txt` present, sitemap reachable) plus actionable improvement suggestions.
+
+**Args:** `include_dismissed`
+</ResponseField>
+
+## Argument conventions
+
+- **`time_range`** accepts: `all_time`, `1y`, `1m`, `1w`, `1d`.
+- **`page` / `page_size`** are 1-based. `page_size` is capped at 100.
+- **Write tools** mutate data in your workspace. Claude Desktop and Claude Code ask for confirmation before running them by default.
+
+## Annotations
+
+Each tool is labelled so MCP clients know how to handle it:
+
+| Label | Meaning |
+|---|---|
+| `read-only` | Never mutates data. Safe to call freely. |
+| `write` | Creates or updates data. |
+| `destructive` | Permanently removes data. Always review before confirming. |
