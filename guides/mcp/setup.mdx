@@ -14,7 +14,7 @@ Each key is scoped to a single website. If you track multiple sites, create one 
 1. Open the website you want to expose and go to **Settings > API keys**.
 2. Click **Create API key**.
 3. Give it a descriptive name like `Claude Desktop` or `Analyst workflow`.
-4. **Copy the key immediately.** It starts with `geo_` and is only shown once.
+4. **Copy the key immediately.** It starts with `hk_` and is only shown once.
 
 <Warning>
 Keys inherit the website's subscription access. Treat them like passwords: never commit them, rotate if leaked via **Revoke**.
@@ -43,7 +43,7 @@ Edit `claude_desktop_config.json`:
       "type": "http",
       "url": "https://mcp.tryhikoo.com/mcp",
       "headers": {
-        "Authorization": "Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "Authorization": "Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       }
     }
   }
@@ -61,7 +61,7 @@ Use the `claude mcp add` command (or edit `.mcp.json`):
 ```bash
 claude mcp add hikoo --transport http \
   --url https://mcp.tryhikoo.com/mcp \
-  --header "Authorization: Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  --header "Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 </Tab>
@@ -71,7 +71,7 @@ claude mcp add hikoo --transport http \
 Any client that supports the **streamable HTTP** transport works. Configure:
 
 - **URL**: `https://mcp.tryhikoo.com/mcp`
-- **Header**: `Authorization: Bearer geo_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+- **Header**: `Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 Check your client's documentation for how to supply custom headers.
 

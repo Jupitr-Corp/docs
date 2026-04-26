@@ -3,13 +3,13 @@ title: "Tools reference"
 description: "Every tool the Hikoo MCP exposes, grouped by what you can ask."
 ---
 
-The Hikoo MCP currently ships **18 tools** across 7 areas. You never call them directly. Describe what you want in natural language and your AI client picks the right one.
+The Hikoo MCP currently ships **20 tools** across 8 areas. You never call them directly. Describe what you want in natural language and your AI client picks the right one.
 
 All tools operate on the single website bound to your API key. No `website_id` parameter is needed.
 
 ## Website
 
-<ResponseField name="geo_get_website" type="read-only">
+<ResponseField name="hk_get_website" type="read-only">
 Returns the website metadata, topics, competitors list, language, and subscription status.
 
 <Expandable title="Example ask">
@@ -19,17 +19,17 @@ Returns the website metadata, topics, competitors list, language, and subscripti
 
 ## Audits
 
-<ResponseField name="geo_list_audits" type="read-only">
+<ResponseField name="hk_list_audits" type="read-only">
 List every audit ever run for this website (most recent first), with scores, status, and audited-page count.
 </ResponseField>
 
-<ResponseField name="geo_get_audit" type="read-only">
+<ResponseField name="hk_get_audit" type="read-only">
 Detail of a single audit: overall score, timing, and the list of audited pages.
 
 **Args:** `audit_id`
 </ResponseField>
 
-<ResponseField name="geo_get_audit_page" type="read-only">
+<ResponseField name="hk_get_audit_page" type="read-only">
 Page-level audit result with **every criterion and its validation status**, plus the recommendations attached to each failing criterion. This is the most detailed audit view.
 
 **Args:** `audit_id`, `page_id`
@@ -39,15 +39,15 @@ Page-level audit result with **every criterion and its validation status**, plus
 </Expandable>
 </ResponseField>
 
-<ResponseField name="geo_start_audit" type="write">
-Queue a new full-site audit. Runs asynchronously. Poll `geo_list_audits` or `geo_get_audit` for status.
+<ResponseField name="hk_start_audit" type="write">
+Queue a new full-site audit. Runs asynchronously. Poll `hk_list_audits` or `hk_get_audit` for status.
 
 Fails if the website's audit quota for the current billing period is exhausted.
 </ResponseField>
 
 ## Citations
 
-<ResponseField name="geo_list_citations" type="read-only">
+<ResponseField name="hk_list_citations" type="read-only">
 Paginated list of raw AI citations: the actual content the LLM produced, its sources, and which competitors were mentioned.
 
 **Args:** `page`, `page_size`, `time_range`, `website_cited` (filter to cited/not-cited only)
@@ -57,19 +57,19 @@ Paginated list of raw AI citations: the actual content the LLM produced, its sou
 </Expandable>
 </ResponseField>
 
-<ResponseField name="geo_get_top_platforms" type="read-only">
+<ResponseField name="hk_get_top_platforms" type="read-only">
 Top AI platforms by citation count.
 
 **Args:** `time_range`
 </ResponseField>
 
-<ResponseField name="geo_get_platforms_share_of_voice" type="read-only">
+<ResponseField name="hk_get_platforms_share_of_voice" type="read-only">
 Visibility trend data per platform (share of voice over time).
 
 **Args:** `time_range`
 </ResponseField>
 
-<ResponseField name="geo_get_top_sources" type="read-only">
+<ResponseField name="hk_get_top_sources" type="read-only">
 Top source domains (or URLs) that appear in AI citations. Useful to understand where LLMs get their answers.
 
 **Args:** `time_range`, `group_by` (`domain` or `url`), `limit`
@@ -77,20 +77,20 @@ Top source domains (or URLs) that appear in AI citations. Useful to understand w
 
 ## Prompts
 
-<ResponseField name="geo_get_prompts_quota" type="read-only">
+<ResponseField name="hk_get_prompts_quota" type="read-only">
 Current prompt count vs the subscription limit. Call this **before** bulk-creating prompts. Every create past the limit fails.
 
 Returns `{ used, limit, remaining }`.
 </ResponseField>
 
-<ResponseField name="geo_list_prompts" type="read-only">
+<ResponseField name="hk_list_prompts" type="read-only">
 All prompts tracked for the website, grouped by topic, each with its visibility score.
 
 **Args:** `topic_id` (optional filter)
 </ResponseField>
 
-<ResponseField name="geo_create_prompt" type="write">
-Create a new prompt. Fails if the website's prompt quota is reached. Check `geo_get_prompts_quota` first.
+<ResponseField name="hk_create_prompt" type="write">
+Create a new prompt. Fails if the website's prompt quota is reached. Check `hk_get_prompts_quota` first.
 
 **Args:** `content`, `topic_id`, `localizations`
 
@@ -99,19 +99,19 @@ Create a new prompt. Fails if the website's prompt quota is reached. Check `geo_
 </Expandable>
 </ResponseField>
 
-<ResponseField name="geo_update_prompt" type="write">
+<ResponseField name="hk_update_prompt" type="write">
 Update an existing prompt. Only fields you provide are changed.
 
 **Args:** `prompt_id`, `content`, `topic_id`, `localizations`
 </ResponseField>
 
-<ResponseField name="geo_delete_prompt" type="destructive">
+<ResponseField name="hk_delete_prompt" type="destructive">
 Delete a prompt.
 
 **Args:** `prompt_id`
 </ResponseField>
 
-<ResponseField name="geo_get_prompt_citations" type="read-only">
+<ResponseField name="hk_get_prompt_citations" type="read-only">
 Paginated citations tied to a specific prompt.
 
 **Args:** `prompt_id`, `page`, `page_size`
@@ -119,13 +119,13 @@ Paginated citations tied to a specific prompt.
 
 ## Topics
 
-<ResponseField name="geo_list_topics" type="read-only">
+<ResponseField name="hk_list_topics" type="read-only">
 List every topic tracked for the website.
 </ResponseField>
 
 ## Competitors
 
-<ResponseField name="geo_list_competitors" type="read-only">
+<ResponseField name="hk_list_competitors" type="read-only">
 Competitor ranking (share of voice) against your website.
 
 **Args:** `time_range`
@@ -135,9 +135,40 @@ Competitor ranking (share of voice) against your website.
 </Expandable>
 </ResponseField>
 
+## Source Intelligence
+
+Discover and prioritize the AI-cited domains around your space — review platforms, directories, blogs, media — so an agent can automate listing claims, guest-post pitches, and review outreach.
+
+<ResponseField name="hk_get_source_intelligence_stats" type="read-only">
+Aggregated counts: total sources, breakdown by `source_type` and by AI platform. Call this first to know what kinds of sources exist before listing.
+
+Returns `{ total, by_type, by_platform }`.
+
+<Expandable title="Example ask">
+> *"What kinds of sources are citing my space, and on which platforms?"*
+</Expandable>
+</ResponseField>
+
+<ResponseField name="hk_list_suggested_sources" type="read-only">
+Paginated list of suggested sources, ordered by `citation_count` desc. Filter by type to pick the right outreach motion (review listings vs guest posts vs PR).
+
+**Args:** `source_type`, `platform`, `search`, `limit`, `offset`
+
+`source_type` values: `review_platform`, `media`, `blog`, `directory`, `forum`, `wiki`, `social`.
+`platform` values: `chatgpt`, `perplexity`, `gemini`, `claude` — only sources cited by that platform.
+
+<Expandable title="Example ask">
+> *"List the top review platforms I should claim a profile on, then draft outreach for each."*
+</Expandable>
+
+<Note>
+Visibility is capped to your plan's top-N most-cited sources. Upgrade unlocks more sources, not different data.
+</Note>
+</ResponseField>
+
 ## Health
 
-<ResponseField name="geo_get_health" type="read-only">
+<ResponseField name="hk_get_health" type="read-only">
 Global website health (AI crawlers allowed, `llms.txt` present, sitemap reachable) plus actionable improvement suggestions.
 
 **Args:** `include_dismissed`
