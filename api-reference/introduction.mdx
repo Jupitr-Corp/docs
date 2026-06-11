@@ -1,0 +1,92 @@
+---
+title: "REST API overview"
+description: "Programmatic access to your Hikoo data: citations, prompts, competitors, audits, health and more."
+---
+
+The Hikoo REST API exposes the same data you see in the dashboard, and the same surface the [MCP server](/guides/mcp/overview) relays. Use it to pull GEO analytics into your own tools, scripts, or pipelines.
+
+```
+https://api.tryhikoo.com/api/v1/public
+```
+
+## Authentication
+
+Every request is authenticated with a personal API key passed as a Bearer token:
+
+```bash
+curl "https://api.tryhikoo.com/api/v1/public/me" \
+  -H "Authorization: Bearer hk_your_api_key"
+```
+
+To create a key, go to **Settings > API keys** in the [dashboard](https://app.tryhikoo.com), click **Create key**, and copy it immediately: it starts with `hk_` and is only shown once.
+
+<Info>
+The same key works for both the REST API and the [MCP server](/guides/mcp/setup). It is tied to your user account and covers every workspace and website you belong to.
+</Info>
+
+<Warning>
+Treat keys like passwords: never commit them to a repository or expose them in client-side code. Revoke and recreate a key if it leaks.
+</Warning>
+
+## Targeting a website
+
+Most endpoints operate on a single website and take a `website_id` query parameter. To discover your websites:
+
+1. Call `GET /workspaces/with-websites` to list every workspace and the websites inside.
+2. Pick the `id` of the website you want.
+3. Pass it as `?website_id=<id>` to the data endpoints.
+
+```bash
+curl "https://api.tryhikoo.com/api/v1/public/citations?website_id=123&page=1" \
+  -H "Authorization: Bearer hk_your_api_key"
+```
+
+Data endpoints require an **active subscription** on the target website; without one they return `403` with an explanatory message.
+
+## Pagination
+
+List endpoints accept `page` (1-based) and `page_size` parameters and return a consistent envelope:
+
+```json
+{
+  "items": [],
+  "total": 240,
+  "page": 1,
+  "page_size": 20,
+  "total_pages": 12
+}
+```
+
+## Rate limits
+
+Requests are limited **per API key** to:
+
+| Window | Limit |
+| ------ | ----- |
+| Per minute | 60 requests |
+| Per hour | 5,000 requests |
+
+Exceeding a limit returns `429 Too Many Requests`. Note that MCP traffic using the same key counts against the same budget.
+
+## Errors
+
+The API uses standard HTTP status codes. Error responses carry a `detail` field:
+
+```json
+{ "detail": "Invalid or expired API key" }
+```
+
+| Status | Meaning |
+| ------ | ------- |
+| `401` | Missing, invalid, or expired API key |
+| `403` | No active subscription on the website, or a plan-gated feature |
+| `404` | Resource not found, or not visible to your account |
+| `422` | Invalid parameters (the response details which ones) |
+| `429` | Rate limit exceeded |
+
+## REST API or MCP?
+
+Both expose the same data with the same key.
+
+- **REST API**: your own code, scheduled jobs, BI pipelines, integrations.
+- **MCP server**: AI assistants like Claude exploring your data conversationally. See the [MCP setup guide](/guides/mcp/setup).
