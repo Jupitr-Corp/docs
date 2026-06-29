@@ -3,21 +3,21 @@ title: "Connecting the MCP"
 description: "Generate an API key and wire up Claude Desktop, Claude Code, or any MCP client to your Hikoo workspace."
 ---
 
-Setup is two steps: create an API key for the website you want to expose, then plug the key into your MCP client.
+Setup is two steps: create an API key, then plug the key into your MCP client.
 
 <Steps>
 
 ### Generate an API key
 
-Each key is scoped to a single website. If you track multiple sites, create one key per site.
+Each key is tied to your user account and covers every workspace and website you belong to.
 
-1. Open the website you want to expose and go to **Settings > API keys**.
+1. Go to **Settings > API keys**.
 2. Click **Create API key**.
 3. Give it a descriptive name like `Claude Desktop` or `Analyst workflow`.
 4. **Copy the key immediately.** It starts with `hk_` and is only shown once.
 
 <Warning>
-Keys inherit the website's subscription access. Treat them like passwords: never commit them, rotate if leaked via **Revoke**.
+Keys inherit your account's subscription access. Treat them like passwords: never commit them, rotate if leaked via **Revoke**.
 </Warning>
 
 ### Point your MCP client at Hikoo

@@ -9,46 +9,66 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Getting started",
-        "pages": [
-          "index",
-          "quickstart"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "guides/dashboard",
+              "guides/citations",
+              "guides/prompts",
+              "guides/competitors",
+              "guides/search-queries"
+            ]
+          },
+          {
+            "group": "Content optimization",
+            "pages": [
+              "guides/elevate",
+              "guides/audit",
+              "guides/health"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "guides/websites",
+              "guides/settings",
+              "guides/billing"
+            ]
+          },
+          {
+            "group": "MCP server",
+            "pages": [
+              "guides/mcp/overview",
+              "guides/mcp/setup",
+              "guides/mcp/tools"
+            ]
+          }
         ]
       },
       {
-        "group": "Dashboard",
-        "pages": [
-          "guides/dashboard",
-          "guides/citations",
-          "guides/prompts",
-          "guides/competitors",
-          "guides/search-queries"
-        ]
-      },
-      {
-        "group": "Content optimization",
-        "pages": [
-          "guides/elevate",
-          "guides/audit",
-          "guides/health"
-        ]
-      },
-      {
-        "group": "Account",
-        "pages": [
-          "guides/websites",
-          "guides/settings",
-          "guides/billing"
-        ]
-      },
-      {
-        "group": "MCP server",
-        "pages": [
-          "guides/mcp/overview",
-          "guides/mcp/setup",
-          "guides/mcp/tools"
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "openapi": "/api-reference/openapi.json"
+          }
         ]
       }
     ],
