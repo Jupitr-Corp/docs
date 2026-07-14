@@ -148,7 +148,8 @@
   },
   "footer": {
     "socials": {
-      "linkedin": "https://linkedin.com/company/hikoo"
+      "linkedin": "https://www.linkedin.com/company/hikoo",
+      "x": "https://x.com/tryhikoo"
     }
   }
 }
