@@ -1,26 +1,48 @@
 ---
 title: "Search queries"
-description: "See the actual queries users typed that led to citations of your site."
+description: "See the sub-questions AI assistants search on your behalf while answering your prompts"
 ---
 
-The Search Queries page surfaces the real questions and instructions users submitted to AI platforms that resulted in a citation of your website.
+A **search query** is a sub-question that an AI assistant internally issues to a search engine, such as Google or Bing, while it answers one of your prompts. Search queries show you the keywords AI is actually searching for on your behalf, which is often not the same wording you used in the prompt.
 
-## Query table
+## Prompts versus search queries
 
-Each row shows:
+The difference matters:
 
-- The **query text** - the user's original input
-- How many **times** that query has been recorded
-- Which **AI platform** it came from
-- The **prompt** that generated the query (expandable)
+- A **prompt** is what you define. It is the question you want to track.
+- A **search query** is what the AI actually searched to answer that prompt.
 
-## How search queries differ from prompts
+One prompt can spawn many search queries, because the assistant rephrases and breaks your question into several searches. Reading the search queries tells you which keywords are worth winning.
 
-- A **prompt** is a query you define in Hikoo to monitor.
-- A **search query** is the actual user input captured when a citation occurs.
+## The search queries page
 
-One prompt can generate many different search queries because real users phrase things differently. Reviewing search queries helps you understand the language your audience uses, which can inform your content strategy and future prompt creation.
+The page opens with KPIs for **queries tracked**, **topics covered**, and your **top platform**.
 
-## Filtering
+Below that, search queries are grouped by topic, with an **Unclustered** group for queries that do not fit a topic yet. You can:
 
-Use the toolbar filters to narrow results by time range, platform, or localization. You can also view search queries scoped to a single prompt from the prompt detail page.
+- **Sort** by most generated, most queries, or most recent.
+- **Expand** or **collapse** all groups at once.
+- **Copy** a query to reuse it elsewhere.
+
+## Query detail
+
+Open a search query to see:
+
+- A **generations over time** timeline showing when it was issued.
+- The **platforms** that issued it.
+- The **source prompts** it came from.
+
+## Scoped views
+
+You do not have to read every search query at once. You can also view search queries scoped to a single prompt or to a single citation, which keeps you focused on the answer you are investigating.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Prompts" icon="quote" href="/guides/prompts">
+    The questions you define, which spawn these search queries.
+  </Card>
+  <Card title="Citations" icon="search" href="/guides/citations">
+    View the search queries behind a single citation.
+  </Card>
+</Columns>

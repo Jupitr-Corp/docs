@@ -1,33 +1,76 @@
 ---
-title: "Managing websites"
-description: "Add, edit, and organize the websites you monitor in Hikoo."
+title: "Websites"
+description: "Track multiple websites from one account, each with its own prompts, citations, competitors, and audits."
 ---
 
-You can track multiple websites from a single Hikoo account. Each website has its own set of prompts, citations, competitors, and audit data.
+A website is the unit everything in Hikoo is scoped to. Each website keeps its own prompts, citations, competitors, and audit data, so you can track several brands or domains from a single account without mixing their results.
 
-## Adding a website
+## Add a website
 
-1. Go to the **Websites** page from the sidebar.
-2. Click **Add website**.
-3. Fill in the website URL, company name, target market, and description.
-4. Optionally add competitors.
+Open the site switcher in the sidebar and choose to add a site. A short wizard walks you through the basics.
 
-The new site will begin indexation and citation tracking automatically.
+<Steps>
+  <Step title="Enter the URL and name">
+    Provide the website URL and a name you will recognize in the switcher.
+  </Step>
+  <Step title="Set the target market and description">
+    Choose a target market and localization so Hikoo tracks the right country and language, then add a short description of what the site is about.
+  </Step>
+  <Step title="Let Hikoo analyze the site">
+    On creation Hikoo analyzes and crawls the site to seed its metadata, topics, and a set of starter prompts. You can refine all of these afterward.
+  </Step>
+</Steps>
 
-## Switching between websites
+<Tip>The starter prompts are a starting point, not a final list. Review them and add your own on the [Prompts](/guides/prompts) page.</Tip>
 
-Use the **site switcher** in the sidebar to select the website you want to view. All dashboard pages update to show data for the selected site.
+## Edit a website's details
 
-## Editing a website
+Each site has details you can edit at any time:
 
-Open the Websites page, select a website, and click **Edit** to update its details (URL, name, description, market).
+| Detail | What it controls |
+|---|---|
+| URL | The primary domain Hikoo tracks. |
+| Name | The label shown in the site switcher and across the app. |
+| Description | A short summary of the site, used to guide analysis. |
+| Topics | The themes that group your prompts. |
+| Brand aliases | Alternative names your brand is known by, so Hikoo counts citations that use them. |
+| URL aliases | Additional URLs that should count as your site. |
+| Competitors | The brands you benchmark against. See [Competitors](/guides/competitors). |
+| Language and localizations | The country and language markets you track. |
 
-## Deleting a website
+<Info>Brand aliases matter for accurate citation counts. If AI assistants refer to your brand by a shortened name or a former name, add it here so those mentions are attributed to you.</Info>
 
-Select a website and click **Delete**. This removes the website and all associated data (citations, prompts, audits, competitors) permanently.
+## Switch between sites
 
-<Warning>Deleting a website cannot be undone. All historical data will be lost.</Warning>
+Use the site switcher in the sidebar to change the active site. Sites are grouped by workspace, so you can see which team each one belongs to. From the switcher you can also:
+
+- Add a site.
+- Add a workspace.
+- Search for a site by name.
+- Open management for your sites and workspaces.
+
+The active site drives every page in the dashboard, so the citations, prompts, and audits you see always belong to the site selected here.
 
 ## Website limits
 
-Your subscription plan determines how many websites you can monitor. If you reach your limit, an alert will prompt you to upgrade or remove an existing website before adding a new one.
+Your plan sets how many websites you can track. As you approach that number you will see clear states for tracked sites, sites approaching the limit, and the limit being reached. When you reach the limit you will need to remove a site or move to a plan that allows more.
+
+## Delete a website
+
+You can delete a website from its management view.
+
+<Warning>Deleting a website permanently removes all of its data, including citations, prompts, audits, and competitors. This cannot be undone.</Warning>
+
+## Related pages
+
+<Columns cols={2}>
+  <Card title="Workspaces" icon="users" href="/guides/workspaces">
+    Group sites and teammates under a workspace and its subscription.
+  </Card>
+  <Card title="Prompts" icon="quote" href="/guides/prompts">
+    Manage the tracked query set for each site.
+  </Card>
+  <Card title="Competitors" icon="git-compare" href="/guides/competitors">
+    Benchmark a site's visibility against its rivals.
+  </Card>
+</Columns>

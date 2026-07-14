@@ -1,32 +1,93 @@
 ---
 title: "Website health"
-description: "Make sure your site is properly configured for AI discoverability."
+description: "See whether your site is technically ready to be discovered and cited by AI"
 ---
 
-The Health page checks whether your website follows best practices for being discoverable and citable by AI platforms.
+Health is a site-wide GEO health overview. It answers one question: is your site technically ready to be discovered and cited by AI. It is part of the **Analyzer** module.
 
-## Health signals
+Health is distinct from the per-page [audit](/guides/audit). The audit scores individual pages. Health looks at the property as a whole, covering the files and crawler rules that decide whether AI assistants can reach your content at all.
 
-Hikoo evaluates the following signals:
+## Global checks
 
-| Signal | What it checks |
+Hikoo runs three site-wide checks and auto-detects the relevant URLs on your domain.
+
+| Check | What it looks at |
 |---|---|
-| **robots.txt AI access** | Whether your `robots.txt` file allows AI crawlers to access your content. |
-| **llms.txt** | Whether your site publishes an `llms.txt` file - a standard for signaling AI-ready content. |
-| **Sitemap** | Whether a valid sitemap is present to help crawlers discover your pages. |
+| **robots.txt AI access** | Whether your `robots.txt` allows AI crawlers. This is evaluated per crawler, so you see exactly which ones are allowed. |
+| **llms.txt** | Whether your site publishes an `llms.txt` file. |
+| **sitemap.xml** | Whether a `sitemap.xml` is present so crawlers can discover your pages. |
 
-Each signal is shown as a status card - passing, failing, or not yet checked.
+## Resources editor
 
-## Improvement suggestions
+The resources editor lets you view and edit the three files that drive your AI readiness: your sitemap, your `llms.txt`, and your `robots.txt`. Hikoo shows the auto-detected version, and you can provide a custom one.
 
-Below the status cards, Hikoo provides AI-generated suggestions to improve your site's health. These are tailored recommendations based on your current configuration.
+<Tip>
+If you do not have an `llms.txt` yet, use the free `llms.txt` generator. See [Free tools](/guides/free-tools).
+</Tip>
 
-Click **Regenerate suggestions** to refresh them after making changes to your site.
+## Crawlers table
 
-## Refreshing health checks
+The crawlers table shows which AI crawlers are allowed or blocked on your site. Each crawler carries its importance, its category, and its purpose, so you can decide which ones matter to you.
 
-Health data is collected automatically when you add a website. To re-check at any time, click **Refresh**. Health refreshes count against your monthly quota (visible on the page).
+- **Importance** is critical, high, or medium.
+- **Category** is search, user, or training.
+- **Purpose** describes what the crawler does.
 
-## llms.txt generator
+Tracked crawlers include:
 
-If your site does not have an `llms.txt` file yet, Hikoo includes a built-in generator tool. Provide your site URL and Hikoo will produce a ready-to-use `llms.txt` file you can add to your domain root.
+| Crawler | Owner |
+|---|---|
+| GPTBot, OAI-SearchBot, ChatGPT-User | OpenAI |
+| ClaudeBot, anthropic-ai, Claude-Web, Claude-User | Anthropic |
+| Google-Extended, Gemini-Deep-Research | Google |
+| PerplexityBot, Perplexity-User | Perplexity |
+| Bingbot | Microsoft Copilot |
+| MistralAI-User | Mistral |
+| Bytespider | ByteDance |
+| Amazonbot | Amazon |
+| meta-externalagent | Meta |
+| DuckAssistBot | DuckDuckGo |
+
+<Warning>
+Blocking a search or user crawler can stop an AI assistant from reaching your content when it answers a user. Review the importance column before you block a crawler.
+</Warning>
+
+## Suggestions
+
+Health includes prioritized suggestions. These cover page improvements and new-content ideas, ordered so you can start with the ones that matter most. For each suggestion you can:
+
+- **Regenerate** the full set after you change your site.
+- **Dismiss** a suggestion you do not want, and **restore** it later.
+- **View the affected pages** for a suggestion, so you can see where it applies.
+
+## Indexation controls
+
+Indexation is started and managed from the Health page. From here you can:
+
+- **Start indexation** to have Hikoo discover and index your pages.
+- **Re-index errored pages** to retry the pages that failed.
+- **Add a single page** to the index.
+
+A crawl-progress banner shows the status while indexation runs. The pages that come out of this process appear on the [Pages](/guides/pages) inventory.
+
+## Refreshing health data
+
+Health data is collected when you add a website. After that, Hikoo refreshes it automatically, and you can refresh it on demand at any time.
+
+<Note>
+Refreshes and suggestion regenerations count against monthly quotas set by your plan. The remaining counts are shown on the page.
+</Note>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Pages" icon="file-text" href="/guides/pages">
+    Browse the pages Hikoo has indexed for your site.
+  </Card>
+  <Card title="Audit" icon="gauge" href="/guides/audit">
+    Score individual pages against the AI-readiness criteria.
+  </Card>
+  <Card title="Free tools" icon="plug" href="/guides/free-tools">
+    Generate an `llms.txt` file for your domain.
+  </Card>
+</Columns>

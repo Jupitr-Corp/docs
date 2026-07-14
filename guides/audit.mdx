@@ -1,48 +1,105 @@
 ---
 title: "Audit"
-description: "Run website audits to evaluate page quality and track your score over time."
+description: "Run an on-demand AI-readiness evaluation of your site or specific pages and track your score over time"
 ---
 
-The Audit feature crawls your website and evaluates each page against a set of quality criteria, giving you an overall score and page-level details.
+The audit runs an on-demand AI-readiness evaluation of your website. It is part of the **Analyzer** module. Hikoo scores each page against a weighted catalog of criteria, then rolls the page scores up into an overall score you can track over time.
+
+Use the audit when you want a page-by-page verdict on how well your content is prepared to be found and cited by AI assistants. For a site-wide technical readiness overview, see [Health](/guides/health).
 
 ## Running an audit
 
-You have three options:
+Click **New audit** to open the dialog. You have three modes.
 
-- **Full website audit** - crawl and evaluate your entire site.
-- **Single page audit** - audit a specific URL.
-- **Selected pages audit** - choose a set of pages to evaluate.
+<Tabs>
+  <Tab title="Full site">
+    On the **Full site** tab, Hikoo audits every page it has discovered for the selected website. Use this for a complete picture of your AI readiness.
+  </Tab>
+  <Tab title="Single URL">
+    Audit one specific URL. Use this to check a single page after you have changed it.
+  </Tab>
+  <Tab title="Select pages">
+    On the **Select pages** tab, choose a set of pages to evaluate. Use this when you want to focus on a section of your site.
+  </Tab>
+</Tabs>
 
-Click **New audit** and select the scope. The audit runs in the background - a banner shows progress while it is in process.
+The audit runs in the background. A progress banner shows its status while it is in process. You can leave the page and come back. When the run finishes, use **Sync** to pull in the results, or wait for the audit to update on its own.
+
+<Note>
+Audits are scoped to the website selected in the site switcher. Switch sites in the sidebar to audit a different property.
+</Note>
+
+## How pages are scored
+
+Each page is scored against a weighted criteria catalog that mixes static checks and LLM checks. Static checks read your page directly. LLM checks use a model to judge qualities that are hard to measure mechanically, such as whether a heading reads like a real question.
+
+Criteria are scoped by page category, so a blog post is judged by different rules than a product page. Categories include home, blog post, product, e-commerce product page, service, FAQ, and landing page. A set of site-wide `GLOBAL` checks applies to the property as a whole.
+
+### Example criteria
+
+<AccordionGroup>
+  <Accordion title="Global checks" icon="globe">
+    - `llms.txt` exists and is well formed.
+    - `robots.txt` exists and allows AI crawlers.
+    - `sitemap.xml` exists.
+  </Accordion>
+  <Accordion title="On-page GEO checks" icon="file-text">
+    - Article schema or another relevant schema is present as JSON-LD.
+    - The page has a clean H1 to H2 to H3 heading hierarchy.
+    - The page loads in under 3 seconds on mobile.
+    - No content is hidden behind JavaScript.
+    - Headings are descriptive and question-style.
+    - Metadata is strong.
+    - E-commerce product pages meet their page-specific requirements.
+  </Accordion>
+</AccordionGroup>
 
 ## Audit results
 
-Once complete, an audit shows:
+When an audit completes, the summary shows:
 
-- **Overall score** - a percentage displayed as a ring chart.
-- **Pages analyzed** - the total number of pages evaluated.
-- **Average page score** - the mean score across all pages.
-- **Assessment** - a summary rating (Excellent, Good, Needs work, or Poor).
+- **Overall score**, displayed as a ring.
+- **Pages analyzed**, the total number of pages evaluated.
+- **Average page score**, the mean score across those pages.
+- **Assessment**, a plain-language rating of Excellent, Good, Needs work, or Poor.
+- **Pages with errors**, so you can jump straight to what needs attention.
 
-## Page-level details
+## Page-level detail
 
-Click into an audit to see individual page results. Each page lists:
+Open any page in the audit to see its full breakdown. Each page lists every criterion with a pass or fail result and a recommendation for the ones that fail. Criteria are grouped into areas so you can see where the weakness is, covering performance, accessibility, SEO, and best practices. Score charts show how the page performs across those areas.
 
-- Its URL and category (article, product, service, etc.)
-- An individual quality score
-- Any errors or warnings detected
-- Specific recommendations for improvement
+## Audit actions
 
-## Audit quotas
+From an audit you can:
 
-Your subscription plan includes a monthly audit allowance. A counter on the Audit page shows how many audits you have remaining in the current billing period.
+- **Sync** to pull in the latest results.
+- **Export** the audit.
+- **Archive** an audit you want to keep but set aside.
+- **Delete** an audit you no longer need.
 
-## Indexed pages
+## Quotas
 
-After an audit, all discovered pages are available on the **Pages** tab. You can filter by:
+Your plan determines your audit quotas. Three limits apply:
 
-- **Status** - OK, Error, or Warning
-- **Category** - Article, Product, Service, Other
-- **Language**
+- **Audits per month**, how many audit runs you can start in a billing period.
+- **Audited pages per month**, the total pages you can evaluate across all runs.
+- **Page limit per audit**, the largest number of pages a single run can cover.
 
-Use this view to quickly find pages that need attention.
+A remaining counter on the Audit page shows what you have left in the current period.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Health" icon="heart" href="/guides/health">
+    Check your site-wide technical readiness for AI discovery.
+  </Card>
+  <Card title="Pages" icon="file-text" href="/guides/pages">
+    Browse your indexed pages and their per-page audit scores.
+  </Card>
+  <Card title="Elevate" icon="chart-line" href="/guides/elevate">
+    Close content gaps and generate articles from your findings.
+  </Card>
+  <Card title="Marketing plan" icon="gauge" href="/guides/marketing-plan">
+    Turn audit findings into a prioritized task board.
+  </Card>
+</Columns>

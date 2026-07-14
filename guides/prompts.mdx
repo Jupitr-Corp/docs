@@ -1,33 +1,89 @@
 ---
 title: "Prompts"
-description: "Create custom queries to track how AI platforms respond to topics that matter to you."
+description: "Define the natural-language questions Hikoo runs against AI assistants to test your visibility"
 ---
 
-A **prompt** is a search query you want Hikoo to monitor across AI platforms. When any platform cites your site (or a competitor) in response to that query, Hikoo records the citation.
+A **prompt** is a natural-language question that Hikoo runs against AI assistants to see whether your brand gets cited. Your prompts are the tracked query set behind every citation, so writing good ones is the foundation of the whole dashboard.
 
-## Creating a prompt
+## The prompts page
 
-1. Go to the **Prompts** page.
-2. Click **Create prompt**.
-3. Enter the query text - this should be a question or instruction a real user might type into an AI assistant.
-4. Optionally assign it to a **topic** to keep prompts organized.
+The Prompts page shows your prompts as a list, with stat cards across the top for quick health: **All**, **Winning**, **At risk**, **Unclaimed**, and **Average visibility**.
 
-<Tip>Write prompts that reflect how your audience actually searches. Natural, conversational queries produce more realistic tracking results.</Tip>
+Each prompt row summarizes how you are doing on that question:
 
-## Prompt list
+- **Visibility score** and **citation rate**
+- The **platforms** that cite you on it
+- The **competitors** cited alongside you
+- The **markets** it is tracked in
+- **Sentiment** of the answers
+- A **status** of winning, at risk, losing, or unclaimed
 
-Prompts are displayed grouped by topic. For each prompt you can see:
+## Add a prompt
 
-- The query text
-- A **visibility percentage** - how often your site is cited relative to competitors for this prompt
-- The number of citations it has generated
+You can add prompts three ways.
 
-Click a prompt to view its detailed performance breakdown, including citation trends over time, platform distribution, and competitor analysis.
+<Tabs>
+  <Tab title="Manually">
+    Write a single prompt yourself. Use this when you know the exact question you want to track.
+  </Tab>
+  <Tab title="Generate with AI">
+    Give Hikoo a set of keywords and let it draft prompts for you. Review and keep the ones that fit.
+  </Tab>
+  <Tab title="Import CSV">
+    Drop a CSV into the import dropzone. Hikoo shows a preview, auto-creates any missing topics, and highlights row-level errors before you commit the import.
+  </Tab>
+</Tabs>
 
-## Prompt limits
+## Classify prompts
 
-Your subscription plan determines how many prompts you can create per website. A progress bar shows your current usage. If you reach your limit, you can upgrade your plan or delete prompts you no longer need.
+Classification helps you slice your prompts by how buyers actually ask. Each prompt can carry:
 
-## Bulk operations
+- A **search intent**: informational, comparative, transactional, or navigational.
+- A **journey stage**: discovery, consideration, decision, or retention.
+- A **source keyword** it came from.
 
-Select multiple prompts and use **Batch delete** to remove them in one action.
+These values can be AI-generated, so you can classify a large set without tagging each one by hand.
+
+## Organize and act in bulk
+
+Group prompts by **topic**, by **journey stage**, or by none, then search and filter to find what you need. Select prompts to run bulk actions: **select all**, **delete**, **tag**, **retarget market**, **move to topic**, or **export**.
+
+## Prompt volume
+
+**Prompt volume** estimates how much AI search demand a prompt has, so you can prioritize the questions people actually ask. It is available on some plans.
+
+## Prompts beyond your plan
+
+Your plan sets how many prompt slots each website gets, and a usage bar shows your current use. If you go over that limit, the extra prompts are paused under **Beyond your plan** and can be restored. Adding more slots reactivates them.
+
+<Warning>
+Paused prompts stop collecting new citations until you restore them.
+</Warning>
+
+## Prompt detail
+
+Open a prompt to see how it has performed:
+
+- **Visibility over the last 30 days**
+- Your **best rank** and **coverage**
+- A **per-platform breakdown**
+- The **latest answers** AI assistants gave
+- The **citations** and **competitor citations** tied to the prompt
+
+<Tip>
+Write prompts the way real users ask AI assistants. Natural, specific questions match how people actually query, which makes your tracking reflect real demand.
+</Tip>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Topics" icon="folder" href="/guides/topics">
+    Group prompts into themes that drive filtering everywhere.
+  </Card>
+  <Card title="Citations" icon="quote" href="/guides/citations">
+    The answers your prompts produce, matched and ranked.
+  </Card>
+  <Card title="Search queries" icon="search" href="/guides/search-queries">
+    What AI assistants actually search while answering your prompts.
+  </Card>
+</Columns>

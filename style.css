@@ -1,0 +1,46 @@
+/*
+ * Hikoo docs - monochrome design direction.
+ * Colors are driven by docs.json (black in light mode, white in dark mode).
+ * This file only sharpens the shell to match Hikoo's flat, sharp-corner DA.
+ *
+ * Note: custom CSS may require a paid Mintlify plan to take effect. On the
+ * free plan the docs.json color scheme already delivers the black-and-white
+ * look; this file is a progressive enhancement that degrades harmlessly.
+ */
+
+:root {
+  --hk-radius: 0.25rem;
+}
+
+/* Sharp, flat corners across the common components. */
+.card,
+.callout,
+button,
+pre,
+code,
+img,
+table,
+input,
+select,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl {
+  border-radius: var(--hk-radius) !important;
+}
+
+/* Flat cards: hairline border, no heavy shadow. */
+.card {
+  box-shadow: none !important;
+}
+
+/* Keep code blocks monochrome and calm. */
+pre {
+  border: 1px solid rgba(120, 120, 128, 0.24);
+}
+
+/* Lucide icons render at a lighter 1.5 stroke to match Hikoo's line weight. */
+svg[stroke-width],
+svg.lucide,
+.lucide {
+  stroke-width: 1.5 !important;
+}

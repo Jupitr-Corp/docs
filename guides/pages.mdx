@@ -1,0 +1,73 @@
+---
+title: "Pages"
+description: "Browse the pages Hikoo has indexed for your site, with category, language, and status for each"
+---
+
+Pages is your indexed-page inventory. It is part of the **Analyzer** module. Hikoo discovers your pages from your sitemap, stores them, and enriches each one so you can see the state of your whole site in one table.
+
+For every page Hikoo:
+
+- Auto-categorizes it as home, blog post, product, e-commerce product page, service, FAQ, or landing page.
+- Detects its language.
+- Detects E-E-A-T signals, covering experience, expertise, authoritativeness, and trustworthiness.
+
+## The pages table
+
+Each row is one indexed page. The table shows:
+
+| Column | Description |
+|---|---|
+| **URL** | The address of the page. |
+| **Category** | The auto-detected page type. |
+| **Language** | The detected language. |
+| **Status** | Whether the page is `ok` or in `error`. |
+| **Last indexed** | When Hikoo last indexed the page. |
+| **Errors and warnings** | Any issues detected on the page. |
+
+### Filters
+
+Narrow the table with the available filters:
+
+- **Status** to show only pages that are ok or in error.
+- **Category** to focus on one page type.
+- **Language** to focus on one language.
+- **Search** to find a page by URL.
+
+## Page detail preview
+
+Open a page to see its preview, which shows:
+
+- The **meta description**.
+- The **HTTP status**.
+- Whether the page is **indexable**.
+- A link to its **audit score**, so you can jump to the full per-page breakdown in the [audit](/guides/audit).
+
+## Manual actions
+
+You can manage individual pages by hand:
+
+- **Index a single page** to add it to the inventory.
+- **Re-categorize a page** if the auto-detected category is wrong.
+- **Delete a page** you do not want tracked.
+
+<Note>
+The number of indexed pages is capped by your plan.
+</Note>
+
+<Info>
+Indexation itself is started and managed from the [Health](/guides/health) page. The Pages table is where you review and manage the results.
+</Info>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Health" icon="heart" href="/guides/health">
+    Start indexation and check your site-wide AI readiness.
+  </Card>
+  <Card title="Audit" icon="gauge" href="/guides/audit">
+    See the per-page AI-readiness score behind each page.
+  </Card>
+  <Card title="Elevate" icon="chart-line" href="/guides/elevate">
+    Close content gaps and generate articles from your findings.
+  </Card>
+</Columns>

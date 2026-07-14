@@ -1,34 +1,82 @@
 ---
 title: "Citations"
-description: "Track every time an AI platform references your content."
+description: "Track every time an AI assistant mentions or links your site in an answer"
 ---
 
-A **citation** is recorded each time an AI platform includes a reference to your website in its response. The Citations page lets you browse, filter, and analyze these records.
+A **citation** is one instance of an AI assistant mentioning or linking your site in an answer to a tracked prompt. The Citations page collects those instances, benchmarks them against competitors, and lets you filter down to a single answer to see exactly how you were referenced.
 
-## Citations chart
+## Citations by platform
 
-At the top of the page, a stacked area chart shows citation volume over time, broken down by AI platform. Use this to spot trends - for example, a spike after publishing new content or a drop that needs investigation.
+At the top of the page, the **Citations by platform** chart breaks your citation volume down by AI platform over time. Alongside it, insight callouts summarize the movement so you do not have to read the chart line by line. They highlight your most cited platform, the fastest growing one, any platform that is declining, and any newcomer platform that just started citing you.
 
-## Citations table
+## All citations
 
-Below the chart you will find a paginated table of every citation. Each row includes:
+Below the chart, the **All citations** table lists every recorded citation. Each row gives you:
 
-- The **AI platform** that produced the citation (ChatGPT, Claude, Perplexity, Gemini, etc.)
-- The **date** it was recorded
-- The **search query** that triggered it
-- Which **competitors** were cited in the same response
+| Column | What it shows |
+| --- | --- |
+| Date | When the citation was collected |
+| AI platform | The assistant that produced the answer |
+| Cited | Whether your site was cited in that answer |
+| Sentiment | How the answer portrayed your brand |
+| Competitors cited | Which rivals appeared in the same answer |
+| Sources | The domains and pages the answer pulled from |
+| Rank | Where your site landed among the cited sources |
 
-Click any row to open a detail view with full context.
+Select any row to open its detail view.
+
+## Filters
+
+A filter bar sits above the table so you can narrow the list to the citations you care about. You can filter by:
+
+- **Platform**, **time range**, **topic**, and **market**
+- **Competitor**, to see answers where a specific rival appeared
+- **Sentiment**, across positive, neutral, and negative
+- **Rank**, using top-N, equal to N, at least N, or between two values
+- **Cited only**, to hide answers where your site was not referenced
+- **Match types**, across brand citation, site mention, and background source
+
+Active filters appear as chips, and a **Clear all** action resets them at once.
 
 ## Citation detail
 
-The detail view shows:
+The citation detail view shows the full AI answer so you can read it in context. It marks whether your site was cited, lists the competitors cited in the same answer, and separates the sources into **Mentioned** and **Background**. A rank badge reads **Rank X of total** so you can see your standing among all cited sources at a glance.
 
-- The complete citation context
-- Platform information
-- Competitors cited alongside your site
-- A link to view the original AI conversation (when available)
+## Citation quota
 
-## Filtering
+Your plan buys a number of AI-response "runs" that Hikoo spends collecting fresh answers. The citation quota panel shows runs used and remaining and your renewal date. It also gives you control over how those runs are spent:
 
-Use the shared toolbar filters to narrow citations by **time range**, **platform**, and **localization**. You can also filter by a specific prompt from the [Prompts](/guides/prompts) page.
+- An **auto-distribution** toggle lets Hikoo spread runs across your platforms for you.
+- A manual distribution editor lets you set the split across platforms yourself.
+- **Launch now** triggers a collection immediately instead of waiting for the daily run.
+
+<Note>
+Which platforms you can track, and how many runs you get, are set by your plan.
+</Note>
+
+## Sources
+
+The **Sources** sub-page lists the third-party domains and pages that AI answers pulled from when they cited your space. The **All sources** table groups these by source class so you can see which kinds of sites feed the answers you appear in. Use it to find the pages worth earning a mention on.
+
+## How collection works
+
+Hikoo automatically collects fresh citations every day by querying the real AI assistants with your prompts. It then matches each answer against your site and competitors, ranks where you landed, and analyzes the sentiment and sources. Each answer spends one run from your plan. You can also spend a run on demand with **Launch now** on the citation quota panel.
+
+Export is available on plans that include it.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Prompts" icon="quote" href="/guides/prompts">
+    The tracked questions that produce your citations.
+  </Card>
+  <Card title="Competitors" icon="git-compare" href="/guides/competitors">
+    Benchmark your citations against rival brands.
+  </Card>
+  <Card title="Sentiment" icon="heart" href="/guides/sentiment">
+    See how AI answers portray your brand.
+  </Card>
+  <Card title="Search queries" icon="search" href="/guides/search-queries">
+    The sub-questions AI assistants search on your behalf.
+  </Card>
+</Columns>

@@ -1,37 +1,54 @@
 ---
 title: "Settings"
-description: "Manage your profile, preferences, and security settings."
+description: "Manage your profile, preferences, security, API keys, team, and billing from one modal."
 ---
 
-The Settings page lets you configure your Hikoo account.
+Settings opens as a modal from the user menu. It gathers everything about your account, your workspaces, and your billing in one place. Each area below is a section of that modal.
 
 ## Profile
 
-View and update your display name. Your email address is shown for reference but cannot be changed from this page.
+Set your display name. Your email address is shown for reference and cannot be changed here.
 
-## Appearance
+## Preferences
 
-Choose between three display themes:
+Choose how Hikoo looks and reads.
 
-- **Light** - always use the light theme.
-- **Dark** - always use the dark theme.
-- **Auto** - follow your operating system's preference.
+- Theme: Light, Dark, or Auto. Auto follows your operating system's preference.
+- Language: English or Français.
 
-## Language
-
-Hikoo is available in:
-
-- **English**
-- **Fran&ccedil;ais**
-
-Changing the language refreshes the page and applies the new locale throughout the app.
+<Note>Changing the language reloads the app and applies the new locale everywhere.</Note>
 
 ## Security
 
-Click **Change password** to update your account password. You will need to enter your current password and choose a new one.
+Click **Change password** to set a new password. You enter your current password and choose a new one.
 
-<Note>If you signed up with Google, password management is handled through your Google account.</Note>
+<Note>If you signed up with Google, password management happens in your Google account rather than here.</Note>
 
-## Billing information
+## API keys
 
-View and update the billing details associated with your subscription - name, company, address, and tax identifiers (VAT number or SIREN for French businesses).
+Create and revoke API keys, and get install instructions for the Hikoo MCP server and the REST API. This is where you generate a key, name it, and copy it once. See [API keys](/guides/api-keys) for the full workflow and safe handling.
+
+## Sites, Members, and Workspace
+
+These sections manage the sites in a workspace, the people on the team, and the workspace's own settings.
+
+- Sites: list the workspace's sites, add a site, manage each site's subscription, and set its language.
+- Members: invite teammates, set roles, and manage access.
+- Workspace: rename the workspace and access its danger zone.
+
+See [Workspaces](/guides/workspaces) for how roles and per-site subscriptions work.
+
+## Billing
+
+Review your subscription and your billing information. Billing information includes your name, company, address, and tax identifiers such as an EU VAT number or a French SIREN, which are validated automatically. You can also open the Stripe customer portal to update your payment method, view invoices, and change or cancel your plan.
+
+## Related pages
+
+<Columns cols={2}>
+  <Card title="API keys" icon="plug" href="/guides/api-keys">
+    Create keys for the REST API and the MCP server.
+  </Card>
+  <Card title="Workspaces" icon="users" href="/guides/workspaces">
+    Manage sites, members, and roles.
+  </Card>
+</Columns>

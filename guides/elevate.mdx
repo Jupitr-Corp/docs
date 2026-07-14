@@ -1,41 +1,78 @@
 ---
 title: "Elevate"
-description: "Get AI-powered suggestions to close content gaps and improve your visibility."
+description: "Find the topics and questions competitors get cited for in AI answers but you do not"
 ---
 
-Elevate analyzes your website's content against your competitors and surfaces actionable suggestions for improvement.
+Elevate is the content-gap engine. It surfaces the topics and questions that competitors get cited for in AI answers, but that you do not. Each gap is a piece of content you could create to start earning those citations yourself.
 
-## How it works
+## The gap list
 
-1. Hikoo indexes your pages and your competitors' pages.
-2. Content is compared to identify **topics your competitors cover that you do not** (or only partially cover).
-3. Suggestions are generated with specific recommendations for new or improved content.
+Elevate presents a list of gap suggestions. Each one carries a **priority** and a **content type** so you can decide what to work on first.
 
-## Browsing suggestions
+- **Priority** is one of **high**, **medium**, or **low**.
+- **Content type** describes the format to create: article, blog post, landing page, guide, how-to, FAQ, listicle, comparison, playbook, or checklist.
 
-Each suggestion is displayed as a card showing:
+Open any suggestion to see the reasoning behind it:
 
-- The **topic** or content gap identified
-- Whether it is a **full gap** (topic completely missing) or a **partial gap** (topic insufficiently covered)
-- Recommended actions to address the gap
+- **Why to create it**, the case for filling this gap.
+- A **content brief** to guide the writing.
+- **Context** around where the gap comes from.
+- The **original query** that exposed it.
+- **Your closest existing page**, so you can decide whether to write something new or improve what you already have.
 
-Click a card to open a detailed view with more context, including similar competitor pages for reference.
+## Working a suggestion
 
-## Managing suggestions
+Each suggestion has its own actions:
 
-Every suggestion has a status you can set:
-
-| Status | Meaning |
+| Action | What it does |
 |---|---|
-| **New** | Freshly generated, not yet reviewed. |
-| **Reviewed** | You have seen it but not decided. |
-| **Accepted** | You plan to act on it. |
-| **Dismissed** | Not relevant to your strategy. |
+| **Accept** | Commit to creating this content. |
+| **Dismiss** | Set the suggestion aside. |
+| **Mark as written** | Record that you published content for it. |
+| **Delete** | Remove the suggestion entirely. |
 
-Use the status filter at the top of the page to focus on the suggestions that matter to you.
+When you click **Mark as written**, a dialog opens. Paste the URL you published, and optionally run an audit on that page at the same time so you can check how it scores.
 
-## Generating suggestions
+Suggestions move through a clear status flow:
 
-Before Elevate can produce suggestions, your site needs to be indexed and content embeddings need to be generated. Navigate to the Elevate page and click **Generate** if this has not been done yet. A progress indicator shows the status.
+**New** to **Accepted** to **Written**, or **Dismissed** at any point.
 
-<Note>Elevate suggestions are as good as the data they are built on. Make sure your site is fully indexed and you have added relevant competitors for the best results.</Note>
+## How Elevate finds gaps
+
+Hikoo compares your own pages against the topics competitors get cited for, matching on meaning rather than exact wording. Where competitors are cited on a topic and you have no strong page, a gap appears.
+
+<Steps>
+  ### Prepare your pages
+  Open Elevate and let Hikoo prepare your pages for comparison.
+
+  ### Run the analysis
+  Start the analysis. It runs in the background, so you can leave the page and come back.
+
+  ### Review your gaps
+  When it finishes, your gap suggestions are ready to work through.
+</Steps>
+
+<Tip>
+Results are best when your site is fully indexed and you have added relevant competitors. Index more pages from [Pages](/guides/pages) and add rivals in [Competitors](/guides/competitors) before you run the analysis.
+</Tip>
+
+<Note>
+Elevate runs against a monthly quota per website. Your plan determines how many analysis runs you get each month.
+</Note>
+
+## Where to go next
+
+<Columns cols={2}>
+  <Card title="Marketing plan" icon="list-checks" href="/guides/marketing-plan">
+    Turn accepted gaps into scheduled tasks you can track.
+  </Card>
+  <Card title="Source intelligence" icon="search" href="/guides/source-intelligence">
+    Pair content gaps with the sources that would cite you.
+  </Card>
+  <Card title="Pages" icon="globe" href="/guides/pages">
+    Index more of your site so gap detection has more to compare.
+  </Card>
+  <Card title="Competitors" icon="users" href="/guides/competitors">
+    Add the rivals whose coverage defines your gaps.
+  </Card>
+</Columns>

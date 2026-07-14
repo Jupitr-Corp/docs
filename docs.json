@@ -3,11 +3,20 @@
   "theme": "mint",
   "name": "Hikoo",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0A0A0A",
+    "light": "#FFFFFF",
+    "dark": "#0A0A0A"
   },
-  "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "dark"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "favicon": {
+    "light": "/favicon-light.svg",
+    "dark": "/favicon-dark.svg"
+  },
   "navigation": {
     "tabs": [
       {
@@ -17,33 +26,62 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart"
+              "quickstart",
+              "concepts/how-hikoo-works",
+              "guides/dashboard"
             ]
           },
           {
-            "group": "Dashboard",
+            "group": "Spotlight",
             "pages": [
-              "guides/dashboard",
               "guides/citations",
               "guides/prompts",
-              "guides/competitors",
-              "guides/search-queries"
+              "guides/topics",
+              "guides/search-queries",
+              "guides/sentiment",
+              "guides/agent-analytics"
             ]
           },
           {
-            "group": "Content optimization",
+            "group": "Battlemap",
             "pages": [
-              "guides/elevate",
-              "guides/audit",
-              "guides/health"
+              "guides/competitors",
+              "guides/source-intelligence"
             ]
           },
           {
-            "group": "Account",
+            "group": "Elevate",
+            "pages": [
+              "guides/elevate"
+            ]
+          },
+          {
+            "group": "Analyzer",
+            "pages": [
+              "guides/audit",
+              "guides/health",
+              "guides/pages"
+            ]
+          },
+          {
+            "group": "Planning",
+            "pages": [
+              "guides/marketing-plan"
+            ]
+          },
+          {
+            "group": "Account and team",
             "pages": [
               "guides/websites",
+              "guides/workspaces",
               "guides/settings",
-              "guides/billing"
+              "guides/api-keys"
+            ]
+          },
+          {
+            "group": "Free tools",
+            "pages": [
+              "guides/free-tools"
             ]
           },
           {
@@ -77,7 +115,7 @@
         {
           "anchor": "Documentation",
           "href": "/",
-          "icon": "book-open-cover"
+          "icon": "book-open"
         }
       ]
     }
@@ -90,7 +128,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:team@tryhikoo.com"
+        "href": "mailto:contact@tryhikoo.com"
       }
     ],
     "primary": {

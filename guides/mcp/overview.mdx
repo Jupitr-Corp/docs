@@ -3,7 +3,7 @@ title: "MCP overview"
 description: "Use Claude and other AI assistants to explore your Hikoo data through the Model Context Protocol."
 ---
 
-Hikoo exposes a **Model Context Protocol (MCP) server** so you can ask Claude (or any MCP-compatible client) about your GEO data in plain language. Citations, audits, prompts, competitors, and more, all without leaving your chat.
+Hikoo runs a hosted **Model Context Protocol (MCP) server** so you can ask Claude, or any MCP-compatible client, about your GEO data in plain language. Citations, audits, prompts, competitors, source intelligence, and more, without leaving your chat.
 
 Ask things like:
 
@@ -11,35 +11,45 @@ Ask things like:
 - "List the pages that failed criteria in my latest audit."
 - "Add a prompt about pricing transparency under the pricing topic."
 
-Claude calls the Hikoo MCP server behind the scenes, which fetches the data from your Hikoo workspace.
+Your client calls the Hikoo MCP server behind the scenes, which reads and writes data in your Hikoo workspaces.
 
 ## How it works
 
 <Columns cols={3}>
   <Card title="Hosted" icon="cloud">
-    Hikoo hosts the MCP server. You do not run anything locally. Just point your AI client to our URL.
+    Hikoo runs the server. You do not install anything locally. Point your client at our URL.
   </Card>
-  <Card title="Personal key" icon="key">
-    Each API key is tied to your user account and covers every workspace and website you belong to.
+  <Card title="One key, your account" icon="key">
+    A single API key identifies you as a user. It can reach every website in the workspaces you belong to.
   </Card>
-  <Card title="Read + write" icon="wand-magic-sparkles">
-    Read citations, audits, and analytics. Create or update prompts. Queue new audits.
+  <Card title="Read and write" icon="wand-sparkles">
+    Read citations, audits, and analytics. Create or update prompts and competitors. Queue new audits.
   </Card>
 </Columns>
 
+<Note>
+The key is scoped to **your user account**, not to a single website. Your client first discovers which websites you have, then passes the chosen `website_id` to each data tool. This replaces the older per-website key model.
+</Note>
+
 ## What you get
 
-- **Citation analytics** - ask about visibility trends, top AI platforms, source domains.
-- **Audits** - list past audits, inspect page-level criteria results, queue a new audit.
-- **Prompts management** - create, update, delete prompts and review their citations.
-- **Competitors** - share-of-voice ranking on demand.
-- **Source intelligence** - AI-cited domains (review platforms, directories, blogs, media) ranked by frequency, so an agent can automate listing claims and outreach.
-- **Website health** - robots, llms.txt, sitemap status, and improvement suggestions.
+The server ships **70 tools** across these areas:
+
+- **Citations and sources.** Visibility trends, top platforms, share of voice, top source domains, and citation breakdowns.
+- **Sentiment.** Summary and trend of how AI answers portray your brand (available on some plans).
+- **Prompts and topics.** Create, update, batch-update, and delete prompts; organize them into topics; read per-prompt stats and citations.
+- **Competitors.** Share-of-voice ranking, per-competitor citations, suggestions, and add, update, or remove competitors.
+- **Audits.** List past audits, inspect page-level criteria, and queue full-site, single-URL, or selected-page audits.
+- **Health.** robots.txt, llms.txt, and sitemap status, plus improvement suggestions.
+- **Indexation and pages.** Indexed-page inventory, summaries, common errors, and re-crawls.
+- **Content gap.** Suggestions where competitors are cited and you are not.
+- **Source intelligence.** AI-cited domains ranked by frequency, so an agent can automate listing claims and outreach.
+- **Discovery and subscription.** Who you are, your workspaces and websites, and plan details.
 
 ## Who should use it
 
 - **Power users** comfortable in Claude Desktop, Claude Code, or any MCP client.
-- **Analysts** who prefer ad-hoc questions over dashboards for exploration.
+- **Analysts** who prefer ad-hoc questions over dashboards.
 - **Teams** building AI workflows that need programmatic access to their GEO data.
 
 ## Next steps
@@ -48,7 +58,7 @@ Claude calls the Hikoo MCP server behind the scenes, which fetches the data from
   <Card title="Set up MCP" icon="plug" href="/guides/mcp/setup">
     Generate an API key and connect your AI client.
   </Card>
-  <Card title="Tools reference" icon="toolbox" href="/guides/mcp/tools">
-    Full list of what the MCP can do.
+  <Card title="Tools reference" icon="wrench" href="/guides/mcp/tools">
+    Every tool the MCP exposes, grouped by area.
   </Card>
 </Columns>

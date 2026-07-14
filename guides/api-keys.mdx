@@ -1,0 +1,63 @@
+---
+title: "API keys"
+description: "Create and manage keys that authenticate the Hikoo REST API and MCP server."
+---
+
+API keys authenticate the Hikoo public REST API and the Hikoo MCP server. A key proves who you are so those interfaces can read the data you have access to.
+
+## How a key is scoped
+
+A key is scoped to your user account. One key can reach every website in the workspaces you belong to, subject to each site's subscription. This replaces the older per-website key model, so you no longer need a separate key for each site.
+
+<Info>Access still follows subscriptions. A key can address a site only when that site has an active subscription.</Info>
+
+## Create a key
+
+Open Settings, then the API keys section.
+
+<Steps>
+  <Step title="Name the key">
+    Give it a descriptive name so you can tell your keys apart later.
+  </Step>
+  <Step title="Set an optional expiry">
+    Add an expiry date if you want the key to stop working automatically, or leave it open.
+  </Step>
+  <Step title="Copy the key once">
+    The full key is shown only once and starts with `hk_`. Copy it immediately and store it somewhere safe. If you lose it, create a new one.
+  </Step>
+</Steps>
+
+## Manage keys
+
+From the API keys section you can list your keys and see their names and status. Revoke or delete a key to disable it immediately. Any client using that key stops working at once, so rotate before you revoke if a client still needs access.
+
+## Install cards
+
+The API keys section also gives you two install cards:
+
+<Columns cols={2}>
+  <Card title="Install the Hikoo MCP server" icon="plug">
+    Get the steps to connect an AI client to your data.
+  </Card>
+  <Card title="Install the REST API" icon="code">
+    Get the steps to call the Hikoo REST API directly.
+  </Card>
+</Columns>
+
+## Keep keys safe
+
+<Warning>Treat keys like passwords. Never commit them to source control or paste them where others can read them. If a key leaks, rotate it: create a new key, update your clients, then revoke the old one.</Warning>
+
+## Related pages
+
+<Columns cols={2}>
+  <Card title="Set up the MCP server" icon="plug" href="/guides/mcp/setup">
+    Wire a key into an AI client.
+  </Card>
+  <Card title="What the MCP can do" icon="list" href="/guides/mcp/overview">
+    See the tools the MCP server exposes.
+  </Card>
+  <Card title="Settings" icon="settings" href="/guides/settings">
+    Where the API keys section lives.
+  </Card>
+</Columns>

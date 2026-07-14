@@ -1,0 +1,63 @@
+---
+title: "Workspaces"
+description: "Organize websites and teammates under a workspace with its own roles and subscription."
+---
+
+A workspace is a team container. It holds websites and a subscription, and it is where you invite teammates and manage their access. You can belong to several workspaces at once, and the site switcher groups your websites by the workspace they live in.
+
+## Roles
+
+Every member of a workspace has a role that sets what they can do.
+
+| Role | What they can do |
+|---|---|
+| Owner | Full control, including the plan, settings, and transferring ownership. |
+| Admin | Manage the plan, settings, sites, and members. |
+| Member | Work with sites and data, without managing the plan. |
+| Viewer | Read-only access. |
+
+A Viewer can see the workspace but cannot make changes. Write actions are blocked, with a tooltip explaining why and a toast if they try. Owners and Admins are the roles that manage the plan and workspace settings.
+
+## Manage members
+
+From the Members section you can:
+
+- Invite a teammate by email and assign a role.
+- See pending invitations and revoke one that has not been accepted.
+- Change an existing member's role.
+- Remove a member from the workspace.
+- Transfer ownership to another member.
+
+<Note>Transferring ownership hands the Owner role to another member. Do this when the person responsible for the plan and workspace changes.</Note>
+
+## Where workspaces are managed
+
+Workspaces are managed from the Settings modal, which opens from the user menu. The relevant sections are:
+
+<Steps>
+  <Step title="Workspace general">
+    Rename the workspace. A danger zone lets you delete the workspace or leave it.
+  </Step>
+  <Step title="Sites">
+    List the sites in the workspace, add a site, manage each site's subscription, and set its language.
+  </Step>
+  <Step title="Members">
+    Invite, review, and manage the people in the workspace and their roles.
+  </Step>
+  <Step title="Billing">
+    Review per-site subscription status, open the Stripe portal, and view invoices. A summary shows how many sites are subscribed out of the total.
+  </Step>
+</Steps>
+
+<Info>Billing in a workspace is per site. The Billing section shows a "subscribed sites X of Y" summary so you can see coverage at a glance.</Info>
+
+## Related pages
+
+<Columns cols={2}>
+  <Card title="Settings" icon="settings" href="/guides/settings">
+    Where the workspace, members, and sites sections live.
+  </Card>
+  <Card title="Websites" icon="globe" href="/guides/websites">
+    Add and edit the sites a workspace tracks.
+  </Card>
+</Columns>

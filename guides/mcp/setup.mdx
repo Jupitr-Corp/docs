@@ -1,24 +1,26 @@
 ---
 title: "Connecting the MCP"
-description: "Generate an API key and wire up Claude Desktop, Claude Code, or any MCP client to your Hikoo workspace."
+description: "Generate an API key and wire up Claude Desktop, Claude Code, or any MCP client to your Hikoo account."
 ---
 
-Setup is two steps: create an API key, then plug the key into your MCP client.
+Setup is two steps: create an API key, then plug it into your MCP client.
 
 <Steps>
 
 ### Generate an API key
 
-Each key is tied to your user account and covers every workspace and website you belong to.
+Your key identifies you as a user and can reach every website in the workspaces you belong to. You create it at the account level, not per website.
 
-1. Go to **Settings > API keys**.
+1. Open **Settings**, then the **API keys** section.
 2. Click **Create API key**.
-3. Give it a descriptive name like `Claude Desktop` or `Analyst workflow`.
-4. **Copy the key immediately.** It starts with `hk_` and is only shown once.
+3. Give it a descriptive name such as `Claude Desktop` or `Analyst workflow`, and an optional expiry.
+4. **Copy the key immediately.** It starts with `hk_` and is shown only once.
 
 <Warning>
-Keys inherit your account's subscription access. Treat them like passwords: never commit them, rotate if leaked via **Revoke**.
+Keys inherit your access. Treat them like passwords, never commit them, and revoke a key if it leaks.
 </Warning>
+
+See [API keys](/guides/api-keys) for managing keys and the REST API.
 
 ### Point your MCP client at Hikoo
 
@@ -28,7 +30,7 @@ The Hikoo MCP endpoint is:
 https://mcp.tryhikoo.com/mcp
 ```
 
-It uses the streamable-HTTP transport. Pass your API key in the `Authorization` header.
+It uses the streamable HTTP transport. Pass your API key in the `Authorization` header.
 
 <Tabs>
 
@@ -50,13 +52,13 @@ Edit `claude_desktop_config.json`:
 }
 ```
 
-Restart Claude Desktop. You should see the **Hikoo** server appear in the tools menu.
+Restart Claude Desktop. The **Hikoo** server appears in the tools menu.
 
 </Tab>
 
 <Tab title="Claude Code">
 
-Use the `claude mcp add` command (or edit `.mcp.json`):
+Use `claude mcp add` (or edit `.mcp.json`):
 
 ```bash
 claude mcp add hikoo --transport http \
@@ -79,20 +81,32 @@ Check your client's documentation for how to supply custom headers.
 
 </Tabs>
 
+### Pick a website
+
+Because one key can reach several websites, most questions start by choosing one. Your client handles this for you with the discovery tools:
+
+1. `hk_list_workspaces_with_websites` returns your workspaces and the websites inside each, each with its `has_active_subscription` status.
+2. If you have not said which site to use, the client asks.
+3. The chosen `website_id` is passed to every data tool.
+
+<Note>
+Data tools return `403` for a website without an active subscription. Discovery tools always work.
+</Note>
+
 ### Try it out
 
 Start a new chat and ask something like:
 
-> *"What are my top AI platforms citing my site this month?"*
+> *"For my main website, what are the top AI platforms citing me this month?"*
 
-The client will use a Hikoo tool to fetch live data from your workspace and answer in context.
+The client discovers your site, calls a Hikoo tool, and answers with live data.
 
 </Steps>
 
 ## Managing keys
 
-- **List your keys** on the website's **Settings > API keys** page, with their last-used timestamps.
-- **Revoke** a key to deactivate it immediately. Clients using it will receive a `401 Unauthorized`.
+- **List your keys** in **Settings**, then **API keys**.
+- **Revoke** a key to deactivate it immediately. Clients using it receive a `401 Unauthorized`.
 - **Expiration** is optional. Set it when creating a key if you want automatic rotation.
 
 ## Troubleshooting
@@ -100,7 +114,7 @@ The client will use a Hikoo tool to fetch live data from your workspace and answ
 | Symptom | Likely cause |
 |---|---|
 | `401 Invalid or expired API key` | The key was revoked, expired, or typed incorrectly. Create a fresh one. |
-| `403 Forbidden` | The client is not sending the expected MCP headers. Verify your config. |
-| Tools don't appear in Claude | Check the client restarted after editing the config, and the transport is set to `http` (not `sse`). |
+| `403` on a data tool | The chosen website has no active subscription, or you lack access to it. |
+| Tools do not appear in Claude | Confirm the client restarted after editing the config, and the transport is `http`, not `sse`. |
 
 See the [tools reference](/guides/mcp/tools) for what you can ask once connected.

@@ -1,38 +1,80 @@
 ---
 title: "Tools reference"
-description: "Every tool the Hikoo MCP exposes, grouped by what you can ask."
+description: "Every tool the Hikoo MCP exposes, grouped by area."
 ---
 
-The Hikoo MCP currently ships **20 tools** across 8 areas. You never call them directly. Describe what you want in natural language and your AI client picks the right one.
+The Hikoo MCP ships **70 tools** across the areas below. You never call them directly. Describe what you want in natural language and your client picks the right one.
 
-All tools operate on the single website bound to your API key. No `website_id` parameter is needed.
+Four **discovery** tools take no `website_id`. Every other tool is a **data** tool and requires a `website_id`, which your client obtains from discovery first.
 
-## Website
+Each tool is labelled so clients know how to treat it:
+
+| Label | Meaning |
+|---|---|
+| `read-only` | Never changes data. Safe to call freely. |
+| `write` | Creates or updates data. |
+| `destructive` | Permanently removes data. Review before confirming. |
+
+## Discovery
+
+No `website_id` needed. Start here to find the site you want to work on.
+
+<ResponseField name="hk_whoami" type="read-only">
+The user your API key is bound to (id, email, name).
+</ResponseField>
+
+<ResponseField name="hk_list_workspaces" type="read-only">
+Flat list of the workspaces you belong to, with your role in each.
+</ResponseField>
+
+<ResponseField name="hk_list_workspaces_with_websites" type="read-only">
+One-shot tree of your workspaces and the websites inside each, with `has_active_subscription` and plan tier. The preferred way to pick a site.
+</ResponseField>
+
+<ResponseField name="hk_list_websites" type="read-only">
+Paginated websites with subscription status.
+
+**Args:** `workspace_id` (optional), `page`, `page_size`
+</ResponseField>
+
+## Website and subscription
 
 <ResponseField name="hk_get_website" type="read-only">
-Returns the website metadata, topics, competitors list, language, and subscription status.
+Website metadata: url, name, aliases, topics, competitors, language, and subscription status.
 
-<Expandable title="Example ask">
-> *"What do you know about my site?"*
-</Expandable>
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_subscription_details" type="read-only">
+Full plan detail: tier, status, trial and expiry, tracked AI platforms, feature availability, and every quota. Owner or admin only.
+
+**Args:** `website_id`
 </ResponseField>
 
 ## Audits
 
+<ResponseField name="hk_get_audits_quota" type="read-only">
+Audit quota used, limit, and remaining for the current period.
+
+**Args:** `website_id`
+</ResponseField>
+
 <ResponseField name="hk_list_audits" type="read-only">
-List every audit ever run for this website (most recent first), with scores, status, and audited-page count.
+Every audit ever run for the website, most recent first, with scores, status, and page counts.
+
+**Args:** `website_id`
 </ResponseField>
 
 <ResponseField name="hk_get_audit" type="read-only">
-Detail of a single audit: overall score, timing, and the list of audited pages.
+One audit: overall score, timing, and the list of audited pages.
 
-**Args:** `audit_id`
+**Args:** `website_id`, `audit_id`
 </ResponseField>
 
 <ResponseField name="hk_get_audit_page" type="read-only">
-Page-level audit result with **every criterion and its validation status**, plus the recommendations attached to each failing criterion. This is the most detailed audit view.
+Page-level result with every criterion and its pass/fail status, plus the recommendations on each failing criterion. The most detailed audit view.
 
-**Args:** `audit_id`, `page_id`
+**Args:** `website_id`, `audit_id`, `page_id`
 
 <Expandable title="Example ask">
 > *"Why did this page fail in my latest audit? Walk me through each criterion."*
@@ -40,87 +82,91 @@ Page-level audit result with **every criterion and its validation status**, plus
 </ResponseField>
 
 <ResponseField name="hk_start_audit" type="write">
-Queue a new full-site audit. Runs asynchronously. Poll `hk_list_audits` or `hk_get_audit` for status.
+Queue a new full-site audit. Runs asynchronously and counts against your quota.
 
-Fails if the website's audit quota for the current billing period is exhausted.
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_audit_url" type="write">
+Queue an audit of a single URL. The URL must be on the website's domain.
+
+**Args:** `website_id`, `url`
+</ResponseField>
+
+<ResponseField name="hk_audit_pages" type="write">
+Queue an audit of a specific list of URLs, capped by your plan.
+
+**Args:** `website_id`, `urls`
+</ResponseField>
+
+<ResponseField name="hk_sync_audit" type="write">
+Re-run an audit, reusing a prior audit's page set and criteria.
+
+**Args:** `website_id`, `audit_id`
 </ResponseField>
 
 ## Citations
 
 <ResponseField name="hk_list_citations" type="read-only">
-Paginated list of raw AI citations: the actual content the LLM produced, its sources, and which competitors were mentioned.
+Paginated AI citations: the content the assistant produced, its sources, and which competitors were mentioned.
 
-**Args:** `page`, `page_size`, `time_range`, `website_cited` (filter to cited/not-cited only)
+**Args:** `website_id`, `page`, `page_size`, `time_range`, `website_cited`
 
 <Expandable title="Example ask">
 > *"Show me the last 5 citations where my site was mentioned."*
 </Expandable>
 </ResponseField>
 
+<ResponseField name="hk_get_citation" type="read-only">
+One citation in full: the assistant's answer, sources, brand mentions with sentiment, the triggering prompt, and competitor ranks.
+
+**Args:** `website_id`, `citation_id`
+</ResponseField>
+
 <ResponseField name="hk_get_top_platforms" type="read-only">
 Top AI platforms by citation count.
 
-**Args:** `time_range`
+**Args:** `website_id`, `time_range`
 </ResponseField>
 
 <ResponseField name="hk_get_platforms_share_of_voice" type="read-only">
-Visibility trend data per platform (share of voice over time).
+Share-of-voice trend per platform over time.
 
-**Args:** `time_range`
+**Args:** `website_id`, `time_range`
 </ResponseField>
 
 <ResponseField name="hk_get_top_sources" type="read-only">
-Top source domains (or URLs) that appear in AI citations. Useful to understand where LLMs get their answers.
+Top source domains or URLs that appear in AI citations.
 
-**Args:** `time_range`, `group_by` (`domain` or `url`), `limit`
+**Args:** `website_id`, `time_range`, `group_by` (`domain` or `url`), `limit`
 </ResponseField>
 
-## Prompts
+<ResponseField name="hk_list_all_sources" type="read-only">
+Uncapped, paginated list of every source URL by frequency.
 
-<ResponseField name="hk_get_prompts_quota" type="read-only">
-Current prompt count vs the subscription limit. Call this **before** bulk-creating prompts. Every create past the limit fails.
-
-Returns `{ used, limit, remaining }`.
+**Args:** `website_id`, `page`, `page_size`, `time_range`, `source_class` (`all`, `mentioned`, `background`)
 </ResponseField>
 
-<ResponseField name="hk_list_prompts" type="read-only">
-All prompts tracked for the website, grouped by topic, each with its visibility score.
+<ResponseField name="hk_get_citations_breakdown" type="read-only">
+Counts per match type (brand citation, site mention, background source) with a delta and a sparkline. Capped at 1 year.
 
-**Args:** `topic_id` (optional filter)
+**Args:** `website_id`, `time_range`, `tz`
 </ResponseField>
 
-<ResponseField name="hk_create_prompt" type="write">
-Create a new prompt. Fails if the website's prompt quota is reached. Check `hk_get_prompts_quota` first.
+## Sentiment
 
-**Args:** `content`, `topic_id`, `localizations`
+Available on some plans. Both tools return `403` if sentiment analysis is not on your plan, and cover up to 1 year.
 
-<Expandable title="Example ask">
-> *"Add a prompt 'best project management tool for startups' under the productivity topic."*
-</Expandable>
+<ResponseField name="hk_get_sentiment_summary" type="read-only">
+Positive, negative, and neutral counts per brand (your site, competitors, unresolved).
+
+**Args:** `website_id`, `time_range`
 </ResponseField>
 
-<ResponseField name="hk_update_prompt" type="write">
-Update an existing prompt. Only fields you provide are changed.
+<ResponseField name="hk_get_sentiment_trend" type="read-only">
+Sentiment counts bucketed over time.
 
-**Args:** `prompt_id`, `content`, `topic_id`, `localizations`
-</ResponseField>
-
-<ResponseField name="hk_delete_prompt" type="destructive">
-Delete a prompt.
-
-**Args:** `prompt_id`
-</ResponseField>
-
-<ResponseField name="hk_get_prompt_citations" type="read-only">
-Paginated citations tied to a specific prompt.
-
-**Args:** `prompt_id`, `page`, `page_size`
-</ResponseField>
-
-## Topics
-
-<ResponseField name="hk_list_topics" type="read-only">
-List every topic tracked for the website.
+**Args:** `website_id`, `time_range`, `bucket` (`day` or `week`)
 </ResponseField>
 
 ## Competitors
@@ -128,21 +174,301 @@ List every topic tracked for the website.
 <ResponseField name="hk_list_competitors" type="read-only">
 Competitor ranking (share of voice) against your website.
 
-**Args:** `time_range`
+**Args:** `website_id`, `time_range`
 
 <Expandable title="Example ask">
 > *"How do I rank against my competitors this quarter?"*
 </Expandable>
 </ResponseField>
 
-## Source Intelligence
+<ResponseField name="hk_get_competitor_citations" type="read-only">
+Citation counts per competitor.
 
-Discover and prioritize the AI-cited domains around your space — review platforms, directories, blogs, media — so an agent can automate listing claims, guest-post pitches, and review outreach.
+**Args:** `website_id`, `time_range`
+</ResponseField>
+
+<ResponseField name="hk_get_competitors_chart" type="read-only">
+Share-of-voice chart data for your site plus competitors.
+
+**Args:** `website_id`, `time_range`
+</ResponseField>
+
+<ResponseField name="hk_get_competitive_share_over_time" type="read-only">
+Time series of your share of voice versus all competitors.
+
+**Args:** `website_id`, `time_range`
+</ResponseField>
+
+<ResponseField name="hk_get_competitors_quota" type="read-only">
+The maximum number of tracked competitors on your plan.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_list_competitor_suggestions" type="read-only">
+Competitors auto-discovered from your citations (available on some plans).
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_add_competitor" type="write">
+Add a tracked competitor. Enforces your competitor limit.
+
+**Args:** `website_id`, `name`, `url`, `aliases`
+</ResponseField>
+
+<ResponseField name="hk_update_competitor" type="write">
+Update a competitor's name, URL, or aliases.
+
+**Args:** `website_id`, `competitor_id`, `name`, `url`, `aliases`
+</ResponseField>
+
+<ResponseField name="hk_dismiss_competitor_suggestion" type="write">
+Hide a suggested competitor.
+
+**Args:** `website_id`, `suggestion_id`
+</ResponseField>
+
+<ResponseField name="hk_promote_competitor_suggestion" type="write">
+Promote a suggestion to a tracked competitor. Enforces your limit, and is available on some plans.
+
+**Args:** `website_id`, `suggestion_id`, `url`, `logo_url`, `aliases`
+</ResponseField>
+
+<ResponseField name="hk_remove_competitor" type="destructive">
+Remove a tracked competitor.
+
+**Args:** `website_id`, `competitor_id`
+</ResponseField>
+
+## Content gap
+
+Available on some plans. A limit of 0 means content gap is not on your plan.
+
+<ResponseField name="hk_get_content_gap_quota" type="read-only">
+Monthly content-gap quota used, limit, and reset date.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_content_gap_summary" type="read-only">
+Counts of gap suggestions by status and priority.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_list_content_gaps" type="read-only">
+Paginated gap suggestions, sorted by similarity (the lowest is the biggest gap).
+
+**Args:** `website_id`, `status`, `min_score`, `max_score`, `limit`, `offset`
+</ResponseField>
+
+<ResponseField name="hk_get_content_gap" type="read-only">
+Full gap detail: brief, outline, reasoning, the competitor topic, and your closest existing page.
+
+**Args:** `website_id`, `suggestion_id`
+</ResponseField>
+
+## Health
+
+<ResponseField name="hk_get_health" type="read-only">
+Global website health (AI crawlers allowed, `llms.txt` present, sitemap reachable) plus improvement suggestions.
+
+**Args:** `website_id`, `include_dismissed`
+</ResponseField>
+
+<ResponseField name="hk_get_health_refresh_quota" type="read-only">
+Monthly health-refresh quota used, limit, and reset date.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_suggestion_regen_quota" type="read-only">
+Monthly suggestion-regeneration quota.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_suggestion_pages" type="read-only">
+Paginated indexed pages affected by a health suggestion.
+
+**Args:** `website_id`, `suggestion_id`, `page`, `per_page`
+</ResponseField>
+
+<ResponseField name="hk_refresh_health" type="write">
+Force a re-check of `robots.txt`, `llms.txt`, and sitemap. Quota-limited.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_dismiss_health_suggestion" type="write">
+Hide a health suggestion.
+
+**Args:** `website_id`, `suggestion_id`
+</ResponseField>
+
+<ResponseField name="hk_restore_health_suggestion" type="write">
+Un-hide a dismissed health suggestion.
+
+**Args:** `website_id`, `suggestion_id`
+</ResponseField>
+
+<ResponseField name="hk_regenerate_health_suggestions" type="write">
+Regenerate suggestions from your indexed pages. Quota-limited.
+
+**Args:** `website_id`
+</ResponseField>
+
+## Indexation and pages
+
+<ResponseField name="hk_get_indexation_summary" type="read-only">
+Aggregated page stats: total, by category, pass rate, errors and warnings, and last crawl.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_indexation_status" type="read-only">
+The latest indexation job status and progress counters.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_list_pages" type="read-only">
+Paginated indexed pages, filterable.
+
+**Args:** `website_id`, `category`, `health_passed`, `has_errors`, `has_warnings`, `language`, `search`, `limit`, `offset`
+</ResponseField>
+
+<ResponseField name="hk_get_page" type="read-only">
+One indexed page: URL, title, language, category, last crawl, health, and errors.
+
+**Args:** `website_id`, `page_id`
+</ResponseField>
+
+<ResponseField name="hk_list_page_errors" type="read-only">
+The most common health-check errors grouped by type with counts.
+
+**Args:** `website_id`, `limit`
+</ResponseField>
+
+<ResponseField name="hk_index_url" type="write">
+Trigger a re-crawl of a single URL on the domain. Poll status afterward.
+
+**Args:** `website_id`, `url`
+</ResponseField>
+
+## Prompts
+
+<ResponseField name="hk_get_prompts_quota" type="read-only">
+Prompts used versus your plan limit. Call this before bulk-creating prompts.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_list_prompts" type="read-only">
+All prompts, grouped by topic, each with its visibility score.
+
+**Args:** `website_id`, `topic_id`
+</ResponseField>
+
+<ResponseField name="hk_get_prompt_citations" type="read-only">
+Paginated citations tied to a prompt.
+
+**Args:** `website_id`, `prompt_id`, `page`, `page_size`
+</ResponseField>
+
+<ResponseField name="hk_get_prompt_detail" type="read-only">
+Drill-down for a prompt: visibility with a 7-day delta, best rank and platform, coverage, a 30-day sparkline, a per-platform grid, and the latest answers.
+
+**Args:** `website_id`, `prompt_id`, `answers_limit`
+</ResponseField>
+
+<ResponseField name="hk_get_prompt_stats" type="read-only">
+Aggregated visibility stats across all of a prompt's citations.
+
+**Args:** `website_id`, `prompt_id`
+</ResponseField>
+
+<ResponseField name="hk_create_prompt" type="write">
+Create a prompt. Enforces your prompt quota.
+
+**Args:** `website_id`, `content`, `topic_id`, `localizations`
+
+<Expandable title="Example ask">
+> *"Add a prompt 'best project management tool for startups' under the productivity topic."*
+</Expandable>
+</ResponseField>
+
+<ResponseField name="hk_update_prompt" type="write">
+Update one prompt. Only the fields you provide change.
+
+**Args:** `website_id`, `prompt_id`, `content`, `topic_id`, `localizations`, `intent`, `journey_stage`
+</ResponseField>
+
+<ResponseField name="hk_batch_update_prompts" type="write">
+Apply the same metadata edit to many prompts at once (up to 1500).
+
+**Args:** `website_id`, `prompt_ids`, `topic_id`, `intent`, `journey_stage`
+</ResponseField>
+
+<ResponseField name="hk_delete_prompt" type="destructive">
+Delete a prompt.
+
+**Args:** `website_id`, `prompt_id`
+</ResponseField>
+
+## Topics
+
+<ResponseField name="hk_list_topics" type="read-only">
+Every topic tracked for the website.
+
+**Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_create_topic" type="write">
+Create a topic for organizing prompts.
+
+**Args:** `website_id`, `name`
+</ResponseField>
+
+<ResponseField name="hk_update_topic" type="write">
+Rename a topic.
+
+**Args:** `website_id`, `topic_id`, `name`
+</ResponseField>
+
+<ResponseField name="hk_delete_topic" type="destructive">
+Delete a topic.
+
+**Args:** `website_id`, `topic_id`
+</ResponseField>
+
+## Search queries
+
+<ResponseField name="hk_list_search_queries" type="read-only">
+The unique search-query variants AI assistants executed for your site.
+
+**Args:** `website_id`, `page`, `page_size`, `platform`
+</ResponseField>
+
+<ResponseField name="hk_get_prompt_search_queries" type="read-only">
+Query variants triggered by one prompt.
+
+**Args:** `website_id`, `prompt_id`, `page`, `page_size`
+</ResponseField>
+
+<ResponseField name="hk_get_citation_search_queries" type="read-only">
+Query variants attached to one citation.
+
+**Args:** `website_id`, `citation_id`, `page`, `page_size`
+</ResponseField>
+
+## Source intelligence
 
 <ResponseField name="hk_get_source_intelligence_stats" type="read-only">
-Aggregated counts: total sources, breakdown by `source_type` and by AI platform. Call this first to know what kinds of sources exist before listing.
+Aggregated source counts by `source_type` and by AI platform. Call this first to know what exists.
 
-Returns `{ total, by_type, by_platform }`.
+**Args:** `website_id`
 
 <Expandable title="Example ask">
 > *"What kinds of sources are citing my space, and on which platforms?"*
@@ -150,42 +476,28 @@ Returns `{ total, by_type, by_platform }`.
 </ResponseField>
 
 <ResponseField name="hk_list_suggested_sources" type="read-only">
-Paginated list of suggested sources, ordered by `citation_count` desc. Filter by type to pick the right outreach motion (review listings vs guest posts vs PR).
+Suggested AI-cited sources for outreach, ordered by citation count.
 
-**Args:** `source_type`, `platform`, `search`, `limit`, `offset`
-
-`source_type` values: `review_platform`, `media`, `blog`, `directory`, `forum`, `wiki`, `social`.
-`platform` values: `chatgpt`, `perplexity`, `gemini`, `claude` — only sources cited by that platform.
+**Args:** `website_id`, `source_type`, `platform`, `search`, `limit`, `offset`
 
 <Expandable title="Example ask">
 > *"List the top review platforms I should claim a profile on, then draft outreach for each."*
 </Expandable>
 
 <Note>
-Visibility is capped to your plan's top-N most-cited sources. Upgrade unlocks more sources, not different data.
+Visibility is capped to your plan's most-cited sources. Upgrading unlocks more sources, not different data.
 </Note>
-</ResponseField>
-
-## Health
-
-<ResponseField name="hk_get_health" type="read-only">
-Global website health (AI crawlers allowed, `llms.txt` present, sitemap reachable) plus actionable improvement suggestions.
-
-**Args:** `include_dismissed`
 </ResponseField>
 
 ## Argument conventions
 
-- **`time_range`** accepts: `all_time`, `1y`, `1m`, `1w`, `1d`.
-- **`page` / `page_size`** are 1-based. `page_size` is capped at 100.
-- **Write tools** mutate data in your workspace. Claude Desktop and Claude Code ask for confirmation before running them by default.
-
-## Annotations
-
-Each tool is labelled so MCP clients know how to handle it:
-
-| Label | Meaning |
-|---|---|
-| `read-only` | Never mutates data. Safe to call freely. |
-| `write` | Creates or updates data. |
-| `destructive` | Permanently removes data. Always review before confirming. |
+- **`time_range`** accepts: `all_time`, `1y`, `1m`, `1w`, `1d`. Sentiment and breakdown tools cap the range at 1 year.
+- **Pagination** comes in a few styles. Most tools use `page` and `page_size` (1-based), content gaps and pages and suggested sources use `limit` and `offset`, and health suggestion pages use `page` and `per_page`.
+- **Enums** you may pass:
+  - Prompt `intent`: `informational`, `comparative`, `transactional`, `navigational`.
+  - Prompt `journey_stage`: `discovery`, `consideration`, `decision`, `retention`.
+  - Search-query `platform`: `chatgpt`, `perplexity`, `gemini`, `claude`, `copilot`.
+  - Source `source_type`: `review_platform`, `media`, `blog`, `directory`, `forum`, `wiki`, `social`.
+  - Top-sources `group_by`: `domain`, `url`. Sources `source_class`: `all`, `mentioned`, `background`.
+  - Content-gap `status`: `pending`, `in_progress`, `completed`, `dismissed`.
+- **Write and destructive tools** change data in your workspace. Claude Desktop and Claude Code ask for confirmation before running them by default.
