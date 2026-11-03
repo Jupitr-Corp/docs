@@ -3,7 +3,7 @@ title: "Tools reference"
 description: "Every tool the Hikoo MCP exposes, grouped by area."
 ---
 
-The Hikoo MCP ships **70 tools** across the areas below. You never call them directly. Describe what you want in natural language and your client picks the right one.
+The Hikoo MCP ships **86 tools** across the areas below. You never call them directly. Describe what you want in natural language and your client picks the right one.
 
 Four **discovery** tools take no `website_id`. Every other tool is a **data** tool and requires a `website_id`, which your client obtains from discovery first.
 
@@ -20,7 +20,7 @@ Each tool is labelled so clients know how to treat it:
 No `website_id` needed. Start here to find the site you want to work on.
 
 <ResponseField name="hk_whoami" type="read-only">
-The user your API key is bound to (id, email, name).
+The signed-in user (id, email, name).
 </ResponseField>
 
 <ResponseField name="hk_list_workspaces" type="read-only">
@@ -129,8 +129,8 @@ Top AI platforms by citation count.
 **Args:** `website_id`, `time_range`
 </ResponseField>
 
-<ResponseField name="hk_get_platforms_share_of_voice" type="read-only">
-Share-of-voice trend per platform over time.
+<ResponseField name="hk_get_visibility_by_platform" type="read-only">
+Visibility over time per platform: in each period, the share of that platform's answers that name your website.
 
 **Args:** `website_id`, `time_range`
 </ResponseField>
@@ -153,6 +153,12 @@ Counts per match type (brand citation, site mention, background source) with a d
 **Args:** `website_id`, `time_range`, `tz`
 </ResponseField>
 
+<ResponseField name="hk_lookup_url" type="read-only">
+Where one URL shows up: AI answers that cited it, and AI crawlers that fetched it. Accepts a full URL, a bare domain, or a path.
+
+**Args:** `website_id`, `url`, `time_range`, `citations_limit`, `pages_limit`
+</ResponseField>
+
 ## Sentiment
 
 Available on some plans. Both tools return `403` if sentiment analysis is not on your plan, and cover up to 1 year.
@@ -167,6 +173,22 @@ Positive, negative, and neutral counts per brand (your site, competitors, unreso
 Sentiment counts bucketed over time.
 
 **Args:** `website_id`, `time_range`, `bucket` (`day` or `week`)
+</ResponseField>
+
+## AI-crawler traffic
+
+Traffic that AI agents (GPTBot, ClaudeBot, PerplexityBot and others) send to your own website. Available on some plans.
+
+<ResponseField name="hk_get_agent_analytics" type="read-only">
+Total visits, unique agents, unique pages, a row per vendor, and a visit trend.
+
+**Args:** `website_id`, `time_range`, `vendors`
+</ResponseField>
+
+<ResponseField name="hk_list_agent_pages" type="read-only">
+The URLs AI crawlers fetched on your website, most visited first, with the change against the previous period and the agents behind each visit.
+
+**Args:** `website_id`, `page`, `page_size`, `time_range`, `vendors`, `search`
 </ResponseField>
 
 ## Competitors
@@ -209,6 +231,12 @@ The maximum number of tracked competitors on your plan.
 Competitors auto-discovered from your citations (available on some plans).
 
 **Args:** `website_id`
+</ResponseField>
+
+<ResponseField name="hk_get_competitor_suggestion_citations" type="read-only">
+The AI answers behind one competitor suggestion: prompt, platform, and the rank the brand held in each answer.
+
+**Args:** `website_id`, `suggestion_id`, `page`, `page_size`
 </ResponseField>
 
 <ResponseField name="hk_add_competitor" type="write">
@@ -389,6 +417,12 @@ Aggregated visibility stats across all of a prompt's citations.
 **Args:** `website_id`, `prompt_id`
 </ResponseField>
 
+<ResponseField name="hk_list_prompt_answers" type="read-only">
+Every AI answer of one prompt, newest first, one page at a time. Pass `next_cursor` back as `cursor` until it is null.
+
+**Args:** `website_id`, `prompt_id`, `limit`, `cursor`
+</ResponseField>
+
 <ResponseField name="hk_create_prompt" type="write">
 Create a prompt. Enforces your prompt quota.
 
@@ -409,6 +443,18 @@ Update one prompt. Only the fields you provide change.
 Apply the same metadata edit to many prompts at once (up to 1500).
 
 **Args:** `website_id`, `prompt_ids`, `topic_id`, `intent`, `journey_stage`
+</ResponseField>
+
+<ResponseField name="hk_archive_prompts" type="write">
+Stop tracking prompts and free their quota slots. Their history is kept and `hk_restore_prompt` brings them back. Up to 1500 ids.
+
+**Args:** `website_id`, `prompt_ids`
+</ResponseField>
+
+<ResponseField name="hk_restore_prompt" type="write">
+Put an archived prompt back into tracking. It takes a free quota slot, or `replace_with` names an active prompt to archive in exchange. A deleted prompt cannot be restored.
+
+**Args:** `website_id`, `prompt_id`, `replace_with`
 </ResponseField>
 
 <ResponseField name="hk_delete_prompt" type="destructive">
@@ -445,6 +491,18 @@ Delete a topic.
 
 ## Search queries
 
+<ResponseField name="hk_list_search_query_groups" type="read-only">
+The searches AI assistants ran while answering your prompts, clustered by topic or by prompt, with counts, platforms, and the most frequent queries of each cluster.
+
+**Args:** `website_id`, `group_by`, `sort`, `page`, `page_size`, `queries_limit`, `platforms`, `topic_ids`, `q`, `time_range`, `date_from`, `date_to`
+</ResponseField>
+
+<ResponseField name="hk_list_search_queries_in_group" type="read-only">
+One page of the queries of a single cluster, most frequent first.
+
+**Args:** `website_id`, `group_by`, `group_id`, `page`, `page_size`, `platforms`, `topic_ids`, `q`, `time_range`, `date_from`, `date_to`
+</ResponseField>
+
 <ResponseField name="hk_list_search_queries" type="read-only">
 The unique search-query variants AI assistants executed for your site.
 
@@ -466,7 +524,7 @@ Query variants attached to one citation.
 ## Source intelligence
 
 <ResponseField name="hk_get_source_intelligence_stats" type="read-only">
-Aggregated source counts by `source_type` and by AI platform. Call this first to know what exists.
+Aggregated source counts by `source_type` and by AI platform.
 
 **Args:** `website_id`
 
@@ -476,17 +534,63 @@ Aggregated source counts by `source_type` and by AI platform. Call this first to
 </ResponseField>
 
 <ResponseField name="hk_list_suggested_sources" type="read-only">
-Suggested AI-cited sources for outreach, ordered by citation count.
+The domains AI assistants cite when they answer about your space, ordered by citation count.
 
 **Args:** `website_id`, `source_type`, `platform`, `search`, `limit`, `offset`
 
 <Expandable title="Example ask">
-> *"List the top review platforms I should claim a profile on, then draft outreach for each."*
+> *"Which review platforms and directories do AI assistants cite most in my space?"*
 </Expandable>
 
 <Note>
-Visibility is capped to your plan's most-cited sources. Upgrading unlocks more sources, not different data.
+The list covers the most-cited sources your plan includes.
 </Note>
+</ResponseField>
+
+<ResponseField name="hk_list_source_pages" type="read-only">
+The cited pages one by one, and which brands are on each. `relation` tells them apart: `owned` (only your brand), `contested` (you and a competitor), `lost_ground` (competitors without you), `open` (neither). An absence only counts when `presence_known` is true.
+
+**Args:** `website_id`, `relation`, `present`, `topic_id`, `search`, `momentum`, `actionable_only`, `active_only`, `limit`, `offset`
+</ResponseField>
+
+## Agency reports
+
+For agency workspaces. These tools take a `workspace_id`, not a `website_id`. An agency adds a list of sites, Hikoo grades each one, and every launched report gets its own shareable link.
+
+<ResponseField name="hk_list_agency_reports" type="read-only">
+The reports of an agency workspace, with their links once built and the date each link expires.
+
+**Args:** `workspace_id`, `status`, `search`, `page`, `page_size`
+</ResponseField>
+
+<ResponseField name="hk_preview_agency_reports" type="write">
+Grade a list of sites and save nothing. Each row comes back accepted or refused, with the reason.
+
+**Args:** `workspace_id`, `sites`
+</ResponseField>
+
+<ResponseField name="hk_add_agency_reports" type="write">
+Create the rows that grade OK. Adding does not launch them.
+
+**Args:** `workspace_id`, `sites`
+</ResponseField>
+
+<ResponseField name="hk_launch_agency_reports" type="write">
+Start every report still waiting. This takes the whole pending batch and spends the workspace's report quota.
+
+**Args:** `workspace_id`
+</ResponseField>
+
+<ResponseField name="hk_relaunch_agency_reports" type="write">
+Build the named reports again. Their links keep working throughout.
+
+**Args:** `workspace_id`, `report_ids`
+</ResponseField>
+
+<ResponseField name="hk_revoke_agency_reports" type="destructive">
+Turn off the shared links of the named reports. Anybody opening one afterwards sees nothing.
+
+**Args:** `workspace_id`, `report_ids`
 </ResponseField>
 
 ## Argument conventions
