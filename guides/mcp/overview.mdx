@@ -19,8 +19,8 @@ Your client calls the Hikoo MCP server behind the scenes, which reads and writes
   <Card title="Hosted" icon="cloud">
     Hikoo runs the server. You do not install anything locally. Point your client at our URL.
   </Card>
-  <Card title="One key, your account" icon="key">
-    A single API key identifies you as a user. It can reach every website in the workspaces you belong to.
+  <Card title="Your account" icon="key">
+    Sign in from the assistant, or use an API key. Either way the connection acts as you and reaches every website in the workspaces you belong to.
   </Card>
   <Card title="Read and write" icon="wand-sparkles">
     Read citations, audits, and analytics. Create or update prompts and competitors. Queue new audits.
@@ -28,27 +28,31 @@ Your client calls the Hikoo MCP server behind the scenes, which reads and writes
 </Columns>
 
 <Note>
-The key is scoped to **your user account**, not to a single website. Your client first discovers which websites you have, then passes the chosen `website_id` to each data tool. This replaces the older per-website key model.
+The connection is scoped to **your user account**, not to a single website. Your client first discovers which websites you have, then passes the chosen `website_id` to each data tool.
 </Note>
 
 ## What you get
 
-The server ships **70 tools** across these areas:
+The server ships **86 tools** across these areas:
 
-- **Citations and sources.** Visibility trends, top platforms, share of voice, top source domains, and citation breakdowns.
+- **Citations and sources.** Visibility trends, top platforms, share of voice, top source domains, citation breakdowns, and where a single URL shows up.
 - **Sentiment.** Summary and trend of how AI answers portray your brand (available on some plans).
-- **Prompts and topics.** Create, update, batch-update, and delete prompts; organize them into topics; read per-prompt stats and citations.
+- **AI-crawler traffic.** Which AI agents visit your website and which pages they fetch (available on some plans).
+- **Prompts and topics.** Create, update, batch-update, archive, restore, and delete prompts; organize them into topics; read per-prompt stats, citations, and every answer.
 - **Competitors.** Share-of-voice ranking, per-competitor citations, suggestions, and add, update, or remove competitors.
 - **Audits.** List past audits, inspect page-level criteria, and queue full-site, single-URL, or selected-page audits.
 - **Health.** robots.txt, llms.txt, and sitemap status, plus improvement suggestions.
 - **Indexation and pages.** Indexed-page inventory, summaries, common errors, and re-crawls.
 - **Content gap.** Suggestions where competitors are cited and you are not.
-- **Source intelligence.** AI-cited domains ranked by frequency, so an agent can automate listing claims and outreach.
+- **Search queries.** The searches AI assistants ran while answering your prompts, grouped by topic or by prompt.
+- **Source intelligence.** The domains and pages AI assistants cite in your space, and which brands are on each page.
+- **Agency reports.** For agency workspaces: grade a list of prospect sites and build one shareable report each.
 - **Discovery and subscription.** Who you are, your workspaces and websites, and plan details.
 
 ## Who should use it
 
-- **Power users** comfortable in Claude Desktop, Claude Code, or any MCP client.
+- **Anyone using Claude or ChatGPT** who wants answers from their Hikoo data without opening the dashboard.
+- **Power users** comfortable in Claude Code or any MCP client.
 - **Analysts** who prefer ad-hoc questions over dashboards.
 - **Teams** building AI workflows that need programmatic access to their GEO data.
 
@@ -56,7 +60,7 @@ The server ships **70 tools** across these areas:
 
 <Columns cols={2}>
   <Card title="Set up MCP" icon="plug" href="/guides/mcp/setup">
-    Generate an API key and connect your AI client.
+    Connect Claude, ChatGPT, or any MCP client.
   </Card>
   <Card title="Tools reference" icon="wrench" href="/guides/mcp/tools">
     Every tool the MCP exposes, grouped by area.

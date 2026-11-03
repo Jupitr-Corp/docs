@@ -1,9 +1,72 @@
 ---
 title: "Connecting the MCP"
-description: "Generate an API key and wire up Claude Desktop, Claude Code, or any MCP client to your Hikoo account."
+description: "Connect Claude, ChatGPT, Claude Code, or any MCP client to your Hikoo account, then manage and troubleshoot the connection."
 ---
 
-Setup is two steps: create an API key, then plug it into your MCP client.
+The Hikoo MCP endpoint is:
+
+```
+https://mcp.tryhikoo.com/mcp
+```
+
+It uses the streamable HTTP transport. There are two ways to connect:
+
+- **Sign in with your Hikoo account (OAuth).** For Claude, ChatGPT, Claude Code, and any client that supports OAuth for remote MCP servers. Nothing to copy or store.
+- **An API key.** For clients that cannot sign in, and for scripts.
+
+## Connect by signing in
+
+<Tabs>
+
+<Tab title="Claude">
+
+On claude.ai or in the Claude desktop app:
+
+1. Open **Settings**, then **Connectors**.
+2. Find **Hikoo** in the directory and click **Connect**. If it is not listed for you, click **Add custom connector**, name it `Hikoo`, and paste `https://mcp.tryhikoo.com/mcp` as the URL.
+3. Sign in to Hikoo if you are not already signed in.
+4. Hikoo shows a consent screen. Check the account it names, choose what Claude may do, and click **Connect**.
+
+Claude then lists the Hikoo tools. Read-only tools run directly; Claude asks you before running any tool that changes data.
+
+</Tab>
+
+<Tab title="Claude Code">
+
+```bash
+claude mcp add --transport http hikoo https://mcp.tryhikoo.com/mcp
+```
+
+Then run `/mcp` in Claude Code, pick **hikoo**, and choose **Authenticate**. Your browser opens the Hikoo sign-in and consent screens.
+
+</Tab>
+
+<Tab title="ChatGPT">
+
+Add a connector with the URL `https://mcp.tryhikoo.com/mcp` and choose OAuth as the authentication method. ChatGPT opens the Hikoo sign-in and consent screens.
+
+</Tab>
+
+<Tab title="Other MCP clients">
+
+Any client that supports OAuth for remote MCP servers discovers everything from the URL: the server answers `401` with the address of its authorization metadata, and the client registers itself and opens the Hikoo sign-in.
+
+</Tab>
+
+</Tabs>
+
+### What you grant
+
+The consent screen names the assistant asking for access, the site it will send the access to, and the Hikoo account being connected. It offers two permissions:
+
+| Permission | What it allows |
+|---|---|
+| **See the data** | Always included. Websites, citations, competitors, audits, prompts and content gaps, exactly what your account already sees in Hikoo. |
+| **Make changes** | Optional. Add a prompt or a competitor, start an audit, archive a prompt. Nothing your account could not do itself in Hikoo. |
+
+Leave **Make changes** unticked for a read-only connection. Every change is still limited by your role: a viewer in a workspace cannot change anything there, whatever the connection allows.
+
+## Connect with an API key
 
 <Steps>
 
@@ -22,15 +85,7 @@ Keys inherit your access. Treat them like passwords, never commit them, and revo
 
 See [API keys](/guides/api-keys) for managing keys and the REST API.
 
-### Point your MCP client at Hikoo
-
-The Hikoo MCP endpoint is:
-
-```
-https://mcp.tryhikoo.com/mcp
-```
-
-It uses the streamable HTTP transport. Pass your API key in the `Authorization` header.
+### Pass the key in the `Authorization` header
 
 <Tabs>
 
@@ -58,11 +113,8 @@ Restart Claude Desktop. The **Hikoo** server appears in the tools menu.
 
 <Tab title="Claude Code">
 
-Use `claude mcp add` (or edit `.mcp.json`):
-
 ```bash
-claude mcp add hikoo --transport http \
-  --url https://mcp.tryhikoo.com/mcp \
+claude mcp add --transport http hikoo https://mcp.tryhikoo.com/mcp \
   --header "Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
@@ -81,9 +133,11 @@ Check your client's documentation for how to supply custom headers.
 
 </Tabs>
 
-### Pick a website
+</Steps>
 
-Because one key can reach several websites, most questions start by choosing one. Your client handles this for you with the discovery tools:
+## Pick a website
+
+Because one account can reach several websites, most questions start by choosing one. Your client handles this for you with the discovery tools:
 
 1. `hk_list_workspaces_with_websites` returns your workspaces and the websites inside each, each with its `has_active_subscription` status.
 2. If you have not said which site to use, the client asks.
@@ -93,28 +147,45 @@ Because one key can reach several websites, most questions start by choosing one
 Data tools return `403` for a website without an active subscription. Discovery tools always work.
 </Note>
 
-### Try it out
+## Try it out
 
 Start a new chat and ask something like:
 
 > *"For my main website, what are the top AI platforms citing me this month?"*
 
-The client discovers your site, calls a Hikoo tool, and answers with live data.
+> *"How do I compare with my competitors in AI answers over the last 30 days?"*
 
-</Steps>
+> *"Which pages failed criteria in my latest audit, and what should I fix first?"*
 
-## Managing keys
+The client discovers your site, calls the Hikoo tools it needs, and answers with live data.
 
-- **List your keys** in **Settings**, then **API keys**.
-- **Revoke** a key to deactivate it immediately. Clients using it receive a `401 Unauthorized`.
-- **Expiration** is optional. Set it when creating a key if you want automatic rotation.
+## Manage connections
+
+- **Assistants you connected by signing in** are listed in **Settings**, **API keys**, under **Connected assistants**, with the access each one has and when it was last used. **Disconnect** cuts one off immediately; it has to sign in again to come back.
+- **API keys** are listed in the same section. **Revoke** deactivates a key immediately, and clients using it receive a `401`.
+- **Expiration** is optional for keys. Set it when creating a key if you want automatic rotation.
+
+## Data and privacy
+
+The connector reads and changes Hikoo data only: the workspaces and websites your account belongs to, through the same permissions as the Hikoo app. It does not receive your conversation, your chat history, or files you share with the assistant. It only receives the arguments of the tools the assistant calls, such as a `website_id` or the text of a prompt you asked it to create.
+
+Hikoo's servers log each request (the endpoint called, the time, the response status, and the IP address) for security and support. How Hikoo collects, uses, and retains data is described in the [privacy policy](https://tryhikoo.com/en/privacy-policy).
 
 ## Troubleshooting
 
-| Symptom | Likely cause |
+| Symptom | Likely cause and fix |
 |---|---|
+| The assistant says the connection was granted read-only access | You left **Make changes** unticked. Disconnect Hikoo in the assistant, connect again, and tick it. |
+| The consent screen says **The request expired** | A connection request is valid for a few minutes. Start it again from the assistant. |
+| The consent screen says **Nothing to approve** | The page was opened directly. Start the connection from the assistant. |
+| The consent screen names the wrong account | You are signed in to Hikoo as somebody else. Cancel, sign out of the Hikoo app, and start again. |
+| Tools stopped working after they used to | The connection was disconnected in **Connected assistants**, or the API key was revoked or expired. Connect again or create a fresh key. |
 | `401 Invalid or expired API key` | The key was revoked, expired, or typed incorrectly. Create a fresh one. |
 | `403` on a data tool | The chosen website has no active subscription, or you lack access to it. |
-| Tools do not appear in Claude | Confirm the client restarted after editing the config, and the transport is `http`, not `sse`. |
+| A change is refused while reading works | Your role in that workspace is read-only. Ask a workspace owner or admin. |
+| Agency report tools answer **not found** | The workspace is not an agency workspace. These tools take a `workspace_id`, not a `website_id`. |
+| Tools do not appear in Claude Desktop with an API key | Confirm the app restarted after editing the config, and the transport is `http`, not `sse`. |
+
+Still stuck? Write to [support@tryhikoo.com](mailto:support@tryhikoo.com) or use the [contact page](https://tryhikoo.com/en/contact).
 
 See the [tools reference](/guides/mcp/tools) for what you can ask once connected.
