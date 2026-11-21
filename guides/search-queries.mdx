@@ -1,9 +1,9 @@
 ---
-title: "Search queries"
-description: "See the sub-questions AI assistants search on your behalf while answering your prompts"
+title: "Query fanouts"
+description: "See the searches AI assistants run on your behalf while answering your prompts"
 ---
 
-A **search query** is a sub-question that an AI assistant internally issues to a search engine, such as Google or Bing, while it answers one of your prompts. Search queries show you the keywords AI is actually searching for on your behalf, which is often not the same wording you used in the prompt.
+A **search query**, or query fanout, is a search that an AI assistant runs internally while it answers one of your prompts. Search queries show you the keywords AI is actually searching for on your behalf, which is often not the wording you used in the prompt.
 
 ## Prompts versus search queries
 
@@ -12,37 +12,49 @@ The difference matters:
 - A **prompt** is what you define. It is the question you want to track.
 - A **search query** is what the AI actually searched to answer that prompt.
 
-One prompt can spawn many search queries, because the assistant rephrases and breaks your question into several searches. Reading the search queries tells you which keywords are worth winning.
+One prompt can fan out into many search queries, because the assistant rephrases and breaks your question into several searches. Reading the search queries tells you which keywords are worth targeting in your content.
 
-## The search queries page
+## Open query fanouts
 
-The page opens with KPIs for **queries tracked**, **topics covered**, and your **top platform**.
+Query fanouts live inside the [Prompts](/guides/prompts) page. Open **Prompts** in the sidebar, then switch the view from **Tracked prompts** to **Query fanouts**.
 
-Below that, search queries are grouped by topic, with an **Unclustered** group for queries that do not fit a topic yet. You can:
+## Read the list
 
-- **Sort** by most generated, most queries, or most recent.
-- **Expand** or **collapse** all groups at once.
+Search queries are grouped, and each group shows its number of queries and how many times AI generated them. Use **Table settings** to group by:
+
+- **Topic**: queries grouped by the [topic](/guides/topics) of their prompt. Queries not yet linked to a topic sit under **Unclustered**.
+- **Prompt**: queries grouped by the prompt that generated them. Queries no tracked prompt is linked to anymore sit under **Without a prompt**.
+
+Each query row shows the **Platforms** that ran it, its number of **Generations**, and when it was **Last seen**.
+
+You can also:
+
+- **Search** for a query.
+- **Sort by** **Most generated**, **Most queries**, or **Recently detected**.
+- **Expand all** or **Collapse all** groups at once.
 - **Copy** a query to reuse it elsewhere.
+- Narrow the list with the shared [filter bar](/guides/dashboard#the-filter-bar): period, platforms, topics, markets, brand scope, intent, and tags.
+- **Export** the list from the more actions menu.
 
 ## Query detail
 
-Open a search query to see:
+Click a search query to see:
 
-- A **generations over time** timeline showing when it was issued.
-- The **platforms** that issued it.
-- The **source prompts** it came from.
+- **Generations over time**, showing when it was issued.
+- The **Platforms** that issued it.
+- The **Source prompts** it came from.
 
-## Scoped views
+## Search queries behind one answer
 
-You do not have to read every search query at once. You can also view search queries scoped to a single prompt or to a single citation, which keeps you focused on the answer you are investigating.
+Each answer in [Citations](/guides/citations) also has an **AI Search Queries** section that lists the searches the assistant ran to write it, which keeps you focused on the answer you are investigating.
 
 ## Related
 
 <Columns cols={2}>
-  <Card title="Prompts" icon="quote" href="/guides/prompts">
+  <Card title="Prompts" icon="message-square" href="/guides/prompts">
     The questions you define, which spawn these search queries.
   </Card>
-  <Card title="Citations" icon="search" href="/guides/citations">
-    View the search queries behind a single citation.
+  <Card title="Citations" icon="quote" href="/guides/citations">
+    View the search queries behind a single answer.
   </Card>
 </Columns>

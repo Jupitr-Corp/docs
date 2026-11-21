@@ -1,93 +1,107 @@
 ---
-title: "Website health"
-description: "See whether your site is technically ready to be discovered and cited by AI"
+title: "Health and suggestions"
+description: "Check that AI crawlers can reach your site and get prioritized page improvements"
 ---
 
-Health is a site-wide GEO health overview. It answers one question: is your site technically ready to be discovered and cited by AI. It is part of the **Analyzer** module.
+**Health & Suggestions** is part of the **Analyzer** module. It answers one question: is your website technically ready to be discovered and cited by AI? It also turns what Hikoo learned from your pages into prioritized suggestions.
 
-Health is distinct from the per-page [audit](/guides/audit). The audit scores individual pages. Health looks at the property as a whole, covering the files and crawler rules that decide whether AI assistants can reach your content at all.
+Health is distinct from the per-page [audit](/guides/audit). The audit scores individual pages. Health looks at the website as a whole: the files and crawler rules that decide whether AI assistants can reach your content at all.
 
-## Global checks
+## Overview
 
-Hikoo runs three site-wide checks and auto-detects the relevant URLs on your domain.
+The top of the page sums up four things:
+
+- **Health checks**, how many site-wide checks pass.
+- **AI crawlers allowed**, and how many are blocked.
+- **Open suggestions**, split between pages to improve and pages to create.
+- **Indexed pages**, with the date of the last indexation.
+
+## Health checks
+
+Hikoo runs three site-wide checks on your domain.
 
 | Check | What it looks at |
 |---|---|
-| **robots.txt AI access** | Whether your `robots.txt` allows AI crawlers. This is evaluated per crawler, so you see exactly which ones are allowed. |
+| **AI Crawlers** | Whether your `robots.txt` allows AI crawlers. |
 | **llms.txt** | Whether your site publishes an `llms.txt` file. |
-| **sitemap.xml** | Whether a `sitemap.xml` is present so crawlers can discover your pages. |
+| **Sitemap** | Whether a sitemap is present so crawlers can discover your pages. |
 
-## Resources editor
+## GEO resources
 
-The resources editor lets you view and edit the three files that drive your AI readiness: your sitemap, your `llms.txt`, and your `robots.txt`. Hikoo shows the auto-detected version, and you can provide a custom one.
+The **GEO resources** card shows the sitemap, `llms.txt`, and `robots.txt` URLs Hikoo uses for these checks, and whether each one was detected. Click **Configure URLs** to set a custom URL for a resource, for example a sitemap that does not live at the default location. Leave a field empty to probe the default location. Detected URLs fill in automatically on each refresh.
 
-<Tip>
-If you do not have an `llms.txt` yet, use the free `llms.txt` generator. See [Free tools](/guides/free-tools).
-</Tip>
+## AI crawlers
 
-## Crawlers table
+The **AI crawlers** card shows which AI crawlers your `robots.txt` allows or blocks. Each crawler carries an importance (**Critical**, **High**, or **Medium**) and a purpose:
 
-The crawlers table shows which AI crawlers are allowed or blocked on your site. Each crawler carries its importance, its category, and its purpose, so you can decide which ones matter to you.
-
-- **Importance** is critical, high, or medium.
-- **Category** is search, user, or training.
-- **Purpose** describes what the crawler does.
+- **Search** crawlers index your site so the AI can cite it in answers.
+- **User** crawlers fetch your page live when someone asks the AI about it.
+- **Training** crawlers read your content to train the model.
 
 Tracked crawlers include:
 
 | Crawler | Owner |
 |---|---|
 | GPTBot, OAI-SearchBot, ChatGPT-User | OpenAI |
-| ClaudeBot, anthropic-ai, Claude-Web, Claude-User | Anthropic |
-| Google-Extended, Gemini-Deep-Research | Google |
+| ClaudeBot, Claude-SearchBot, Claude-User | Anthropic |
+| Googlebot, Google-Extended, Gemini-Deep-Research | Google |
 | PerplexityBot, Perplexity-User | Perplexity |
-| Bingbot | Microsoft Copilot |
+| Bingbot | Microsoft (Bing) |
 | MistralAI-User | Mistral |
 | Bytespider | ByteDance |
 | Amazonbot | Amazon |
-| meta-externalagent | Meta |
+| meta-externalagent, meta-externalfetcher, FacebookBot | Meta |
 | DuckAssistBot | DuckDuckGo |
 
+If your `robots.txt` still uses directives no crawler reads anymore, Hikoo flags them and tells you what to use instead.
+
 <Warning>
-Blocking a search or user crawler can stop an AI assistant from reaching your content when it answers a user. Review the importance column before you block a crawler.
+Blocking a search or user crawler can stop an AI assistant from reaching your content when it answers a user. Check the importance before you block a crawler.
 </Warning>
+
+### Bot protection
+
+If a firewall answers Hikoo's robot differently from a regular browser, a banner explains that bot protection is filtering robots on your site. This does not prove AI crawlers are blocked, since many firewalls let known AI crawlers through after checking their IP address. When [Agent analytics](/guides/agent-analytics) is available, the banner also says whether AI crawler visits were recorded over the last 30 days.
+
+If the crawler cannot read some of your pages at all, contact [support@tryhikoo.com](mailto:support@tryhikoo.com) to move forward.
 
 ## Suggestions
 
-Health includes prioritized suggestions. These cover page improvements and new-content ideas, ordered so you can start with the ones that matter most. For each suggestion you can:
+Suggestions appear once your pages are indexed. They come in two groups:
 
-- **Regenerate** the full set after you change your site.
-- **Dismiss** a suggestion you do not want, and **restore** it later.
-- **View the affected pages** for a suggestion, so you can see where it applies.
+- **Improvements**, fixes on existing pages, such as a missing schema, author, publication date, FAQ section, meta description, or H1.
+- **Content to Create**, pages your site is missing, such as an FAQ page, a glossary, a comparison page, or case studies.
 
-## Indexation controls
+Each suggestion has a priority and the number of affected pages. For each one you can:
 
-Indexation is started and managed from the Health page. From here you can:
+- Click **View** to see the affected pages.
+- **Dismiss** a suggestion you do not want. **Restore** it later from the dismissed list.
 
-- **Start indexation** to have Hikoo discover and index your pages.
-- **Re-index errored pages** to retry the pages that failed.
-- **Add a single page** to the index.
+Click **Regenerate suggestions** to rebuild the full set after you change your site.
 
-A crawl-progress banner shows the status while indexation runs. The pages that come out of this process appear on the [Pages](/guides/pages) inventory.
+<Info>
+Indexation now lives on [Indexed pages](/guides/pages). If no page is indexed yet, Health links you there to start one.
+</Info>
 
-## Refreshing health data
+## Refresh the checks
 
-Health data is collected when you add a website. After that, Hikoo refreshes it automatically, and you can refresh it on demand at any time.
+Health data is collected when you add a website. After that, Hikoo refreshes it automatically. Click **Refresh checks** to run the checks on demand.
 
 <Note>
-Refreshes and suggestion regenerations count against monthly quotas set by your plan. The remaining counts are shown on the page.
+Refreshes and suggestion regenerations count against monthly quotas set by your plan.
 </Note>
+
+## API and MCP
+
+You can read health data, refresh it, and dismiss, restore, or regenerate suggestions from the REST API and the [MCP server](/guides/mcp/overview).
 
 ## Related guides
 
 <Columns cols={2}>
-  <Card title="Pages" icon="file-text" href="/guides/pages">
-    Browse the pages Hikoo has indexed for your site.
+  <Card title="Indexed pages" icon="file-text" href="/guides/pages">
+    Index your pages and review the inventory.
   </Card>
-  <Card title="Audit" icon="gauge" href="/guides/audit">
+  <Card title="Audit" icon="clipboard-check" href="/guides/audit">
     Score individual pages against the AI-readiness criteria.
-  </Card>
-  <Card title="Free tools" icon="plug" href="/guides/free-tools">
-    Generate an `llms.txt` file for your domain.
   </Card>
 </Columns>

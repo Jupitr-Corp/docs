@@ -3,20 +3,34 @@ title: "Topics"
 description: "Group prompts into themes that drive filtering across the dashboard"
 ---
 
-A **topic** (also called a subject) groups your prompts into themes. Topics keep a large prompt set organized, and they act as one of the shared filter dimensions across the dashboard, so the way you organize topics shapes how you read every other view.
+A **topic** groups your prompts into a theme. Topics keep a large prompt set organized, and they are one of the shared filter dimensions across the dashboard, so the way you organize topics shapes how you read every other view.
+
+<Note>
+In the sidebar, the topics page is labeled **Subjects**. Inside the page, in the filter bar, and on the Prompts page, the same items are called topics.
+</Note>
 
 ## Manage topics
 
-From the Topics page you can:
+Open **Subjects** in the Spotlight section of the sidebar. From there you can:
 
-- **Add** a new topic.
-- **Rename** an existing topic.
+- **Add** a topic: type its name in the first row of the list, or click **New topic**.
+- **Rename** a topic from its row.
 - **Delete** a topic you no longer need.
 - **Search** to find a topic quickly.
 
+Each prompt belongs to one topic. Prompts without a topic sit under **General**.
+
+## Assign prompts to topics
+
+- Pick a topic when you write or edit a prompt.
+- On the [Prompts](/guides/prompts) page, select prompts and click **Move to topic** to reassign them in bulk.
+- When you import a CSV, Hikoo can create the topics that do not exist yet.
+
 ## How topics flow through the dashboard
 
-On the [Prompts](/guides/prompts) page, prompts can be shown grouped by topic. Topic is also one of the dimensions in the shared filter bar, so it carries into citations, competitors, and search queries as you navigate. Clear topics make every one of those views easier to slice.
+On the Prompts page, you can group the table by topic. **Topics** is also a filter in the shared [filter bar](/guides/dashboard#the-filter-bar), so it carries into citations, competitors, and query fanouts as you navigate. [Query fanouts](/guides/search-queries) can also be grouped by topic.
+
+For finer slicing, add [tags](/guides/prompts#tags) to your prompts. A prompt keeps one topic but can carry several tags.
 
 <Tip>
 Keep topics aligned with how buyers think about your space, not with your internal team structure. When a topic matches a real buyer theme, filtering by it answers a real question about your visibility.
@@ -25,10 +39,10 @@ Keep topics aligned with how buyers think about your space, not with your intern
 ## Related
 
 <Columns cols={2}>
-  <Card title="Prompts" icon="quote" href="/guides/prompts">
+  <Card title="Prompts" icon="message-square" href="/guides/prompts">
     Add prompts and group them by topic.
   </Card>
-  <Card title="Dashboard" icon="gauge" href="/guides/dashboard">
+  <Card title="Dashboard" icon="layout-dashboard" href="/guides/dashboard">
     See how the shared filter bar applies topics everywhere.
   </Card>
 </Columns>

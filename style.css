@@ -1,46 +1,201 @@
 /*
- * Hikoo docs - monochrome design direction.
- * Colors are driven by docs.json (black in light mode, white in dark mode).
- * This file only sharpens the shell to match Hikoo's flat, sharp-corner DA.
+ * Hikoo docs, aligned on the marketing site (vitrine, V13):
+ * cream paper, dark ink, "press start" yellow, night navy in dark mode.
+ * Reading stays sober. The retro lives in small pixel labels, hard
+ * shadows and crenellated corners, never in body text.
  *
- * Note: custom CSS may require a paid Mintlify plan to take effect. On the
- * free plan the docs.json color scheme already delivers the black-and-white
- * look; this file is a progressive enhancement that degrades harmlessly.
+ * Tokens mirror vitrine/app/globals.css. docs.json carries the colors,
+ * background and Host Grotesk; this file adds the pixel details.
  */
+@import url("https://fonts.googleapis.com/css2?family=Tiny5&family=Jersey+10&display=swap");
 
 :root {
-  --hk-radius: 0.25rem;
+  --hk-paper: #fffdfb;
+  --hk-canvas: #f9f8f5;
+  --hk-ink: #16151a;
+  --hk-ink-3: rgb(22 21 26 / 0.6);
+  --hk-line: rgb(22 21 26 / 0.1);
+  --hk-shade: #e3dfd4;
+  --hk-coin: #f4c533;
+  --hk-coin-sh: #c99a1f;
+  --hk-night: #111a45;
+  --hk-pixel: "Tiny5", ui-monospace, monospace;
+  --hk-arcade: "Jersey 10", ui-monospace, monospace;
+  --hk-surface: var(--hk-paper);
+  --hk-edge: var(--hk-ink);
 }
 
-/* Sharp, flat corners across the common components. */
+html.dark {
+  --hk-surface: #18224f;
+  --hk-edge: rgb(255 253 251 / 0.85);
+  --hk-line: rgb(255 253 251 / 0.14);
+  --hk-shade: #0a1030;
+}
+
+::selection {
+  background: var(--hk-coin);
+  color: var(--hk-ink);
+}
+
+/* Headings: tight tracking, like the vitrine titles. */
+h1,
+h2,
+h3,
+#page-title {
+  letter-spacing: -0.03em;
+}
+
+/* Small uppercase labels go pixel: eyebrow, sidebar group titles. */
+.eyebrow,
+#sidebar-content .sidebar-group-header h5,
+#sidebar h5 {
+  font-family: var(--hk-pixel) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Square everything: the site has no rounded corners. */
 .card,
 .callout,
-button,
+.code-block,
 pre,
-code,
-img,
 table,
 input,
 select,
+textarea,
+img,
+.rounded,
+.rounded-md,
 .rounded-lg,
 .rounded-xl,
-.rounded-2xl {
-  border-radius: var(--hk-radius) !important;
+.rounded-2xl,
+.rounded-full {
+  border-radius: 0 !important;
 }
 
-/* Flat cards: hairline border, no heavy shadow. */
+/* Cards: pixel frame with a hard offset shadow (vitrine .px-panel). */
 .card {
+  border: 0 !important;
+  background: var(--hk-surface) !important;
+  box-shadow:
+    0 -2px 0 0 var(--hk-edge),
+    0 2px 0 0 var(--hk-edge),
+    -2px 0 0 0 var(--hk-edge),
+    2px 0 0 0 var(--hk-edge),
+    6px 6px 0 0 var(--hk-shade) !important;
+  transition: transform 120ms steps(2, end), box-shadow 120ms steps(2, end);
+}
+a.card:hover,
+a:hover > .card {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    0 -2px 0 0 var(--hk-edge),
+    0 2px 0 0 var(--hk-edge),
+    -2px 0 0 0 var(--hk-edge),
+    2px 0 0 0 var(--hk-edge),
+    8px 8px 0 0 var(--hk-coin) !important;
+}
+
+/* Callouts and code: 2 px frame, no blur. */
+.callout {
+  border-width: 2px !important;
   box-shadow: none !important;
 }
-
-/* Keep code blocks monochrome and calm. */
-pre {
-  border: 1px solid rgba(120, 120, 128, 0.24);
+.code-block {
+  border: 2px solid var(--hk-ink) !important;
+  box-shadow: 4px 4px 0 0 var(--hk-shade);
+}
+.code-block pre {
+  border: 0 !important;
+  box-shadow: none !important;
+  scrollbar-color: rgb(255 253 251 / 0.25) transparent;
 }
 
-/* Lucide icons render at a lighter 1.5 stroke to match Hikoo's line weight. */
-svg[stroke-width],
+/* Inline code: a small notched tag. */
+:not(pre) > code {
+  border-radius: 0 !important;
+  background: rgb(244 197 51 / 0.22) !important;
+  border: 0 !important;
+}
+
+/* Navbar call to action: arcade button in coin yellow (vitrine .px-btn-coin). */
+#topbar-cta-button a,
+#topbar-cta-button button,
+.navbar-primary-button {
+  border-radius: 0 !important;
+  background: var(--hk-coin) !important;
+  color: var(--hk-ink) !important;
+  box-shadow:
+    0 -2px 0 0 var(--hk-ink),
+    0 2px 0 0 var(--hk-ink),
+    -2px 0 0 0 var(--hk-ink),
+    2px 0 0 0 var(--hk-ink),
+    0 4px 0 0 var(--hk-ink);
+  transition: transform 120ms steps(2, end);
+}
+#topbar-cta-button a:hover,
+.navbar-primary-button:hover {
+  transform: translateY(-2px);
+}
+#topbar-cta-button a:active,
+.navbar-primary-button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+/* Active sidebar item: yellow highlight, square, no side bar. */
+#sidebar a[aria-current="page"],
+#sidebar li[data-active="true"] > a {
+  border-radius: 0 !important;
+  background: rgb(244 197 51 / 0.28) !important;
+  border-left-color: var(--hk-line) !important;
+  color: var(--hk-ink) !important;
+}
+html.dark #sidebar a[aria-current="page"],
+html.dark #sidebar li[data-active="true"] > a {
+  color: #fffdfb !important;
+}
+
+/* HTTP method pills in the API reference: arcade digits, square. */
+.method-pill,
+[class*="method-pill"] {
+  font-family: var(--hk-arcade) !important;
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+  border-radius: 0 !important;
+}
+
+/* Steps: square numbered badges. */
+.steps .step-number,
+[data-component-part="step-number"] {
+  border-radius: 0 !important;
+  font-family: var(--hk-arcade);
+}
+
+/* Keyboard focus: dashed frame, like a menu selection. */
+:focus-visible {
+  outline: 2px dashed currentColor !important;
+  outline-offset: 3px;
+}
+
+/* Lucide icons at the site's line weight. */
 svg.lucide,
 .lucide {
-  stroke-width: 1.5 !important;
+  stroke-width: 1.75 !important;
+}
+
+/* Pixel scrollbar. */
+html {
+  scrollbar-color: var(--hk-ink) var(--hk-canvas);
+}
+html.dark {
+  scrollbar-color: #fffdfb var(--hk-night);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  #topbar-cta-button a {
+    transition: none;
+  }
 }

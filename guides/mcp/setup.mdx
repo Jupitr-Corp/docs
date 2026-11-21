@@ -74,10 +74,12 @@ Leave **Make changes** unticked for a read-only connection. Every change is stil
 
 Your key identifies you as a user and can reach every website in the workspaces you belong to. You create it at the account level, not per website.
 
-1. Open **Settings**, then the **API keys** section.
-2. Click **Create API key**.
-3. Give it a descriptive name such as `Claude Desktop` or `Analyst workflow`, and an optional expiry.
+1. Open **Settings**, then the **API Keys** section.
+2. Click **Create key**.
+3. Give it a descriptive name such as `Claude Desktop` or `Analyst workflow`, then click **Create**.
 4. **Copy the key immediately.** It starts with `hk_` and is shown only once.
+
+The **Connect a client** card below your keys gives the same snippets as this page, ready to copy.
 
 <Warning>
 Keys inherit your access. Treat them like passwords, never commit them, and revoke a key if it leaks.
@@ -91,13 +93,37 @@ See [API keys](/guides/api-keys) for managing keys and the REST API.
 
 <Tab title="Claude Desktop">
 
-Edit `claude_desktop_config.json`:
+Add this to `claude_desktop_config.json`. It runs the `mcp-remote` bridge through `npx`, so Node.js must be installed.
 
 ```json
 {
   "mcpServers": {
     "hikoo": {
-      "type": "http",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.tryhikoo.com/mcp",
+        "--header",
+        "Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ]
+    }
+  }
+}
+```
+
+Restart Claude Desktop. The **hikoo** server appears in the tools menu.
+
+</Tab>
+
+<Tab title="Cursor">
+
+Add this to `~/.cursor/mcp.json`, or through Cursor's MCP settings, then reload:
+
+```json
+{
+  "mcpServers": {
+    "hikoo": {
       "url": "https://mcp.tryhikoo.com/mcp",
       "headers": {
         "Authorization": "Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -107,8 +133,6 @@ Edit `claude_desktop_config.json`:
 }
 ```
 
-Restart Claude Desktop. The **Hikoo** server appears in the tools menu.
-
 </Tab>
 
 <Tab title="Claude Code">
@@ -116,6 +140,18 @@ Restart Claude Desktop. The **Hikoo** server appears in the tools menu.
 ```bash
 claude mcp add --transport http hikoo https://mcp.tryhikoo.com/mcp \
   --header "Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+</Tab>
+
+<Tab title="Codex">
+
+Add this to `~/.codex/config.toml`, then restart Codex:
+
+```toml
+[mcp_servers.hikoo]
+command = "npx"
+args = ["-y", "mcp-remote", "https://mcp.tryhikoo.com/mcp", "--header", "Authorization: Bearer hk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"]
 ```
 
 </Tab>
@@ -162,8 +198,7 @@ The client discovers your site, calls the Hikoo tools it needs, and answers with
 ## Manage connections
 
 - **Assistants you connected by signing in** are listed in **Settings**, **API keys**, under **Connected assistants**, with the access each one has and when it was last used. **Disconnect** cuts one off immediately; it has to sign in again to come back.
-- **API keys** are listed in the same section. **Revoke** deactivates a key immediately, and clients using it receive a `401`.
-- **Expiration** is optional for keys. Set it when creating a key if you want automatic rotation.
+- **API keys** are listed in the same section. **Revoke** deactivates a key immediately, and clients using it receive a `401`. To rotate a key, create a new one, update your clients, then revoke the old one.
 
 ## Data and privacy
 
@@ -179,12 +214,11 @@ Hikoo's servers log each request (the endpoint called, the time, the response st
 | The consent screen says **The request expired** | A connection request is valid for a few minutes. Start it again from the assistant. |
 | The consent screen says **Nothing to approve** | The page was opened directly. Start the connection from the assistant. |
 | The consent screen names the wrong account | You are signed in to Hikoo as somebody else. Cancel, sign out of the Hikoo app, and start again. |
-| Tools stopped working after they used to | The connection was disconnected in **Connected assistants**, or the API key was revoked or expired. Connect again or create a fresh key. |
-| `401 Invalid or expired API key` | The key was revoked, expired, or typed incorrectly. Create a fresh one. |
+| Tools stopped working after they used to | The connection was disconnected in **Connected assistants**, or the API key was revoked. Connect again or create a fresh key. |
+| `401 Invalid or expired API key` | The key was revoked or typed incorrectly. Create a fresh one. |
 | `403` on a data tool | The chosen website has no active subscription, or you lack access to it. |
 | A change is refused while reading works | Your role in that workspace is read-only. Ask a workspace owner or admin. |
-| Agency report tools answer **not found** | The workspace is not an agency workspace. These tools take a `workspace_id`, not a `website_id`. |
-| Tools do not appear in Claude Desktop with an API key | Confirm the app restarted after editing the config, and the transport is `http`, not `sse`. |
+| Tools do not appear in Claude Desktop with an API key | Confirm the app restarted after editing the config, and that Node.js is installed so `npx mcp-remote` can run. |
 
 Still stuck? Write to [support@tryhikoo.com](mailto:support@tryhikoo.com) or use the [contact page](https://tryhikoo.com/en/contact).
 

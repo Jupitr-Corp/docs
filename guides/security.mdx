@@ -1,0 +1,84 @@
+---
+title: "Security"
+description: "Protect your account with two-factor authentication, export your personal data, or delete your account."
+---
+
+Open **Settings** from the user menu, then **Security**. The section has four parts: your password, two-factor authentication, your data, and a danger zone.
+
+## Change your password
+
+Click **Change Password**, enter your **Current Password**, then your **New Password** twice. A password needs at least 10 characters, with uppercase, lowercase, and a number. Hikoo refuses a password that appears in a known data breach.
+
+<Note>If you signed up with Google, your account has no Hikoo password. You sign in through Google instead.</Note>
+
+## Two-factor authentication
+
+Two-factor authentication adds a second step when you sign in. You can turn on several methods, and choose any of them at sign-in.
+
+| Method | How it works |
+|---|---|
+| **Authenticator app** | Marked **Recommended**. Use an app like Google Authenticator or 1Password to generate a 6-digit code. |
+| **Email** | Marked **Backup**. Hikoo emails you a one-time code at sign-in. |
+| **Passkeys** | Sign in with Touch ID, Windows Hello, or a security key. |
+| **Recovery codes** | One-time codes for when you lose access to your other methods. |
+
+### Set up an authenticator app
+
+<Steps>
+  <Step title="Start the setup">
+    Next to **Authenticator app**, click **Set up**, then **Set up authenticator app**.
+  </Step>
+  <Step title="Add Hikoo to your app">
+    Scan the QR code with your authenticator app. If you cannot scan it, enter the **Setup key** shown below it.
+  </Step>
+  <Step title="Confirm with a code">
+    Enter the code your app shows in **Code from the app**, then click **Enable**.
+  </Step>
+</Steps>
+
+### Set up email codes
+
+Next to **Email**, click **Set up**, then **Send a code**. Enter the code Hikoo emails you and click **Enable**.
+
+### Add a passkey
+
+In **Passkeys**, click **Add passkey** and follow your browser or device prompt. Each passkey shows when it was added and last used. You can **Rename** or **Remove** it later.
+
+<Tip>If the passkey is not created and you use a password manager, check that the password manager is unlocked, or use your device's built-in security instead.</Tip>
+
+### Save your recovery codes
+
+When you turn on your first method, Hikoo shows your recovery codes once. **Copy**, **Download**, or **Print** them, store them somewhere safe, then confirm **I have saved my recovery codes**. Each code works once.
+
+The **Recovery codes** row shows how many codes you have left. Click **Regenerate codes** to get a new set, which replaces the old one.
+
+### Sign in with two-factor authentication
+
+After your password, Hikoo asks for your second step. It offers the method you used last. Click **Use a different method** to switch to a passkey, your authenticator app, an email code, or a recovery code.
+
+### Turn off a method
+
+Click **Disable** next to a method and confirm with your password or another of your methods. That method is no longer asked for at sign-in.
+
+<Info>A workspace owner or admin can turn on **Require two-factor authentication** in the workspace **Settings** section. Members without two-factor authentication must then add a method before they can use that workspace.</Info>
+
+## Export your data
+
+Under **Your data**, **Export your data** downloads a copy of your personal data: your account, preferences, billing, and sites. Click **Download JSON** or **Download CSV**.
+
+## Delete your account
+
+Under **Danger zone**, click **Delete account**. Type your email address to confirm, enter your password, then click **Delete my account**.
+
+<Warning>Deleting your account is permanent and cannot be undone. Your solo workspaces and their data are removed.</Warning>
+
+## Related pages
+
+<Columns cols={2}>
+  <Card title="Settings" icon="settings" href="/guides/settings">
+    Every section of the Settings modal.
+  </Card>
+  <Card title="Workspaces" icon="users" href="/guides/workspaces">
+    Roles, members, and workspace rules.
+  </Card>
+</Columns>

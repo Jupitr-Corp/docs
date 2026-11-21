@@ -3,7 +3,7 @@ title: "Tools reference"
 description: "Every tool the Hikoo MCP exposes, grouped by area."
 ---
 
-The Hikoo MCP ships **86 tools** across the areas below. You never call them directly. Describe what you want in natural language and your client picks the right one.
+The Hikoo MCP ships **80 tools** across the areas below. You never call them directly. Describe what you want in natural language and your client picks the right one.
 
 Four **discovery** tools take no `website_id`. Every other tool is a **data** tool and requires a `website_id`, which your client obtains from discovery first.
 
@@ -553,46 +553,6 @@ The cited pages one by one, and which brands are on each. `relation` tells them 
 **Args:** `website_id`, `relation`, `present`, `topic_id`, `search`, `momentum`, `actionable_only`, `active_only`, `limit`, `offset`
 </ResponseField>
 
-## Agency reports
-
-For agency workspaces. These tools take a `workspace_id`, not a `website_id`. An agency adds a list of sites, Hikoo grades each one, and every launched report gets its own shareable link.
-
-<ResponseField name="hk_list_agency_reports" type="read-only">
-The reports of an agency workspace, with their links once built and the date each link expires.
-
-**Args:** `workspace_id`, `status`, `search`, `page`, `page_size`
-</ResponseField>
-
-<ResponseField name="hk_preview_agency_reports" type="write">
-Grade a list of sites and save nothing. Each row comes back accepted or refused, with the reason.
-
-**Args:** `workspace_id`, `sites`
-</ResponseField>
-
-<ResponseField name="hk_add_agency_reports" type="write">
-Create the rows that grade OK. Adding does not launch them.
-
-**Args:** `workspace_id`, `sites`
-</ResponseField>
-
-<ResponseField name="hk_launch_agency_reports" type="write">
-Start every report still waiting. This takes the whole pending batch and spends the workspace's report quota.
-
-**Args:** `workspace_id`
-</ResponseField>
-
-<ResponseField name="hk_relaunch_agency_reports" type="write">
-Build the named reports again. Their links keep working throughout.
-
-**Args:** `workspace_id`, `report_ids`
-</ResponseField>
-
-<ResponseField name="hk_revoke_agency_reports" type="destructive">
-Turn off the shared links of the named reports. Anybody opening one afterwards sees nothing.
-
-**Args:** `workspace_id`, `report_ids`
-</ResponseField>
-
 ## Argument conventions
 
 - **`time_range`** accepts: `all_time`, `1y`, `1m`, `1w`, `1d`. Sentiment and breakdown tools cap the range at 1 year.
@@ -600,7 +560,7 @@ Turn off the shared links of the named reports. Anybody opening one afterwards s
 - **Enums** you may pass:
   - Prompt `intent`: `informational`, `comparative`, `transactional`, `navigational`.
   - Prompt `journey_stage`: `discovery`, `consideration`, `decision`, `retention`.
-  - Search-query `platform`: `chatgpt`, `perplexity`, `gemini`, `claude`, `copilot`.
+  - Search-query `platform`: `chatgpt`, `perplexity`, `gemini`, `claude`, `copilot`, `deepseek`. Copilot and DeepSeek are retired, so those two values only match older data.
   - Source `source_type`: `review_platform`, `media`, `blog`, `directory`, `forum`, `wiki`, `social`.
   - Top-sources `group_by`: `domain`, `url`. Sources `source_class`: `all`, `mentioned`, `background`.
   - Content-gap `status`: `pending`, `in_progress`, `completed`, `dismissed`.

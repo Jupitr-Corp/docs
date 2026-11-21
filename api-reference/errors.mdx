@@ -1,0 +1,67 @@
+---
+title: "Errors"
+description: "Status codes, the error body, and how to handle each case."
+icon: "triangle-alert"
+---
+
+The API uses standard HTTP status codes. Every error body is JSON with a `detail` field you can show to a person:
+
+```json
+{ "detail": "This website has no active subscription, so its data is unavailable." }
+```
+
+Some errors also carry an `X-Error-Code` response header with a stable, machine-readable code. Branch on that header, never on the `detail` text, which can change.
+
+## Status codes
+
+| Status | Meaning | Typical cause |
+| ------ | ------- | ------------- |
+| `200` `201` `202` `204` | Success | `201` when something is created, `202` when work is queued, `204` when nothing is returned. |
+| `400` | Bad request | The request is well formed but not allowed in the current state, for example a URL outside the website's domain. |
+| `401` | Unauthorized | Missing, malformed, invalid, expired or revoked key. See [Authentication](/api-reference/authentication). |
+| `403` | Forbidden | No active subscription on the website, a read-only role trying to write, an unverified email, a plan feature you do not have, or a quota already used up. |
+| `404` | Not found | The website or resource does not exist, or your account cannot see it. Hikoo answers `404` rather than `403` so IDs from other accounts are not revealed. |
+| `409` | Conflict | The resource already exists, for example a competitor you already track. |
+| `422` | Validation error | A parameter is missing, has the wrong type, or is out of range. |
+| `429` | Too many requests | You went over the rate limit. |
+| `5xx` | Server error | Something failed on our side. Retry with backoff. |
+
+## Validation errors
+
+A `422` lists every invalid field, so you can fix them all at once:
+
+```json
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": ["query", "website_id"],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}
+```
+
+`loc` gives where the problem is (`query`, `path` or `body`) and the field name.
+
+## Error codes
+
+| `X-Error-Code` | Status | Meaning |
+| -------------- | ------ | ------- |
+| `rate_limited` | `429` | Too many requests. Wait for the `Retry-After` seconds. |
+| `email_not_verified` | `403` | The key owner must confirm their email address. |
+
+## Retry strategy
+
+<AccordionGroup>
+  <Accordion title="Retry" icon="rotate-cw">
+    `429` and `5xx`. Wait for `Retry-After` when present, otherwise back off exponentially (1 s, 2 s, 4 s...) and give up after a few attempts.
+  </Accordion>
+  <Accordion title="Do not retry" icon="ban">
+    `400`, `401`, `403`, `404`, `409` and `422`. The same request will fail again until you change it, the key, or the account.
+  </Accordion>
+  <Accordion title="Writes that time out" icon="clock">
+    If a `POST` times out, read the resource back before sending it again. Creating a prompt or launching an audit twice spends quota twice.
+  </Accordion>
+</AccordionGroup>

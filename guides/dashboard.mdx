@@ -5,32 +5,50 @@ description: "Get a bird's-eye view of your AI search visibility."
 
 The dashboard is your home screen. It summarizes how the selected website performs across AI platforms, and it is the starting point for every other module.
 
-## Overview cards
+## Dashboard and Hiko
 
-When you open the dashboard you see:
+A **Dashboard** / **Hiko** switch sits at the top of the sidebar. **Dashboard** shows the pages described in these guides. **Hiko** opens the assistant that answers questions about your data in plain language. See [Hiko](/guides/hiko).
 
-- **Visibility trend.** A chart of how often your site has been cited over time.
-- **Competitor ranking.** Your site and its competitors ranked by citation count.
-- **Citation share.** The share of citations going to you versus competitors.
-- **Top source domains.** The domains and pages AI assistants pull from, with a toggle between domains and URLs.
-- **Top platforms.** Which AI assistants cite you most often.
+## Key metrics
 
-## First-wave banner
+Three cards open the page. Each shows its change against the comparison period.
 
-For a brand-new website, a first-wave banner tracks the initial analysis as it moves through generating prompts, querying the AI assistants, and indexing your pages. Data fills in as each stage completes.
+| Card | What it shows |
+|---|---|
+| **Visibility** | The share of AI answers that name your brand. |
+| **Share of voice** | Your share of all brand mentions, with your rank among tracked brands. |
+| **Citations** | The share of answers that show a link to your site. |
 
-## Shared filters
+## Charts and rankings
 
-A filter bar at the top drives every chart. It is shared across the app, so what you set here carries into Citations, Competitors, and the other pages.
+- **Visibility trend.** The share of answers naming you and your competitors over time. Switch the metric to **Average position** to see where each brand is named in the answers.
+- **Competitors.** Your brand ranked against competitors by visibility. When Hikoo spots new competitors in your answers, a banner invites you to **Review** them.
+- **Top cited sources.** The domains AI engines rely on to answer your prompts. Toggle between **Domains** and **URLs**.
+- **Share of voice.** Your share of brand mentions over time, against your strongest rival.
+- **Top AI platforms.** The share of each platform's answers that name you.
+
+Markers on the trend charts show what changed on your site, such as prompts added or archived, competitors edited, or a plan change. Click a marker to see the events for that day and to add your own note, for example "pricing page launched".
+
+## First scan banner
+
+For a brand-new website, a banner tracks your first AI visibility scan as it moves through **Generating prompts**, **Querying AI platforms**, and **Indexing answers**. Data fills in as each stage completes. If the site has no prompts yet, a banner invites you to add some.
+
+## The filter bar
+
+A filter bar at the top drives every card. The same bar appears on Citations, Prompts, and the other analysis pages, and your selection follows you as you navigate.
 
 | Filter | Description |
 |---|---|
-| **Time range** | All time, 1 year, 1 month, 1 week, or 1 day. |
-| **Platform** | A single AI platform or all platforms. |
-| **Topic** | Focus on prompts in one [topic](/guides/topics). |
-| **Market** | Focus on a geographic market, for example US or FR. |
+| **Period** | **Last 7 days**, **Last 30 days**, **Last 12 months**, **All time**, or a custom range picked on the calendar. |
+| **Compare to** | The period the changes are measured against: **Previous period**, **Same period last year**, **Another period**, or **None**. |
+| **Platforms** | One or more AI platforms. |
+| **Topics** | One or more [topics](/guides/topics). Shown once the site has topics. |
+| **Markets** | One or more countries, or **Worldwide**. |
+| **Brand scope** | **Branded** prompts (they name your brand) or **Non-branded** prompts. |
+| **Intent** | The search intent of the prompts: informational, comparative, transactional, or navigational. |
+| **Tags** | One or more prompt [tags](/guides/prompts#tags). Shown once the site has tags. |
 
-Filters persist as you navigate, so you do not have to reapply them.
+**Brand scope** and **Platforms** stay on the bar. Click **Filter** to add the others. **Clear all** removes every filter but keeps the period.
 
 ## Switching websites
 
@@ -40,7 +58,7 @@ If you track more than one website, use the **site switcher** in the sidebar to 
 
 <Columns cols={2}>
   <Card title="Citations" icon="quote" href="/guides/citations">
-    Dive into individual citation records.
+    Read the AI answers behind your metrics.
   </Card>
   <Card title="Competitors" icon="swords" href="/guides/competitors">
     See detailed competitive benchmarks.

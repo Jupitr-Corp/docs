@@ -1,92 +1,94 @@
 ---
-title: "REST API overview"
-description: "Programmatic access to your Hikoo data: citations, prompts, competitors, audits, health and more."
+title: "REST API"
+sidebarTitle: "Overview"
+description: "Pull your AI visibility data into your own tools, scripts and pipelines."
+icon: "terminal"
 ---
 
-The Hikoo REST API exposes the same data you see in the dashboard, and the same surface the [MCP server](/guides/mcp/overview) relays. Use it to pull GEO analytics into your own tools, scripts, or pipelines.
+The Hikoo REST API gives you the data you see in the dashboard: AI citations, prompts, competitors, sources, audits, site health, AI-crawler traffic and outreach. It is the same surface the [MCP server](/guides/mcp/overview) uses, so anything an assistant can do through MCP, your code can do too.
+
+## Base URL
 
 ```
 https://api.tryhikoo.com/api/v1/public
 ```
 
-## Authentication
+Every endpoint lives under this prefix. Requests and responses are JSON.
 
-Every request is authenticated with a personal API key passed as a Bearer token:
+## Your first call
 
-```bash
-curl "https://api.tryhikoo.com/api/v1/public/me" \
-  -H "Authorization: Bearer hk_your_api_key"
-```
+<Steps>
+  <Step title="Create an API key">
+    In the [dashboard](https://app.tryhikoo.com), open **Settings > API keys** and click **Create key**. Copy it right away: it starts with `hk_` and is shown only once. See [Authentication](/api-reference/authentication).
+  </Step>
+  <Step title="Find your website ID">
+    Most endpoints work on one website. List the workspaces and websites your key can reach:
 
-To create a key, go to **Settings > API keys** in the [dashboard](https://app.tryhikoo.com), click **Create key**, and copy it immediately: it starts with `hk_` and is only shown once.
+    ```bash
+    curl "https://api.tryhikoo.com/api/v1/public/workspaces/with-websites" \
+      -H "Authorization: Bearer $HIKOO_API_KEY"
+    ```
 
-<Info>
-The same key works for both the REST API and the [MCP server](/guides/mcp/setup). It is tied to your user account and covers every workspace and website you belong to.
-</Info>
+    Note the `id` of the website you want.
+  </Step>
+  <Step title="Read your data">
+    Pass the ID as `website_id`. This call lists the last month of ChatGPT and Perplexity citations:
 
-<Warning>
-Treat keys like passwords: never commit them to a repository or expose them in client-side code. Revoke and recreate a key if it leaks.
-</Warning>
+    ```bash
+    curl -G "https://api.tryhikoo.com/api/v1/public/citations" \
+      -H "Authorization: Bearer $HIKOO_API_KEY" \
+      --data-urlencode "website_id=123" \
+      --data-urlencode "time_range=1m" \
+      --data-urlencode "platforms[]=ChatGPT" \
+      --data-urlencode "platforms[]=Perplexity"
+    ```
+  </Step>
+</Steps>
 
-## Targeting a website
+## What you can do
 
-Most endpoints operate on a single website and take a `website_id` query parameter. To discover your websites:
+<Columns cols={2}>
+  <Card title="Account" icon="user" href="/api-reference/account/get-current-user">
+    Who the key belongs to, its workspaces and websites.
+  </Card>
+  <Card title="AI visibility" icon="eye" href="/api-reference/citations/list-citations">
+    Citations, prompts, topics, search queries and URL lookup.
+  </Card>
+  <Card title="Competition and sources" icon="swords" href="/api-reference/competitors/get-competitor-ranking">
+    Share of voice, competitor suggestions and the sources AI cites.
+  </Card>
+  <Card title="Site" icon="globe" href="/api-reference/audits/list-audits">
+    Audits, health, indexation, content gaps and AI-crawler traffic.
+  </Card>
+  <Card title="Outreach" icon="send" href="/api-reference/outreach/get-outreach-overview">
+    Sources to win, pitches to approve, follow-ups and agent permissions.
+  </Card>
+</Columns>
 
-1. Call `GET /workspaces/with-websites` to list every workspace and the websites inside.
-2. Pick the `id` of the website you want.
-3. Pass it as `?website_id=<id>` to the data endpoints.
+## Conventions
 
-```bash
-curl "https://api.tryhikoo.com/api/v1/public/citations?website_id=123&page=1" \
-  -H "Authorization: Bearer hk_your_api_key"
-```
-
-Data endpoints require an **active subscription** on the target website; without one they return `403` with an explanatory message.
-
-## Pagination
-
-List endpoints accept `page` (1-based) and `page_size` parameters and return a consistent envelope:
-
-```json
-{
-  "items": [],
-  "total": 240,
-  "page": 1,
-  "page_size": 20,
-  "total_pages": 12
-}
-```
-
-## Rate limits
-
-Requests are limited **per API key** to:
-
-| Window | Limit |
-| ------ | ----- |
-| Per minute | 60 requests |
-| Per hour | 5,000 requests |
-
-Exceeding a limit returns `429 Too Many Requests`. Note that MCP traffic using the same key counts against the same budget.
-
-## Errors
-
-The API uses standard HTTP status codes. Error responses carry a `detail` field:
-
-```json
-{ "detail": "Invalid or expired API key" }
-```
-
-| Status | Meaning |
-| ------ | ------- |
-| `401` | Missing, invalid, or expired API key |
-| `403` | No active subscription on the website, or a plan-gated feature |
-| `404` | Resource not found, or not visible to your account |
-| `422` | Invalid parameters (the response details which ones) |
-| `429` | Rate limit exceeded |
+<AccordionGroup>
+  <Accordion title="Website-scoped endpoints" icon="globe">
+    Data endpoints take a required `website_id` query parameter. The key must belong to a member of the website's workspace, and the website needs an active subscription, otherwise the API answers `403`. Discovery endpoints (`/me`, `/workspaces`, `/websites`) need no `website_id`.
+  </Accordion>
+  <Accordion title="Reads and writes" icon="pencil">
+    `GET` requests only need workspace membership. `POST`, `PUT`, `PATCH` and `DELETE` also need a role that can edit. A key owned by a read-only member gets `403` on every write.
+  </Accordion>
+  <Accordion title="Quotas" icon="gauge">
+    Actions that spend plan resources (prompts, competitors, audits, health refreshes, content gaps) have a matching `quota` endpoint. Check it before you act. Your plan sets the limits.
+  </Accordion>
+  <Accordion title="Dates and times" icon="calendar">
+    Timestamps are ISO 8601 in UTC. Date filters (`date_from`, `date_to`) take `YYYY-MM-DD` and win over `time_range` when both are set.
+  </Accordion>
+</AccordionGroup>
 
 ## REST API or MCP?
 
-Both expose the same data with the same key.
+Both use the same key, the same rate limit and the same permissions.
 
-- **REST API**: your own code, scheduled jobs, BI pipelines, integrations.
-- **MCP server**: AI assistants like Claude exploring your data conversationally. See the [MCP setup guide](/guides/mcp/setup).
+- **REST API**: your own code, scheduled jobs, BI dashboards, warehouse syncs.
+- **MCP server**: AI assistants such as Claude or ChatGPT exploring your data in a conversation. See the [MCP setup guide](/guides/mcp/setup).
+
+<Card title="Download the OpenAPI spec" icon="file-json" href="/api-reference/openapi.json">
+  Generate a typed client, or import every endpoint into Postman, Insomnia or Bruno.
+</Card>

@@ -1,0 +1,63 @@
+---
+title: "Authentication"
+description: "Authenticate every request with a personal API key sent as a Bearer token."
+icon: "key-round"
+---
+
+Every request needs an `Authorization` header with your API key:
+
+```bash
+curl "https://api.tryhikoo.com/api/v1/public/me" \
+  -H "Authorization: Bearer hk_your_api_key"
+```
+
+## Create a key
+
+<Steps>
+  <Step title="Open the API keys settings">
+    In the [dashboard](https://app.tryhikoo.com), go to **Settings > API keys**.
+  </Step>
+  <Step title="Create the key">
+    Click **Create key**, give it a name you will recognize, and optionally set an expiry date.
+  </Step>
+  <Step title="Copy it once">
+    The full key starts with `hk_` and is shown only once. Store it in a secret manager or an environment variable such as `HIKOO_API_KEY`.
+  </Step>
+</Steps>
+
+## What a key can reach
+
+A key is tied to **your user account**, not to one website. It reaches every workspace you are a member of, and every website inside them, with the same rights you have in the dashboard:
+
+| Request | Requirement |
+| ------- | ----------- |
+| `GET /me`, `/workspaces`, `/websites` | A valid key |
+| Any request with `website_id` | You are a member of the website's workspace, and the website has an active subscription |
+| `POST`, `PUT`, `PATCH`, `DELETE` | Your workspace role can edit (read-only members get `403`) |
+
+<Info>
+The same key also authenticates the [MCP server](/guides/mcp/setup). Requests from both share one rate limit.
+</Info>
+
+## Rotate or revoke a key
+
+Revoking a key in **Settings > API keys** disables it immediately. To rotate without downtime:
+
+1. Create a new key.
+2. Deploy it to every client.
+3. Revoke the old key.
+
+<Warning>
+Treat keys like passwords. Never commit them to a repository, never ship them in browser or mobile code, and revoke a key as soon as you suspect it leaked.
+</Warning>
+
+## Authentication errors
+
+| Status | `detail` | What to do |
+| ------ | -------- | ---------- |
+| `401` | `Missing or malformed Authorization header. Expected: Bearer <credential>` | Send `Authorization: Bearer <key>`, with the `Bearer ` prefix. |
+| `401` | `Invalid or expired credential` | The key is wrong, expired or revoked. Create a new one. |
+| `401` | `User account is inactive` | The account that owns the key is deactivated. |
+| `403` | `Email address not verified` | Confirm your email address from the dashboard. The response carries `X-Error-Code: email_not_verified`. |
+
+See [Errors](/api-reference/errors) for the full list.

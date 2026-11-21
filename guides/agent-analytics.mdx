@@ -1,62 +1,111 @@
 ---
 title: "Agent analytics"
-description: "See real AI agents and crawlers fetching pages on your own site"
+description: "See which AI agents and crawlers fetch pages on your own site, and what they read"
 ---
 
-**Agent analytics** shows the real AI agent and crawler traffic hitting your own site. It tells you which AI vendors crawl you, which URLs they read, and how that activity changes over time.
+**Agent Analytics** shows the real AI agent and crawler traffic hitting your own site. It tells you which AI providers visit you, why they come, which URLs they read, and how that activity changes over time.
 
 ## How this differs from citations
 
 Citations and agent analytics answer two different questions:
 
-- **Citations** measure whether AI answers cite you. See [Citations](/guides/citations).
-- **Agent analytics** measures whether AI bots are actually fetching your pages.
+- **Citations** measure whether AI answers name or link you. See [Citations](/guides/citations).
+- **Agent analytics** measures whether AI bots actually fetch your pages.
 
 A page can be crawled without being cited, and cited without being freshly crawled, so it helps to watch both.
 
 ## What the page shows
 
-Cards across the top give you the headline numbers:
+### Visits over time
 
-- **Total visits**
-- **Unique agents**
-- **Unique pages**
-- **Top vendor**
-- **Top agents**
+The **Visits over time** chart plots every AI agent visit for the period. Above it, **AI agent visits** and **Pages visited** give the totals, with their change against the comparison period.
 
-You can filter by **vendor**, read a **visits over time** chart, and drill into a per-URL and per-folder table to see exactly which pages the agents read.
+### Providers
 
-## Set up agent analytics
+The **Providers** ranking lists the AI companies whose agents visit your site, ranked by visits. Each row shows the provider's **Share of visits**, its **Trend**, and its number of **Visits**. Click **Details** on a provider to switch the chart to its individual agents, and **Back to total** to return.
 
-<Steps>
-  ### Open the configuration panel
+### Pages crawled by AI agents
 
-  Open the configuration and connection panel for agent analytics.
+The **Pages crawled by AI agents** table lists the URLs agents read, with the number of **Bot visits** and the **Agents** that made them. Use the search field to find a URL.
 
-  ### Generate a tracking token
+## Filters
 
-  Generate a site tracking token for your website.
+| Filter | Description |
+|---|---|
+| **Period** | A preset or a custom range, plus a comparison period for the changes. |
+| **Providers** | One or more AI providers, such as OpenAI, Anthropic, Perplexity, or Google. Starts on **All providers**. |
+| **Intent** | Why the agent fetched the page. Starts on **All intents**. |
 
-  ### Install the tracking script
+The intents are:
 
-  Add the provided tracking script to your site so incoming agent traffic is recorded.
+| Intent | What it means |
+|---|---|
+| **Answering a user** | An assistant fetched the page live to answer someone's question. |
+| **AI search index** | A crawler built the search index an assistant uses. |
+| **Autonomous agent** | An agent browsed the page while carrying out a task. |
+| **Training** | A crawler collected content to train a model. |
+| **Other AI bots** | AI bots that fit none of the above. |
 
-  ### Wait for ingestion
+## Connect your site
 
-  Once traffic is ingested, the dashboard populates with your agent visits.
-</Steps>
+Agent analytics needs your site's request logs. Hikoo keeps only the visits of tracked AI agents (ChatGPT, Claude, Perplexity, Gemini, and about a hundred more) and ignores human visits and other bots. Each site has its own connection key, which Hikoo expects in an `X-Agent-Token` header.
+
+Click **Configuration** on the Agent Analytics page, or **Configure the connection** on the empty page, to open the setup. The connection also lives in the **Integrations** tab of your workspace settings.
+
+<Tabs>
+  <Tab title="Sites hosted on Vercel">
+    Vercel sends your site's logs to Hikoo through a Log Drain. Log Drains are available to Vercel teams on the Pro or Enterprise plan.
+
+    <Steps>
+      ### Create the connection key
+
+      In Hikoo, open the **Vercel** integration for your site and click **Create the key**.
+
+      ### Add a drain in Vercel
+
+      In Vercel, open the team that hosts the site, go to **Team Settings**, then **Drains**, and click **Add Drain**. Choose **Logs** as the data to send.
+
+      ### Pick the project and sources
+
+      Choose **Specific Projects** and select the site's project. Tick **Functions**, **Edge Functions**, **Static Files**, **Rewrites**, and **Redirects**. Keep the **Production** environment only and leave the sampling rate at 100%.
+
+      ### Set the destination
+
+      Choose **Custom Endpoint**. Paste the endpoint URL shown in Hikoo, pick JSON or NDJSON, and add a custom header named `X-Agent-Token` with your key as its value.
+
+      ### Save and check
+
+      Save the drain and come back to the integration. The site switches to **Connected** as soon as Vercel sends its first logs, usually a few seconds after someone visits the site.
+    </Steps>
+  </Tab>
+  <Tab title="Other hosts">
+    Hikoo also accepts AI agent visits from a proxy or middleware running in front of your site, on any host. For each request, your proxy sends the visited URL and the user agent to Hikoo, along with your site's key in the `X-Agent-Token` header. Hikoo classifies the visitor and stores only AI agents.
+
+    The in-app guide covers Vercel only. To set up another host, write to [support@tryhikoo.com](mailto:support@tryhikoo.com) and the team gives you the endpoint and the request format.
+  </Tab>
+</Tabs>
+
+Visits show up in Agent Analytics, the public API, and the MCP server shortly after the bot's visit.
+
+<Warning>
+Treat your connection key like a password. Anyone who has it can send visits for your site.
+</Warning>
+
+### Disconnect a site
+
+Click **Disconnect** next to the site in the integration. Hikoo then refuses new logs for that site, and the visits already stored stay in your analytics. On Vercel, also delete the drain, otherwise Vercel keeps sending it and flags it as failing. If a site is disconnected, a banner on the Agent Analytics page offers to **Reconnect** it.
 
 ## Availability
 
-Agent analytics is available on some plans. Once it is on your plan, complete the setup above to start collecting data.
+Your plan determines whether agent analytics is included. On a plan without it, the page is hidden and incoming logs are ignored.
 
 ## Related
 
 <Columns cols={2}>
-  <Card title="Health" icon="gauge" href="/guides/health">
+  <Card title="Website health" icon="heart" href="/guides/health">
     Check whether your site is readable by AI crawlers.
   </Card>
   <Card title="Pages" icon="file-text" href="/guides/pages">
-    See the pages agents are reading, page by page.
+    Your indexed page inventory, page by page.
   </Card>
 </Columns>

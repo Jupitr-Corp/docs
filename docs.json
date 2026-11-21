@@ -1,14 +1,14 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "maple",
   "name": "Hikoo",
   "colors": {
-    "primary": "#0A0A0A",
-    "light": "#FFFFFF",
-    "dark": "#0A0A0A"
+    "primary": "#16151A",
+    "light": "#F4C533",
+    "dark": "#16151A"
   },
   "appearance": {
-    "default": "dark"
+    "default": "light"
   },
   "icons": {
     "library": "lucide"
@@ -28,7 +28,14 @@
               "index",
               "quickstart",
               "concepts/how-hikoo-works",
-              "guides/dashboard"
+              "guides/sentiment"
+            ]
+          },
+          {
+            "group": "Overview",
+            "pages": [
+              "guides/dashboard",
+              "guides/hiko"
             ]
           },
           {
@@ -38,15 +45,18 @@
               "guides/prompts",
               "guides/topics",
               "guides/search-queries",
-              "guides/sentiment",
-              "guides/agent-analytics"
+              "guides/agent-analytics",
+              "guides/shopping"
             ]
           },
           {
             "group": "Battlemap",
             "pages": [
               "guides/competitors",
-              "guides/source-intelligence"
+              "guides/source-intelligence",
+              "guides/outreach/overview",
+              "guides/outreach/decisions",
+              "guides/outreach/settings"
             ]
           },
           {
@@ -64,24 +74,13 @@
             ]
           },
           {
-            "group": "Planning",
-            "pages": [
-              "guides/marketing-plan"
-            ]
-          },
-          {
             "group": "Account and team",
             "pages": [
               "guides/websites",
               "guides/workspaces",
               "guides/settings",
+              "guides/security",
               "guides/api-keys"
-            ]
-          },
-          {
-            "group": "Free tools",
-            "pages": [
-              "guides/free-tools"
             ]
           },
           {
@@ -100,14 +99,236 @@
           {
             "group": "Getting started",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/errors",
+              "api-reference/pagination-and-filters"
             ]
           },
           {
-            "group": "Endpoints",
-            "openapi": "/api-reference/openapi.json"
+            "group": "Account",
+            "pages": [
+              "GET /api/v1/public/me",
+              "GET /api/v1/public/workspaces",
+              "GET /api/v1/public/workspaces/with-websites",
+              "GET /api/v1/public/websites",
+              "GET /api/v1/public/website",
+              "GET /api/v1/public/website/subscription"
+            ]
+          },
+          {
+            "group": "AI visibility",
+            "pages": [
+              {
+                "group": "Citations",
+                "pages": [
+                  "GET /api/v1/public/citations",
+                  "GET /api/v1/public/citations/top-platforms",
+                  "GET /api/v1/public/citations/platforms",
+                  "GET /api/v1/public/citations/top-sources",
+                  "GET /api/v1/public/citations/sentiment-summary",
+                  "GET /api/v1/public/citations/sentiment-trend",
+                  "GET /api/v1/public/citations/breakdown",
+                  "GET /api/v1/public/citations/all-sources",
+                  "GET /api/v1/public/citations/{citation_id}"
+                ]
+              },
+              {
+                "group": "Prompts",
+                "pages": [
+                  "GET /api/v1/public/prompts/quota",
+                  "GET /api/v1/public/prompts",
+                  "POST /api/v1/public/prompts",
+                  "PUT /api/v1/public/prompts/{prompt_id}",
+                  "DELETE /api/v1/public/prompts/{prompt_id}",
+                  "POST /api/v1/public/prompts/batch-update",
+                  "POST /api/v1/public/prompts/batch-archive",
+                  "POST /api/v1/public/prompts/{prompt_id}/archive",
+                  "POST /api/v1/public/prompts/{prompt_id}/restore",
+                  "GET /api/v1/public/prompts/{prompt_id}/citations",
+                  "GET /api/v1/public/prompts/{prompt_id}/detail",
+                  "GET /api/v1/public/prompts/{prompt_id}/answers",
+                  "GET /api/v1/public/prompts/{prompt_id}/stats"
+                ]
+              },
+              {
+                "group": "Topics",
+                "pages": [
+                  "GET /api/v1/public/topics",
+                  "POST /api/v1/public/topics",
+                  "PUT /api/v1/public/topics/{topic_id}",
+                  "DELETE /api/v1/public/topics/{topic_id}"
+                ]
+              },
+              {
+                "group": "Search queries",
+                "pages": [
+                  "GET /api/v1/public/search-queries",
+                  "GET /api/v1/public/search-queries/grouped",
+                  "GET /api/v1/public/search-queries/grouped/queries",
+                  "GET /api/v1/public/search-queries/by-prompt/{prompt_id}",
+                  "GET /api/v1/public/search-queries/by-citation/{citation_id}"
+                ]
+              },
+              {
+                "group": "URL lookup",
+                "pages": [
+                  "GET /api/v1/public/url-lookup"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Competition and sources",
+            "pages": [
+              {
+                "group": "Competitors",
+                "pages": [
+                  "GET /api/v1/public/competitors",
+                  "POST /api/v1/public/competitors",
+                  "GET /api/v1/public/competitors/suggestions",
+                  "GET /api/v1/public/competitors/suggestions/{suggestion_id}/citations",
+                  "POST /api/v1/public/competitors/suggestions/{suggestion_id}/dismiss",
+                  "POST /api/v1/public/competitors/suggestions/{suggestion_id}/promote",
+                  "PUT /api/v1/public/competitors/{competitor_id}",
+                  "DELETE /api/v1/public/competitors/{competitor_id}",
+                  "GET /api/v1/public/competitors/citations",
+                  "GET /api/v1/public/competitors/chart-stats",
+                  "GET /api/v1/public/competitors/website-shares",
+                  "GET /api/v1/public/competitors/limit"
+                ]
+              },
+              {
+                "group": "Source intelligence",
+                "pages": [
+                  "GET /api/v1/public/source-intelligence/sources",
+                  "GET /api/v1/public/source-intelligence/stats",
+                  "GET /api/v1/public/source-intelligence/pages"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Site",
+            "pages": [
+              {
+                "group": "Audits",
+                "pages": [
+                  "GET /api/v1/public/audits/quota",
+                  "GET /api/v1/public/audits",
+                  "POST /api/v1/public/audits",
+                  "POST /api/v1/public/audits/url",
+                  "POST /api/v1/public/audits/pages",
+                  "POST /api/v1/public/audits/{audit_id}/sync",
+                  "GET /api/v1/public/audits/{audit_id}",
+                  "GET /api/v1/public/audits/{audit_id}/pages/{page_id}"
+                ]
+              },
+              {
+                "group": "Health",
+                "pages": [
+                  "GET /api/v1/public/health",
+                  "POST /api/v1/public/health/refresh",
+                  "GET /api/v1/public/health/refresh-quota",
+                  "POST /api/v1/public/health/suggestions/{suggestion_id}/dismiss",
+                  "POST /api/v1/public/health/suggestions/{suggestion_id}/restore",
+                  "POST /api/v1/public/health/suggestions/regenerate",
+                  "GET /api/v1/public/health/suggestions/regenerate-quota",
+                  "GET /api/v1/public/health/suggestions/{suggestion_id}/pages"
+                ]
+              },
+              {
+                "group": "Indexation",
+                "pages": [
+                  "GET /api/v1/public/indexation/summary",
+                  "GET /api/v1/public/indexation/status",
+                  "GET /api/v1/public/indexation/pages",
+                  "GET /api/v1/public/indexation/pages/{page_id}",
+                  "GET /api/v1/public/indexation/errors",
+                  "POST /api/v1/public/indexation/single-page"
+                ]
+              },
+              {
+                "group": "Content gaps",
+                "pages": [
+                  "GET /api/v1/public/content-gaps/quota",
+                  "GET /api/v1/public/content-gaps/summary",
+                  "GET /api/v1/public/content-gaps",
+                  "GET /api/v1/public/content-gaps/{suggestion_id}"
+                ]
+              },
+              {
+                "group": "Agent analytics",
+                "pages": [
+                  "GET /api/v1/public/agent-analytics",
+                  "GET /api/v1/public/agent-analytics/pages"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Outreach",
+            "pages": [
+              {
+                "group": "Home and activity",
+                "pages": [
+                  "GET /api/v1/public/outreach/overview",
+                  "GET /api/v1/public/outreach/home",
+                  "GET /api/v1/public/outreach/work",
+                  "GET /api/v1/public/outreach/activity"
+                ]
+              },
+              {
+                "group": "Sources",
+                "pages": [
+                  "GET /api/v1/public/outreach/sources",
+                  "GET /api/v1/public/outreach/sources/{source_id}",
+                  "POST /api/v1/public/outreach/sources/{source_id}/draft",
+                  "PATCH /api/v1/public/outreach/sources/{source_id}/status",
+                  "PATCH /api/v1/public/outreach/sources/{source_id}/contact",
+                  "PUT /api/v1/public/outreach/sources/{source_id}/follow-up",
+                  "POST /api/v1/public/outreach/sources/{source_id}/follow-up/skip",
+                  "POST /api/v1/public/outreach/sources/{source_id}/hot-reply",
+                  "POST /api/v1/public/outreach/sources/{source_id}/negotiation",
+                  "DELETE /api/v1/public/outreach/sources/{source_id}/negotiation",
+                  "POST /api/v1/public/outreach/sources/{source_id}/note"
+                ]
+              },
+              {
+                "group": "Pitches",
+                "pages": [
+                  "PATCH /api/v1/public/outreach/messages/{message_id}",
+                  "POST /api/v1/public/outreach/messages/{message_id}/approve",
+                  "POST /api/v1/public/outreach/messages/{message_id}/rewrite",
+                  "GET /api/v1/public/outreach/messages/{message_id}/versions",
+                  "POST /api/v1/public/outreach/messages/{message_id}/version"
+                ]
+              },
+              {
+                "group": "Settings",
+                "pages": [
+                  "GET /api/v1/public/outreach/settings",
+                  "PUT /api/v1/public/outreach/settings/preset",
+                  "PUT /api/v1/public/outreach/settings/permission",
+                  "PUT /api/v1/public/outreach/settings/money",
+                  "PUT /api/v1/public/outreach/settings/follow-ups",
+                  "PUT /api/v1/public/outreach/settings/offer",
+                  "PUT /api/v1/public/outreach/settings/sender"
+                ]
+              },
+              {
+                "group": "Mailboxes and blocklist",
+                "pages": [
+                  "GET /api/v1/public/outreach/mailboxes",
+                  "GET /api/v1/public/outreach/blacklist",
+                  "POST /api/v1/public/outreach/blacklist",
+                  "DELETE /api/v1/public/outreach/blacklist/{entry_id}"
+                ]
+              }
+            ]
           }
-        ]
+        ],
+        "openapi": "/api-reference/openapi.json"
       }
     ],
     "global": {
@@ -128,7 +349,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:contact@tryhikoo.com"
+        "href": "mailto:support@tryhikoo.com"
       }
     ],
     "primary": {
@@ -151,5 +372,25 @@
       "linkedin": "https://www.linkedin.com/company/hikoo",
       "x": "https://x.com/tryhikoo"
     }
+  },
+  "background": {
+    "color": {
+      "light": "#F9F8F5",
+      "dark": "#111A45"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Host Grotesk",
+      "weight": 500
+    },
+    "body": {
+      "family": "Host Grotesk",
+      "weight": 400
+    }
+  },
+  "styling": {
+    "eyebrows": "section",
+    "codeblocks": "dark"
   }
 }
