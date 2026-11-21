@@ -1,82 +1,87 @@
 ---
 title: "Citations"
-description: "Track every time an AI assistant mentions or links your site in an answer"
+description: "Browse every AI answer collected for your prompts and see how your site appears in each one"
 ---
 
-A **citation** is one instance of an AI assistant mentioning or linking your site in an answer to a tracked prompt. The Citations page collects those instances, benchmarks them against competitors, and lets you filter down to a single answer to see exactly how you were referenced.
+The Citations page collects every AI answer Hikoo gathered for your prompts. It shows how often you are named, linked, or used as a source, benchmarks you against competitors, and lets you open any single answer to see exactly how you were referenced.
 
-## Citations by platform
+## How your site appears
 
-At the top of the page, the **Citations by platform** chart breaks your citation volume down by AI platform over time. Alongside it, insight callouts summarize the movement so you do not have to read the chart line by line. They highlight your most cited platform, the fastest growing one, any platform that is declining, and any newcomer platform that just started citing you.
+Three cards open the page, one per way your site can show up in an answer. Each shows its change against the comparison period.
 
-## All citations
+| Card | What it counts |
+|---|---|
+| **Mentions** | Answers that name your brand, or one of its alternative names. This is your visibility. |
+| **Citations** | Answers that show a link to your website, inline or as a source. |
+| **Background sources** | Answers where the AI read your website while searching, without showing a link to it. |
 
-Below the chart, the **All citations** table lists every recorded citation. Each row gives you:
+## Visibility by platform
+
+The **Visibility by Platform** chart shows the share of each platform's answers that name your brand, over time. Below it, one card per platform gives its current value. Click a platform card to focus the chart on it, and click it again to go back to the total.
+
+## Top sources
+
+The **Top Sources** card lists the domains AI platforms rely on to answer your prompts. Switch between **Shown** (domains the AI linked in its answer) and **Background** (domains it read but did not show). The card also lists **Your pages** that get cited. Click **See all URLs** to open the full list.
+
+## All answers
+
+The **All answers** table lists every answer collected for your prompts.
 
 | Column | What it shows |
 | --- | --- |
-| Date | When the citation was collected |
-| AI platform | The assistant that produced the answer |
-| Cited | Whether your site was cited in that answer |
-| Sentiment | How the answer portrayed your brand |
-| Competitors cited | Which rivals appeared in the same answer |
-| Sources | The domains and pages the answer pulled from |
-| Rank | Where your site landed among the cited sources |
+| **Prompt** | The tracked question that produced the answer |
+| **Platform** | The assistant that produced the answer |
+| **Match** | How your site appears: mention, citation, or background source |
+| **Position** | Where your brand is named among the brands in the answer |
+| **Sentiment** | How the answer speaks about your brand. See [How sentiment works](/guides/sentiment). |
+| **Competitors** | The competitors named in the same answer |
+| **Sources** | The domains and pages the answer pulled from |
+| **Date** | When the answer was collected |
 
-Select any row to open its detail view.
+Click a row to open the answer in a side panel. Use the arrows to move to the previous or next answer, or click **Open as a page** for the full view.
 
 ## Filters
 
-A filter bar sits above the table so you can narrow the list to the citations you care about. You can filter by:
+The shared [filter bar](/guides/dashboard#the-filter-bar) sets the period, platforms, topics, markets, brand scope, intent, and tags. Above the table, you can narrow the answers further:
 
-- **Platform**, **time range**, **topic**, and **market**
-- **Competitor**, to see answers where a specific rival appeared
-- **Sentiment**, across positive, neutral, and negative
-- **Rank**, using top-N, equal to N, at least N, or between two values
-- **Cited only**, to hide answers where your site was not referenced
-- **Match types**, across brand citation, site mention, and background source
+- **Match**: mentions, citations, or background sources.
+- **Position**: top N, an exact position, or a position at N or worse.
+- **Competitor**: answers that name a specific competitor.
+- **Sentiment**: answers with a positive, neutral, or negative signal about your brand. Sentiment depends on your plan.
 
-Active filters appear as chips, and a **Clear all** action resets them at once.
+Active filters appear as chips, and **Clear all** resets them at once.
 
-## Citation detail
+## Answer detail
 
-The citation detail view shows the full AI answer so you can read it in context. It marks whether your site was cited, lists the competitors cited in the same answer, and separates the sources into **Mentioned** and **Background**. A rank badge reads **Rank X of total** so you can see your standing among all cited sources at a glance.
+The answer detail shows the full AI conversation so you can read it in context. It marks whether your site was cited, lists the competitors named in the same answer, and separates the sources into **Mentioned** (shown to the reader) and **Background** (consulted but not shown). A badge gives your position in the answer. The detail also lists the [search queries](/guides/search-queries) the assistant ran to write the answer.
 
-## Citation quota
+## All cited URLs
 
-Your plan buys a number of AI-response "runs" that Hikoo spends collecting fresh answers. The citation quota panel shows runs used and remaining and your renewal date. It also gives you control over how those runs are spent:
+**See all URLs** opens the list of every URL referenced across AI answers, sorted by frequency. You can:
 
-- An **auto-distribution** toggle lets Hikoo spread runs across your platforms for you.
-- A manual distribution editor lets you set the split across platforms yourself.
-- **Launch now** triggers a collection immediately instead of waiting for the daily run.
+- Filter by **References**: **All references**, **Shown only**, or **Background only**.
+- Filter by **Origin**: **All sources**, **Your pages**, or **External only**.
+- Search a URL, and sort by **Rank** or **Change**.
 
-<Note>
-Which platforms you can track, and how many runs you get, are set by your plan.
-</Note>
+Each row shows the prompts that used the URL, the platforms that used it (**Used by**), and its frequency. Click a URL to see its usage over time and the answers that used it.
 
-## Sources
+## Export
 
-The **Sources** sub-page lists the third-party domains and pages that AI answers pulled from when they cited your space. The **All sources** table groups these by source class so you can see which kinds of sites feed the answers you appear in. Use it to find the pages worth earning a mention on.
-
-## How collection works
-
-Hikoo automatically collects fresh citations every day by querying the real AI assistants with your prompts. It then matches each answer against your site and competitors, ranks where you landed, and analyzes the sentiment and sources. Each answer spends one run from your plan. You can also spend a run on demand with **Launch now** on the citation quota panel.
-
-Export is available on plans that include it.
+Click **Export** to download the answers as CSV or Excel, either all data or only the answers that match your current filters. Export depends on your plan.
 
 ## Related
 
 <Columns cols={2}>
-  <Card title="Prompts" icon="quote" href="/guides/prompts">
-    The tracked questions that produce your citations.
+  <Card title="Prompts" icon="message-square" href="/guides/prompts">
+    The tracked questions that produce your answers.
   </Card>
-  <Card title="Competitors" icon="git-compare" href="/guides/competitors">
-    Benchmark your citations against rival brands.
+  <Card title="Competitors" icon="swords" href="/guides/competitors">
+    Benchmark your visibility against rival brands.
   </Card>
-  <Card title="Sentiment" icon="heart" href="/guides/sentiment">
-    See how AI answers portray your brand.
+  <Card title="How sentiment works" icon="smile" href="/guides/sentiment">
+    How Hikoo reads the tone of each answer.
   </Card>
-  <Card title="Search queries" icon="search" href="/guides/search-queries">
-    The sub-questions AI assistants search on your behalf.
+  <Card title="Query fanouts" icon="search" href="/guides/search-queries">
+    The searches AI assistants run on your behalf.
   </Card>
 </Columns>

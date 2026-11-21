@@ -1,91 +1,93 @@
 ---
 title: "Audit"
-description: "Run an on-demand AI-readiness evaluation of your site or specific pages and track your score over time"
+description: "Score how readable your pages are for AI engines and see what to fix first"
 ---
 
-The audit runs an on-demand AI-readiness evaluation of your website. It is part of the **Analyzer** module. Hikoo scores each page against a weighted catalog of criteria, then rolls the page scores up into an overall score you can track over time.
+**Audit** is the first page of the **Analyzer** module. An audit scores how readable your pages are for AI engines, across structure, content, and technical signals, and lists what to fix first. Scores roll up into an overall score you can track over time.
 
-Use the audit when you want a page-by-page verdict on how well your content is prepared to be found and cited by AI assistants. For a site-wide technical readiness overview, see [Health](/guides/health).
+The **Analyzer** module has three pages:
 
-## Running an audit
+- **Audit**, page-by-page scoring, covered here.
+- **Health & Suggestions**, a site-wide readiness check. See [Health](/guides/health).
+- **Indexed Pages**, the inventory of pages Hikoo knows. See [Indexed pages](/guides/pages).
 
-Click **New audit** to open the dialog. You have three modes.
+## Launch an audit
+
+Click **Launch audit** to open the dialog. It has two tabs.
 
 <Tabs>
-  <Tab title="Full site">
-    On the **Full site** tab, Hikoo audits every page it has discovered for the selected website. Use this for a complete picture of your AI readiness.
+  <Tab title="Full Site">
+    Audit every indexed page of the website. The dialog shows how many pages were detected.
   </Tab>
-  <Tab title="Single URL">
-    Audit one specific URL. Use this to check a single page after you have changed it.
-  </Tab>
-  <Tab title="Select pages">
-    On the **Select pages** tab, choose a set of pages to evaluate. Use this when you want to focus on a section of your site.
+  <Tab title="Select Pages">
+    Pick pages from your indexed pages. To audit a page that is not indexed, paste its full URL and add it as a custom URL. Use this tab to check a single page after you change it.
   </Tab>
 </Tabs>
 
-The audit runs in the background. A progress banner shows its status while it is in process. You can leave the page and come back. When the run finishes, use **Sync** to pull in the results, or wait for the audit to update on its own.
+The dialog shows how many pages you can still audit this period, and warns you when a selection is larger than what remains. Click **Launch Audit** to start.
+
+The audit runs in the background. A **Running Audits** banner shows its progress. You can leave the page and come back.
 
 <Note>
-Audits are scoped to the website selected in the site switcher. Switch sites in the sidebar to audit a different property.
+Audits are scoped to the website selected in the site switcher. Switch sites in the sidebar to audit a different website.
 </Note>
+
+## The Audit page
+
+Once you have completed audits, the page shows:
+
+- Your **Average score** out of 100, compared with the previous audit.
+- **Score history**, one bar per audit. Filter it by **Scope** to compare full-site and selected-page audits separately. Click a bar to open that report.
+- **Completed audits**, the number of audits finished so far.
+- **Pages audited this month**, your usage against your plan limit and when it resets.
+
+Below, the **Audit History** table lists every audit with its **Date**, **Scope**, **Pages**, **Score**, change **vs previous**, and **Status**. Filter it by scope or score range. Click **View report** to open an audit, or use **Re-run this audit** to launch a new audit on the same pages. Use the export button in the page header to download your audits, if your plan includes exports.
 
 ## How pages are scored
 
-Each page is scored against a weighted criteria catalog that mixes static checks and LLM checks. Static checks read your page directly. LLM checks use a model to judge qualities that are hard to measure mechanically, such as whether a heading reads like a real question.
+Each page is scored against a weighted catalog of criteria. Static checks read your page directly. LLM checks use a model to judge qualities that are hard to measure mechanically, such as whether headings read like real questions.
 
-Criteria are scoped by page category, so a blog post is judged by different rules than a product page. Categories include home, blog post, product, e-commerce product page, service, FAQ, and landing page. A set of site-wide `GLOBAL` checks applies to the property as a whole.
-
-### Example criteria
+Criteria depend on the page type, so a blog post is judged by different rules than a product page. A set of site-wide checks also applies to the website as a whole.
 
 <AccordionGroup>
-  <Accordion title="Global checks" icon="globe">
+  <Accordion title="Site-wide checks" icon="globe">
     - `llms.txt` exists and is well formed.
     - `robots.txt` exists and allows AI crawlers.
     - `sitemap.xml` exists.
   </Accordion>
-  <Accordion title="On-page GEO checks" icon="file-text">
-    - Article schema or another relevant schema is present as JSON-LD.
-    - The page has a clean H1 to H2 to H3 heading hierarchy.
-    - The page loads in under 3 seconds on mobile.
+  <Accordion title="On-page checks" icon="file-text">
+    - Relevant structured data, such as an Article schema, is present as JSON-LD.
+    - The page has a clean heading hierarchy.
+    - The page loads fast on mobile.
     - No content is hidden behind JavaScript.
     - Headings are descriptive and question-style.
     - Metadata is strong.
-    - E-commerce product pages meet their page-specific requirements.
   </Accordion>
 </AccordionGroup>
 
-## Audit results
+## Audit report
 
-When an audit completes, the summary shows:
+Open an audit to see its report:
 
-- **Overall score**, displayed as a ring.
-- **Pages analyzed**, the total number of pages evaluated.
-- **Average page score**, the mean score across those pages.
-- **Assessment**, a plain-language rating of Excellent, Good, Needs work, or Poor.
-- **Pages with errors**, so you can jump straight to what needs attention.
+- The **Overall score** out of 100.
+- **Pages audited** and **Average page score**.
+- **Pages by score**, the distribution of pages across score bands: 80 and above, 60 to 79, and below 60.
+- **Scores by page type**, the average score of each page type, weakest first.
+- The list of audited pages, which you can filter.
 
-## Page-level detail
+Click **Sync** on the report to launch a new audit with the same pages.
 
-Open any page in the audit to see its full breakdown. Each page lists every criterion with a pass or fail result and a recommendation for the ones that fail. Criteria are grouped into areas so you can see where the weakness is, covering performance, accessibility, SEO, and best practices. Score charts show how the page performs across those areas.
+## Page detail
 
-## Audit actions
-
-From an audit you can:
-
-- **Sync** to pull in the latest results.
-- **Export** the audit.
-- **Archive** an audit you want to keep but set aside.
-- **Delete** an audit you no longer need.
+Click a page in the report to open its detail. The **Audit Criteria** tab lists every criterion with its result, the points it is worth, and **How to fix** it when it fails. The header shows the page score, its pass rate, and what is left **To fix**.
 
 ## Quotas
 
-Your plan determines your audit quotas. Three limits apply:
+Your plan determines how many pages you can audit each month. The **Pages audited this month** card and the launch dialog show what you have left and when the count resets.
 
-- **Audits per month**, how many audit runs you can start in a billing period.
-- **Audited pages per month**, the total pages you can evaluate across all runs.
-- **Page limit per audit**, the largest number of pages a single run can cover.
+## API and MCP
 
-A remaining counter on the Audit page shows what you have left in the current period.
+You can list audits, launch them, and read page results from the REST API and the [MCP server](/guides/mcp/overview).
 
 ## Related guides
 
@@ -93,13 +95,10 @@ A remaining counter on the Audit page shows what you have left in the current pe
   <Card title="Health" icon="heart" href="/guides/health">
     Check your site-wide technical readiness for AI discovery.
   </Card>
-  <Card title="Pages" icon="file-text" href="/guides/pages">
-    Browse your indexed pages and their per-page audit scores.
+  <Card title="Indexed pages" icon="file-text" href="/guides/pages">
+    Browse your indexed pages and index new ones.
   </Card>
-  <Card title="Elevate" icon="chart-line" href="/guides/elevate">
-    Close content gaps and generate articles from your findings.
-  </Card>
-  <Card title="Marketing plan" icon="gauge" href="/guides/marketing-plan">
-    Turn audit findings into a prioritized task board.
+  <Card title="Content suggestions" icon="lightbulb" href="/guides/elevate">
+    Find the content worth creating next.
   </Card>
 </Columns>

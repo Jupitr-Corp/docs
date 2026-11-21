@@ -1,37 +1,45 @@
 ---
 title: "How Hikoo works"
-description: "The core concepts behind Hikoo: prompts, citations, share of voice, and AI readiness."
+description: "The core concepts behind Hikoo: prompts, answers, visibility, share of voice, and AI readiness."
 ---
 
 Hikoo answers one question: when people ask AI assistants about your space, does your brand show up, and what can you do about it. This page explains the ideas that everything else builds on.
 
-## From prompts to citations
+## From prompts to answers
 
 <Steps>
 
 ### You define prompts
 
-A **prompt** is a natural-language question a real user might ask an AI assistant, for example "best project management tool for startups". You create prompts, import them, or let Hikoo generate them. See [Prompts](/guides/prompts).
+A **prompt** is a natural-language question a real user might ask an AI assistant, for example "best project management tool for startups". You write prompts, import them, or let Hikoo generate them. See [Prompts](/guides/prompts).
 
 ### Hikoo asks the AI assistants
 
-Every day, Hikoo sends your prompts to the AI assistants and records their full answers. Behind each answer the assistant runs its own **search queries**, which Hikoo also captures. See [Search queries](/guides/search-queries).
+Hikoo sends your prompts to the AI assistants and records their full answers. Behind each answer the assistant runs its own **search queries** (query fanouts), which Hikoo also captures. See [Query fanouts](/guides/search-queries).
 
-### Hikoo records citations
+### Hikoo reads every answer
 
-A **citation** is one instance of an assistant mentioning or linking your brand (or a competitor) in an answer. Hikoo matches, ranks, and analyzes each answer to know who was cited, in what position, and how positively. See [Citations](/guides/citations).
+For each answer, Hikoo checks how your site appears, which competitors are named, in what position, which sources were used, and what tone the answer takes about you. See [Citations](/guides/citations).
 
 </Steps>
+
+## How your site can appear in an answer
+
+| Match | What it means |
+|---|---|
+| **Mention** | The answer names your brand, or one of its alternative names. Readers see your name. |
+| **Citation** | The answer shows a link to your website, inline or as a source. Readers can click through. |
+| **Background source** | The assistant read your website while searching, but shows no link to it. |
 
 ## The metrics you will see
 
 | Term | What it means |
 |---|---|
-| **Visibility score** | How often your site is cited relative to competitors. |
-| **Share of voice** | Your share of all citations across the tracked brands. |
-| **Rank** | Your position in a given answer (for example rank 2 of 6). |
-| **Sentiment** | Whether an answer portrays your brand positively, neutrally, or negatively. |
-| **Citation rate** | How often a prompt produces a citation of your site. |
+| **Visibility** | The share of AI answers that name your brand, out of every answer collected in the period. |
+| **Share of voice** | Your mentions as a share of the mentions of every tracked brand. Each answer counts once per brand. |
+| **Citations** | The share of answers that show a link to your website. |
+| **Position** | Where your brand is named in an answer (1 means named first). |
+| **Sentiment** | Whether an answer speaks positively, neutrally, or negatively about your brand. See [How sentiment works](/guides/sentiment). |
 
 ## Platforms Hikoo tracks
 
@@ -44,12 +52,12 @@ Hikoo tracks visibility across the major AI assistants and answer engines:
   <Card title="Gemini" icon="/logos/platforms/gemini.svg" />
   <Card title="Google AI Overviews" icon="/logos/platforms/google.svg" />
   <Card title="Google AI Mode" icon="/logos/platforms/google.svg" />
-  <Card title="Copilot" icon="/logos/platforms/copilot.svg" />
+  <Card title="Bing AI Mode" icon="/logos/platforms/bing.svg" />
   <Card title="Grok" icon="/logos/platforms/grok.svg" />
   <Card title="Mistral" icon="/logos/platforms/mistral.svg" />
 </Columns>
 
-Which platforms you can track is set by your plan.
+Your plan determines which platforms you can track. Copilot is retired and Bing AI Mode replaced it. Answers collected from retired platforms stay in your history.
 
 ## The two sides of GEO
 
@@ -60,25 +68,31 @@ Winning AI citations takes two things, and Hikoo covers both.
     AI readiness: your site must let AI crawlers in and expose clean, structured content. This is the **Analyzer** (audit, health, pages).
   </Card>
   <Card title="Being worth citing" icon="trophy" href="/guides/elevate">
-    Coverage: you need content and third-party presence for the topics AI answers. This is **Elevate** (content gaps) and **Battlemap** (competitors, source intelligence).
+    Coverage: you need content and third-party presence for the topics AI answers. This is **Elevate** (content suggestions) and **Battlemap** (competitors, sources, outreach).
   </Card>
 </Columns>
 
 ## How the app is organized
 
-The dashboard groups features into modules. This documentation follows the same structure.
+The sidebar groups features into modules. This documentation follows the same structure.
 
 | Module | What it covers |
 |---|---|
-| **Overview** | The [dashboard](/guides/dashboard) home and your [marketing plan](/guides/marketing-plan). |
-| **Spotlight** | [Citations](/guides/citations), [prompts](/guides/prompts), [topics](/guides/topics), [search queries](/guides/search-queries), [sentiment](/guides/sentiment), and [agent analytics](/guides/agent-analytics). |
-| **Battlemap** | [Competitors](/guides/competitors) and [source intelligence](/guides/source-intelligence). |
-| **Elevate** | [Content gaps](/guides/elevate) where competitors get cited and you do not. |
+| **Overview** | The [dashboard](/guides/dashboard). The **Dashboard** / **Hiko** switch at the top of the sidebar opens [Hiko](/guides/hiko), the assistant that answers questions about your data. |
+| **Spotlight** | [Citations](/guides/citations), [prompts](/guides/prompts) and their [query fanouts](/guides/search-queries), [subjects](/guides/topics), [agent analytics](/guides/agent-analytics), and [shopping](/guides/shopping). |
+| **Battlemap** | [Competitors](/guides/competitors), [source intelligence](/guides/source-intelligence), and [outreach](/guides/outreach/overview). |
+| **Elevate** | [Content suggestions](/guides/elevate) where competitors get cited and you do not. |
 | **Analyzer** | [Audit](/guides/audit), [health](/guides/health), and [pages](/guides/pages). |
+
+Some items only appear when they apply to you. For example, **Shopping** appears once the site is connected to Shopify, and **Agent Analytics** depends on your plan.
+
+## Spotlight: where your visibility lives
+
+Spotlight is where you read what AI assistants say. Start with [Citations](/guides/citations) to browse the answers, then use [Prompts](/guides/prompts) to see which questions you win, lose, or have not claimed yet.
 
 ## Everything is scoped to a website
 
-Every metric belongs to a specific **website**. Use the site switcher in the sidebar to change the active site, and the shared filter bar (time range, platform, topic, market) to slice any view. Websites live inside [workspaces](/guides/workspaces), which hold your team and your subscription.
+Every metric belongs to a specific **website**. Use the site switcher in the sidebar to change the active site, and the shared filter bar (period, platforms, topics, markets, brand scope, intent, tags) to slice any view. Websites live inside [workspaces](/guides/workspaces), which hold your team and your subscription.
 
 <Card title="Ready to explore" icon="arrow-right" href="/guides/dashboard" horizontal>
   Open the dashboard guide to see these concepts in the product.

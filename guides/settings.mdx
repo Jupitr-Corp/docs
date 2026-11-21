@@ -1,53 +1,112 @@
 ---
 title: "Settings"
-description: "Manage your profile, preferences, security, API keys, team, and billing from one modal."
+description: "Manage your account, notifications, security, API keys, and the sites, integrations, members, and billing of each workspace."
 ---
 
-Settings opens as a modal from the user menu. It gathers everything about your account, your workspaces, and your billing in one place. Each area below is a section of that modal.
+Settings opens as a modal from the user menu. The left rail has two groups: **Account**, for everything about you, and **Workspace**, for the workspace you pick in the switcher at the top of that group. Each area below is a section of the modal.
 
-## Profile
+| Group | Sections |
+|---|---|
+| **Account** | **Profile**, **Preferences**, **Notifications**, **Security**, **API Keys** |
+| **Workspace** | **Sites**, **Integrations**, **Members**, **Billing**, **Settings** |
 
-Set your display name. Your email address is shown for reference and cannot be changed here.
+<Tip>The workspace switcher at the top of the **Workspace** group also lets you create a new workspace.</Tip>
 
-## Preferences
+## Account sections
 
-Choose how Hikoo looks and reads.
+### Profile
 
-- Theme: Light, Dark, or Auto. Auto follows your operating system's preference.
-- Language: English or Français.
+Shows your **Full Name**, your **Email**, and your **Account Status**. These details are read-only here.
 
-<Note>Changing the language reloads the app and applies the new locale everywhere.</Note>
+### Preferences
 
-## Security
+Choose how Hikoo looks and reads, then click **Save**.
 
-Click **Change password** to set a new password. You enter your current password and choose a new one.
+- **Theme**: **Light**, **Dark**, or **Auto**. **Auto** follows your operating system.
+- **Language**: **English** or **Français**.
 
-<Note>If you signed up with Google, password management happens in your Google account rather than here.</Note>
+<Note>Changing the language applies the new locale everywhere in the app.</Note>
 
-## API keys
+### Notifications
 
-Create and revoke API keys, and get install instructions for the Hikoo MCP server and the REST API. This is where you generate a key, name it, and copy it once. See [API keys](/guides/api-keys) for the full workflow and safe handling.
+Choose the emails Hikoo sends you. Notifications are grouped into two sections, **Outreach** and **Account follow-up**. Each section has its own switch, and each kind of email inside it has another.
 
-The same section lists the **Connected assistants**: Claude, ChatGPT, or any other MCP client you connected by signing in, with the access each one has. **Disconnect** cuts one off immediately. See [Connecting the MCP](/guides/mcp/setup).
+The **Outreach** section covers the moments an opportunity needs you:
 
-## Sites, Members, and Workspace
+| Email | What it is |
+|---|---|
+| **Replies to handle** | A publisher replied: a decision or an answer written by Hikoo waits for you. |
+| **Reminders and daily summary** | A reply waiting for more than 4 business hours, and one summary a day of what waits. |
+| **Mails that did not go out** | A mail that could not leave the mailbox, or that the publisher's server refused. |
+| **Publications and what we owe** | A mention published, what you still owe for it, and its due day. |
+| **Won mentions checked** | A won mention gone or its link weaker, 30 and 90 days after the win. |
+| **Instructions not sent** | An instruction of yours that reached an opportunity already closed. |
 
-These sections manage the sites in a workspace, the people on the team, and the workspace's own settings.
+The **Account follow-up** section covers:
 
-- Sites: list the workspace's sites, add a site, manage each site's subscription, and set its language.
-- Members: invite teammates, set roles, and manage access.
-- Workspace: rename the workspace and access its danger zone.
+| Email | What it is |
+|---|---|
+| **Weekly report** | Every Monday, your share of voice, your competitors, and your sources. |
+| **Getting started** | Reminders while your site is not set up yet. |
+| **Your trial and your plan** | The end of your trial coming, and the free plan's pause. |
+| **After a subscription** | What changed since your subscription ended. |
 
-See [Workspaces](/guides/workspaces) for how roles and per-site subscriptions work.
+Turning a section off pauses all its emails and keeps your individual choices, so they come back when you turn the section on again.
 
-## Billing
+<Info>Some emails are **Always sent** and have no switch: security emails such as sign-in codes and changes to your account's security, and billing emails such as payments, invoices, and the end of your trial, and outreach emails about legal or GDPR requests and disconnected mailboxes.</Info>
 
-Review your subscription and your billing information. Billing information includes your name, company, address, and tax identifiers such as an EU VAT number or a French SIREN, which are validated automatically. You can also open the Stripe customer portal to update your payment method, view invoices, and change or cancel your plan.
+### Security
+
+The **Security** section groups:
+
+- **Password**: click **Change Password** to set a new one. If you signed up with Google, your account has no password to change here.
+- **Two-factor authentication**: an authenticator app, email codes, passkeys, and recovery codes.
+- **Export your data**: download a copy of your personal data as JSON or CSV.
+- **Delete account**: permanently delete your account and personal data.
+
+See [Security](/guides/security) for each of these in detail.
+
+### API keys
+
+Create and revoke personal API keys, and get install snippets for the Hikoo MCP server and the REST API. See [API keys](/guides/api-keys) for the full workflow.
+
+The same section lists the **Connected assistants**: Claude, ChatGPT, or any other MCP client you connected by signing in, with the access each one has. Disconnecting one cuts it off immediately. See [Connecting the MCP](/guides/mcp/setup).
+
+## Workspace sections
+
+### Sites
+
+List the workspace's sites, search them, add a site with **Add Site**, open a site's details, and choose or change each site's plan.
+
+### Integrations
+
+Connect Google Search Console, Bing Webmaster Tools, Shopify, and Vercel to the sites of the workspace.
+
+### Members
+
+Invite teammates, set their roles, and manage access. See [Workspaces](/guides/workspaces) for roles.
+
+### Billing
+
+Visible to workspace owners and admins. Review each site's subscription, open the billing portal with **Manage Billing**, view your invoice history, and edit your **Billing Information**: name, company, address, and tax identifiers such as an EU VAT number or a French SIREN, which are validated automatically.
+
+### Settings
+
+The workspace's own settings. Owners and admins can change the name and the two-factor rule.
+
+- **Workspace Name**: rename the workspace.
+- **Two-factor authentication**: turn on **Require two-factor authentication** to make every member set it up before they can use the workspace.
+- **Danger Zone**: the owner sees **Delete Workspace**. Every other member sees **Leave Workspace**.
+
+<Warning>Deleting a workspace cancels all its subscriptions, deactivates all its sites, and removes all its members. This cannot be undone.</Warning>
 
 ## Related pages
 
 <Columns cols={2}>
-  <Card title="API keys" icon="plug" href="/guides/api-keys">
+  <Card title="Security" icon="shield" href="/guides/security">
+    Two-factor authentication, data export, and account deletion.
+  </Card>
+  <Card title="API keys" icon="key-round" href="/guides/api-keys">
     Create keys for the REST API and the MCP server.
   </Card>
   <Card title="Workspaces" icon="users" href="/guides/workspaces">

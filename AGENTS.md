@@ -10,16 +10,25 @@
 
 ## Design direction
 
-- The site follows Hikoo's monochrome design: black in light mode, white in dark mode, dark by default. Colors are set in `docs.json` (`colors` + `appearance`).
-- Logos and favicons are the monochrome Hikoo wordmark (`logo/light.svg`, `logo/dark.svg`, `favicon-light.svg`, `favicon-dark.svg`).
-- `style.css` sharpens corners to match the flat DA. It may only take effect on a paid Mintlify plan; the `docs.json` colors carry the look on the free plan.
+- The site follows the marketing site (vitrine V13): cream paper `#F9F8F5`, ink `#16151A`, "press start" yellow `#F4C533`, night navy `#111A45` for dark mode. Light by default.
+- Colors, background, theme (`maple`) and fonts (Host Grotesk) live in `docs.json`. `style.css` adds the pixel details: Tiny5 eyebrows, Jersey 10 method pills, square corners, 2 px frames with hard offset shadows, yellow active states. Tokens mirror `vitrine/app/globals.css`; keep them in sync.
+- Reading stays sober. The retro lives in small labels, frames and shadows, never in body text.
+- Logos and favicons are the Hikoo wordmark from `vitrine/assets/logos/hikoo.tsx`, in ink (`logo/light.svg`) and paper (`logo/dark.svg`).
 - Icons use the **Lucide** library (`icons.library` in `docs.json`). Use Lucide icon names only, no FontAwesome or brand icons.
+
+## API reference
+
+- `api-reference/openapi.json` is generated, never edited by hand. It must match the backend running in production (`origin/main`).
+- Regenerate: export the raw spec with `backend/scripts/export_public_openapi.py` from an `origin/main` checkout, then run `python3 scripts/build_openapi.py <raw.json>`. The script adds readable titles, tag descriptions, shared error responses and the endpoint navigation in `docs.json`.
+- A new endpoint needs a title in `SUMMARIES`, and a new tag needs a place in `NAV_GROUPS`. The script fails or warns otherwise.
 
 ## Terminology
 
-- Prompt = a tracked question sent to AI assistants. Topic = a group of prompts. Citation = one AI mention of a brand. Search query = the search an assistant runs internally.
-- Modules mirror the app sidebar: Overview, Spotlight, Battlemap, Elevate, Analyzer.
-- Platforms: ChatGPT, Perplexity, Claude, Gemini, Google AI Overviews, Google AI Mode, Copilot, Grok, Mistral, DeepSeek.
+- Prompt = a tracked question sent to AI assistants. Topic = a group of prompts (the sidebar labels them **Subjects**). Mention = the brand is named in an answer; Citation = a link to the site is shown; Background source = a page the assistant read without showing it. Search query = the search an assistant runs internally (the UI says **Query fanouts**).
+- Modules mirror the app sidebar: Overview, Spotlight, Battlemap (includes Outreach, a regular module, never call it beta), Elevate, Analyzer.
+- The MCP server does not handle Outreach. The REST API does.
+- Support email: support@tryhikoo.com.
+- Platforms: ChatGPT, Perplexity, Claude, Gemini, Google AI Overviews, Google AI Mode, Bing AI Mode, Grok, Mistral. Copilot and DeepSeek are retired (Bing AI Mode replaced Copilot).
 - One MCP/API key is scoped to a **user account**, not a single website (the per-website model is retired).
 
 ## Style preferences
@@ -33,4 +42,4 @@
 ## Content boundaries
 
 - Do not document internal admin tools, impersonation internals, or scraping vendors.
-- Do not expose secrets, internal URLs, or the `X-MCP-Secret` relay detail.
+- Do not expose secrets, internal URLs, internal headers, or how the MCP server talks to the backend. This repository is public: everything committed here is public too, not only the published pages.

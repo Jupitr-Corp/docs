@@ -1,0 +1,124 @@
+---
+title: "Outreach"
+description: "Let Hikoo win mentions on the pages AI assistants quote, from your own mailbox and under your rules"
+---
+
+Outreach is part of the **Battlemap** module. It turns the pages AI assistants quote into mentions of your brand. Hikoo finds the page, finds the right person, writes from your own mailbox, follows the conversation, and checks whether AI answers pick up the mention once it is live.
+
+You decide how much Hikoo does alone. Anything unusual always comes back to you.
+
+## How Hikoo works an opportunity
+
+Every opportunity goes through the same steps. You can see them on the **Activity** page under **How Hikoo works an opportunity**.
+
+<Steps>
+  ### Spots a page that AI answers quote
+  Hikoo starts from the pages AI assistants cite in your space, often pages that list your competitors and not you. These come from the same data as [Source intelligence](/guides/source-intelligence) and [Competitors](/guides/competitors).
+
+  ### Checks the opportunity is worth it
+  Hikoo qualifies the page before anyone is contacted. Pages that are not a fit are set aside.
+
+  ### Finds the right person and the address
+  Hikoo writes to a named person. It falls back to the address a site publishes itself only after three weeks of looking have turned up nobody, and never to an address it guessed.
+
+  ### Writes the first email and sends it as your settings say
+  The first email leaves from your own mailbox, inside your sending hours. Whether it waits for your approval depends on your [settings](/guides/outreach/settings).
+
+  ### Follows the conversation
+  Hikoo reads replies, answers, and follows up. It comes to you for anything unusual.
+
+  ### Checks that the mention works
+  Once the mention is online, Hikoo checks every night whether AI answers pick it up.
+</Steps>
+
+## Set up Outreach
+
+The first time you open **Outreach**, a short setup asks you a few questions. You can change every answer later in **Settings**.
+
+1. **Where do the emails leave from?** Connect **Gmail** or **Outlook**. If you skip this step, Hikoo keeps finding opportunities and preparing first emails, but sends nothing.
+2. **How much should Hikoo do alone?** Pick a preset.
+3. **Should Hikoo follow up?** Choose **No follow-up**, **One follow-up**, or **Up to three**.
+4. **People with no address.** Decide whether Hikoo hands you a LinkedIn profile when it finds the right person but no email.
+
+Click **Finish setup** when you are done.
+
+<Note>
+Only the workspace owner and admins change Outreach settings. Members can still take decisions and approve emails.
+</Note>
+
+## The Outreach home
+
+The home page shows what Hikoo is doing and what waits on you.
+
+- A **status banner** appears when Hikoo is paused, for example when no mailbox is connected, a mailbox connection expired, or no mailbox sends for this site. Nothing is sent and no replies are read until you fix it. Hikoo picks up where it stopped.
+- **For you** summarizes how many conversations Hikoo is handling and how many decisions wait for you. Click **Start deciding** to open the [decisions](/guides/outreach/decisions) screen.
+- **Needs you** groups what waits on you: decisions, replies waiting to go out, first emails to approve, and other conversations.
+- **Results** shows how many sites were contacted, how many replied, your reply rate, and the mentions won. A mention counts as soon as Hikoo sees it live.
+- **Your promises** lists what Hikoo promised sites in exchange for a mention, the most urgent first.
+- A **Lately** line lists what Hikoo did without asking you. Click **Not like this next time** on any of them to either make that kind of mail ask you first, or give Hikoo an instruction for that conversation.
+
+### Pipeline
+
+The **Pipeline** lists every opportunity in three tabs: **Needs you**, **In progress**, and **Closed**. Each row shows the **Site and page**, the **Contact**, the **Next step**, and the **Owner**. Use the search field to find a site or a contact.
+
+The number of new sites Hikoo can contact each month is set by your plan. When this month's contact allowance is used, the pipeline says when the search resumes.
+
+## Opportunity panel
+
+Click a row in the pipeline to open its panel. It shows:
+
+- The stage: **Needs you**, **Hikoo is working**, **Waiting for them**, **Won**, **Lost**, or **Set aside**.
+- **Why this page**, with the number of AI citations of the page and the competitors it lists instead of you.
+- **History**, every email sent and received, and whether Hikoo sent it alone or after your OK.
+- **Contact details**, with **Search for another contact** if the person is wrong. If Hikoo finds a better one, the first email is rewritten for them.
+- **Hikoo's plan**, the next thing Hikoo will do and when. Click **Pause Hikoo on this conversation** to stop it.
+- **What you decided**, the decisions Hikoo follows on this conversation.
+
+### Close or reopen an opportunity
+
+Click **Close** to end an opportunity yourself:
+
+| Option | What happens |
+|---|---|
+| **Won** | Nothing is sent. Hikoo checks the page, records the link and the anchor, and stops every follow-up. You say what they published, for example a link that counts for SEO, a nofollow link, a mention without a link, or a paid placement. |
+| **Lost: declined**, **Lost: they only do paid**, **Lost: no answer** | Nothing is sent and follow-ups stop. |
+| **Pause until** | Hikoo writes nothing until the date you pick. On that day it writes once. |
+| **You handle it until** | Hikoo stays out of the thread until the date, then asks you how it ended. |
+| **Do not contact** | Nothing is ever sent again, to the person or to everyone at the domain. It adds them to the workspace's do-not-contact list. |
+
+For a data erasure request, tick **This is a data erasure request** under **Do not contact**. The person's name, address, and messages are erased. This cannot be undone.
+
+To bring a closed opportunity back, click **Reopen**. Choose **Reopen, Hikoo picks the exchange up** or **Reopen without writing**. You can add where you are with them, and Hikoo takes it into account in every next message.
+
+## Activity
+
+The **Activity** page lists everything Hikoo and you did, newest first, grouped by day. Filter it with **All**, **Done alone by Hikoo**, **Your decisions**, or **Their replies**. Entries marked **Without asking you** were done by Hikoo alone. Open **Why Hikoo did it** to read its reasoning.
+
+## Promises
+
+Sites sometimes ask for something in exchange for a mention, such as a sample, a discount code, or a link back. The **Promises** page lists every promise still owed, grouped **By deadline** or **By site**. Late promises come first. Each promise shows the request in **Their words**. Click **Mark as done** once you have kept it.
+
+## Outreach through the API
+
+Outreach is available in the [REST API](/api-reference/outreach/get-outreach-overview): you can read the home and activity, list opportunities, request, edit, rewrite, and approve pitches, and change settings. Approving a message through the API queues it. It still leaves from your mailbox, inside your sending hours.
+
+<Warning>
+Outreach is not available through the MCP server.
+</Warning>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Decisions" icon="list-checks" href="/guides/outreach/decisions">
+    Approve emails and answer replies.
+  </Card>
+  <Card title="Outreach settings" icon="settings" href="/guides/outreach/settings">
+    Connect mailboxes and set how much Hikoo does alone.
+  </Card>
+  <Card title="Source intelligence" icon="globe" href="/guides/source-intelligence">
+    See the sources AI assistants cite and where you are missing.
+  </Card>
+  <Card title="Competitors" icon="swords" href="/guides/competitors">
+    See who AI assistants cite instead of you.
+  </Card>
+</Columns>

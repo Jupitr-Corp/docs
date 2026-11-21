@@ -1,73 +1,90 @@
 ---
-title: "Pages"
-description: "Browse the pages Hikoo has indexed for your site, with category, language, and status for each"
+title: "Indexed pages"
+description: "Index your site, review every page Hikoo knows, and see Google and Bing impressions and clicks per page"
 ---
 
-Pages is your indexed-page inventory. It is part of the **Analyzer** module. Hikoo discovers your pages from your sitemap, stores them, and enriches each one so you can see the state of your whole site in one table.
+**Indexed Pages** is part of the **Analyzer** module. It is where you index your website and review the inventory of pages Hikoo knows. Hikoo discovers your pages from your sitemap, reads them, and analyzes each one.
 
-For every page Hikoo:
+For every analyzed page, Hikoo:
 
-- Auto-categorizes it as home, blog post, product, e-commerce product page, service, FAQ, or landing page.
+- Detects its category, such as home page, blog post, product page, pricing page, documentation page, or FAQ page.
 - Detects its language.
 - Detects E-E-A-T signals, covering experience, expertise, authoritativeness, and trustworthiness.
 
+## Index your pages
+
+- Click **Start Indexation** to have Hikoo discover and index your pages. A banner shows the progress while it runs, then how many pages were indexed.
+- Click **Add a page** to index or re-index a single URL. The URL must belong to your website's domain.
+
+<Note>
+The number of pages Hikoo can index depends on your plan.
+</Note>
+
+## Overview
+
+Above the table, a summary shows the number of **Indexed pages** and the last indexation date, the main **Page types**, and the main **Languages** of your site.
+
 ## The pages table
 
-Each row is one indexed page. The table shows:
+Each row is one page. The table shows:
 
 | Column | Description |
 |---|---|
-| **URL** | The address of the page. |
-| **Category** | The auto-detected page type. |
-| **Language** | The detected language. |
-| **Status** | Whether the page is `ok` or in `error`. |
-| **Last indexed** | When Hikoo last indexed the page. |
-| **Errors and warnings** | Any issues detected on the page. |
+| **Page** | The page address. |
+| **Category** | The detected page type. |
+| **Lang** | The detected language. |
+| **Status** | Where the page is in the pipeline, and its errors or warnings. |
+| **Indexed** | When Hikoo last indexed the page. |
+
+A page moves through these statuses:
+
+| Status | Meaning |
+|---|---|
+| **Not crawled yet** | Found in your sitemap, but not read yet. The next indexation reads it. |
+| **Crawled** | Content read, but not analyzed yet. Its category and language are guessed from the URL for now. |
+| **Analyzing…** | Analysis in progress. |
+| **Analyzed** | Fully analyzed, with no issue. |
+| **Warnings** or **Errors** | Analyzed, with issues to review. |
+| **Blocked** | The crawler could not read the page. |
+
+A **WAF blocked** badge means a firewall served a verification page or refused the crawler. AI engines likely hit the same wall. Contact [support@tryhikoo.com](mailto:support@tryhikoo.com) to move forward.
 
 ### Filters
 
-Narrow the table with the available filters:
+Narrow the table with **Search pages**, **Status**, **Category**, and **Language**.
 
-- **Status** to show only pages that are ok or in error.
-- **Category** to focus on one page type.
-- **Language** to focus on one language.
-- **Search** to find a page by URL.
+### Row actions
 
-## Page detail preview
+Open the actions menu of a row to:
 
-Open a page to see its preview, which shows:
+- **Open page** on your site.
+- **Change category** when the detected category is wrong.
+- **Delete** a page you do not want tracked.
 
-- The **meta description**.
-- The **HTTP status**.
-- Whether the page is **indexable**.
-- A link to its **audit score**, so you can jump to the full per-page breakdown in the [audit](/guides/audit).
+## Google and Bing data
 
-## Manual actions
+When you connect Google Search Console or Bing Webmaster Tools, the table adds a **Google** and a **Bing** column with the impressions and clicks of each page. Pick the period with the time range filter. A summary above the table gives the totals for that period.
 
-You can manage individual pages by hand:
+- Sort the table by impressions or clicks for either tool.
+- Google data arrives 2 to 3 days late.
+- Bing reports by week, so the period counts whole weeks.
 
-- **Index a single page** to add it to the inventory.
-- **Re-categorize a page** if the auto-detected category is wrong.
-- **Delete a page** you do not want tracked.
+If Hikoo loses access to a tool, a banner asks you to **Reconnect** the account.
 
-<Note>
-The number of indexed pages is capped by your plan.
-</Note>
+## API and MCP
 
-<Info>
-Indexation itself is started and managed from the [Health](/guides/health) page. The Pages table is where you review and manage the results.
-</Info>
+You can read the indexation summary and status, list pages and errors, and re-crawl a URL from the REST API and the [MCP server](/guides/mcp/overview).
 
 ## Related guides
 
 <Columns cols={2}>
   <Card title="Health" icon="heart" href="/guides/health">
-    Start indexation and check your site-wide AI readiness.
+    Check your site-wide AI readiness and get suggestions.
   </Card>
-  <Card title="Audit" icon="gauge" href="/guides/audit">
-    See the per-page AI-readiness score behind each page.
+  <Card title="Audit" icon="clipboard-check" href="/guides/audit">
+    Score your indexed pages against the AI-readiness criteria.
   </Card>
-  <Card title="Elevate" icon="chart-line" href="/guides/elevate">
-    Close content gaps and generate articles from your findings.
+  <Card title="Content suggestions" icon="lightbulb" href="/guides/elevate">
+    See which content to create based on what your site covers.
   </Card>
 </Columns>

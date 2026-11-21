@@ -23,9 +23,11 @@ Your client calls the Hikoo MCP server behind the scenes, which reads and writes
     Sign in from the assistant, or use an API key. Either way the connection acts as you and reaches every website in the workspaces you belong to.
   </Card>
   <Card title="Read and write" icon="wand-sparkles">
-    Read citations, audits, and analytics. Create or update prompts and competitors. Queue new audits.
+    Read citations, audits, and analytics. When you grant **Make changes**, also create or update prompts and competitors and queue new audits.
   </Card>
 </Columns>
+
+When you connect by signing in, the consent screen always grants **See the data** and lets you add **Make changes**. Leave it unticked for a read-only connection. An `hk_` API key acts with your full account access instead.
 
 <Note>
 The connection is scoped to **your user account**, not to a single website. Your client first discovers which websites you have, then passes the chosen `website_id` to each data tool.
@@ -33,7 +35,7 @@ The connection is scoped to **your user account**, not to a single website. Your
 
 ## What you get
 
-The server ships **86 tools** across these areas:
+The server ships **80 tools** across these areas:
 
 - **Citations and sources.** Visibility trends, top platforms, share of voice, top source domains, citation breakdowns, and where a single URL shows up.
 - **Sentiment.** Summary and trend of how AI answers portray your brand (available on some plans).
@@ -46,7 +48,6 @@ The server ships **86 tools** across these areas:
 - **Content gap.** Suggestions where competitors are cited and you are not.
 - **Search queries.** The searches AI assistants ran while answering your prompts, grouped by topic or by prompt.
 - **Source intelligence.** The domains and pages AI assistants cite in your space, and which brands are on each page.
-- **Agency reports.** For agency workspaces: grade a list of prospect sites and build one shareable report each.
 - **Discovery and subscription.** Who you are, your workspaces and websites, and plan details.
 
 ## Who should use it

@@ -1,78 +1,80 @@
 ---
-title: "Elevate"
-description: "Find the topics and questions competitors get cited for in AI answers but you do not"
+title: "Content suggestions"
+description: "Get ready-to-write content briefs for the questions AI assistants answer without citing you"
 ---
 
-Elevate is the content-gap engine. It surfaces the topics and questions that competitors get cited for in AI answers, but that you do not. Each gap is a piece of content you could create to start earning those citations yourself.
+**Content Suggestions** is the first page of the **Elevate** module. It lists content opportunities grounded in emerging demand, the sources AI assistants cite in your market, and what your website already covers. Each suggestion is a page you could publish to start earning AI citations.
 
-## The gap list
+## How suggestions appear
 
-Elevate presents a list of gap suggestions. Each one carries a **priority** and a **content type** so you can decide what to work on first.
+You do not need to start anything. Hikoo regularly researches new opportunities from your tracked prompts, topics, and pages. Each suggestion appears on the page automatically once it passes quality checks.
 
-- **Priority** is one of **high**, **medium**, or **low**.
-- **Content type** describes the format to create: article, blog post, landing page, guide, how-to, FAQ, listicle, comparison, playbook, or checklist.
+Every suggestion carries a short **Reason** that explains why it exists. Its **Context** panel also lists the demand signals behind it:
 
-Open any suggestion to see the reasoning behind it:
+| Signal | Meaning |
+|---|---|
+| **Already popular query** | People already ask this a lot. |
+| **Rising demand** | Interest in the question is growing. |
+| **Fast rising demand** | Interest is growing quickly. |
+| **Citation gap** | AI answers cite other pages on this and not yours. |
+| **Uncovered query** | AI assistants search for this and your site has no page for it. |
+| **Covered elsewhere** | Other publishers cover the subject and you do not. |
 
-- **Why to create it**, the case for filling this gap.
-- A **content brief** to guide the writing.
-- **Context** around where the gap comes from.
-- The **original query** that exposed it.
-- **Your closest existing page**, so you can decide whether to write something new or improve what you already have.
+<Tip>
+Suggestions are better when your site is fully indexed and your prompts reflect your market. Index your pages from [Indexed pages](/guides/pages) and review your [prompts](/guides/prompts).
+</Tip>
 
-## Working a suggestion
+## Board and table
 
-Each suggestion has its own actions:
+Switch between two layouts with **Layout**:
+
+- **Board** shows one column per status: **New**, **Accepted**, **Written**, and **Dismissed**. Drag a card to change its status, or use **Move to** on the card.
+- **Table** lists suggestions with their **Format**, **Reason**, and **Added** date. Select several rows to move them to another status at once.
+
+Narrow the list with the **Status** and **Priority** filters, and sort by **Newest first** or **Oldest first**. Priority is **High**, **Medium**, or **Low**. Use the export button in the page header to download suggestions, if your plan includes exports.
+
+## Content types
+
+Each suggestion recommends a format, such as an article, blog post, guide, how-to guide, tutorial, explainer, troubleshooting page, documentation page, comparison, listicle, checklist, playbook, FAQ, landing page, or research report.
+
+## The content brief
+
+Open a suggestion to read its brief. It reads top to bottom as the work to do:
+
+- A summary: **Who it is for**, **What the reader gets**, the **Target query**, and the **Format**.
+- An **Article outline**, with the sections to write and the questions to **Also cover**.
+- **What to prove**, the claims to back up and where the proof comes from. Some proofs need input from your brand, others need further research.
+- **Blocks to include**, such as a direct answer box, a comparison table, or an FAQ block, and **What you need to provide**.
+- **Sources to read** before writing.
+- **Internal links to place** and **Pages not to duplicate**, so the new page fits your site without competing with an existing one.
+- A **Context** panel at the end with the observed demand and the reasoning behind the suggestion.
+
+Click **Copy brief** to paste the whole brief into your editor or hand it to a writer.
+
+## Act on a suggestion
+
+From the brief you can:
 
 | Action | What it does |
 |---|---|
-| **Accept** | Commit to creating this content. |
-| **Dismiss** | Set the suggestion aside. |
-| **Mark as written** | Record that you published content for it. |
-| **Delete** | Remove the suggestion entirely. |
+| **Mark as written** | Records that you published the page. |
+| **Accept** | Moves the suggestion to **Accepted**, so you know you plan to write it. |
+| **Dismiss** | Sets the suggestion aside. |
+| **Delete** | Removes the suggestion for everyone working on this website. This cannot be undone. |
 
-When you click **Mark as written**, a dialog opens. Paste the URL you published, and optionally run an audit on that page at the same time so you can check how it scores.
+When you click **Mark as written**, enter the **Article URL**. The URL must belong to your website's domain. Hikoo indexes the page, and you can turn on **Run an audit** to analyze it right after indexing. See [Audit](/guides/audit).
 
-Suggestions move through a clear status flow:
+## API and MCP
 
-**New** to **Accepted** to **Written**, or **Dismissed** at any point.
-
-## How Elevate finds gaps
-
-Hikoo compares your own pages against the topics competitors get cited for, matching on meaning rather than exact wording. Where competitors are cited on a topic and you have no strong page, a gap appears.
-
-<Steps>
-  ### Prepare your pages
-  Open Elevate and let Hikoo prepare your pages for comparison.
-
-  ### Run the analysis
-  Start the analysis. It runs in the background, so you can leave the page and come back.
-
-  ### Review your gaps
-  When it finishes, your gap suggestions are ready to work through.
-</Steps>
-
-<Tip>
-Results are best when your site is fully indexed and you have added relevant competitors. Index more pages from [Pages](/guides/pages) and add rivals in [Competitors](/guides/competitors) before you run the analysis.
-</Tip>
-
-<Note>
-Elevate runs against a monthly quota per website. Your plan determines how many analysis runs you get each month.
-</Note>
+The REST API and the [MCP server](/guides/mcp/overview) expose content suggestions under **Content gaps**, so you can list them and read a brief from your own tools.
 
 ## Where to go next
 
 <Columns cols={2}>
-  <Card title="Marketing plan" icon="list-checks" href="/guides/marketing-plan">
-    Turn accepted gaps into scheduled tasks you can track.
+  <Card title="Indexed pages" icon="file-text" href="/guides/pages">
+    Index more of your site so suggestions know what you already cover.
   </Card>
-  <Card title="Source intelligence" icon="search" href="/guides/source-intelligence">
+  <Card title="Source intelligence" icon="globe" href="/guides/source-intelligence">
     Pair content gaps with the sources that would cite you.
-  </Card>
-  <Card title="Pages" icon="globe" href="/guides/pages">
-    Index more of your site so gap detection has more to compare.
-  </Card>
-  <Card title="Competitors" icon="users" href="/guides/competitors">
-    Add the rivals whose coverage defines your gaps.
   </Card>
 </Columns>

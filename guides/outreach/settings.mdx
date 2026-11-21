@@ -1,0 +1,129 @@
+---
+title: "Outreach settings"
+description: "Connect your mailbox and choose how much Hikoo does alone and who it never contacts"
+---
+
+Open **Outreach**, then **Settings**. Every change saves as you make it. There is no **Save** button.
+
+<Note>
+Only the workspace owner and admins change these settings. Members read them, take decisions, and approve emails from the Outreach home.
+</Note>
+
+## Sending mailboxes
+
+Hikoo sends from your own address. Every member sends from their own mailbox, and replies land in that inbox. Viewers send nothing, so they have no mailbox to connect.
+
+<Steps>
+  ### Connect your mailbox
+  Click **Gmail** or **Outlook** and sign in. Leave the permission to send email ticked, or nothing is stored. Hikoo connects to Gmail and Outlook for now.
+
+  ### Add it to the site
+  Under the site's sending mailboxes, click **Add to this site**. The site's emails leave only from the mailboxes attached to it.
+
+  ### Check its state
+  Each mailbox shows whether it **Sends for this site**, is **Over the plan, does not send here**, has a **Connection expired**, or had its **Sending stopped**.
+</Steps>
+
+The site's plan sets how many mailboxes can send for it. One mailbox per person: a member who connects theirs from this site takes a slot.
+
+Each mailbox has a daily sending pace. A new mailbox starts **Warming up** with a lower daily cap. Sending stops for a while if there are too many bounces or spam refusals, or when the provider's daily limit is reached.
+
+To remove a mailbox from a site, click **Remove**. The first emails it carried move to another mailbox of the site, and its ongoing conversations wait for you. It keeps sending for its other sites.
+
+### Signature
+
+Your signature is set with your mailbox in your account **Settings**, under **Profile**. It is added as is under every email you send: name, role, company, phone, link. Hikoo never writes it. Left empty, the email goes out with your name.
+
+<Warning>
+If a mailbox connection expires, nothing goes out from it and replies are not read until you click **Reconnect**.
+</Warning>
+
+## What we are
+
+Hikoo writes every email from the description of your site. You edit it in the site's settings with **Edit in the site's settings**. See [Websites](/guides/websites).
+
+## How much Hikoo does alone
+
+Pick a preset to fill the whole permission grid at once:
+
+| Preset | What it means |
+|---|---|
+| **Asks you everything** | You approve every mail before it leaves: first emails, replies, and follow-ups. |
+| **Follows your rules** | Hikoo writes, answers, and follows up on its own. It comes to you for legal questions and anything unusual. |
+| **Runs on its own** | Hikoo goes all the way to the mention. You only see the exceptions and the wins. |
+| **Custom** | Your own combination, shown when you move a square yourself. |
+
+When you raise a level, Hikoo asks what to do with the first emails and follow-ups already waiting for your OK. Click **Send it** or **Send all** to release them inside your sending hours, or **Keep it** or **Keep them** to approve them one by one.
+
+## Who does what
+
+The permission grid sets one level for each kind of work. The higher the block, the more Hikoo involves you. Click a block to move it.
+
+**Levels:**
+
+- **Asks you first**: Hikoo prepares the work and waits for your OK on the [decisions](/guides/outreach/decisions) screen.
+- **Does it, then tells you**: Hikoo goes ahead, and you see it on the Outreach home the next time you come.
+- **Does it alone**: Hikoo goes ahead without telling you. It still appears in **Activity**.
+
+**Kinds of work:**
+
+| Kind of work | What it covers |
+|---|---|
+| **Find opportunities** | Spot pages and sites worth getting mentioned on. Always Hikoo: looking is what Hikoo is for, and this one cannot be changed. |
+| **Qualify the opportunity** | Decide whether a source is worth pursuing for your brand. |
+| **Find the right person** | Find the named person who can change the page, such as the author or the editor. |
+| **Research that person** | Read what that person publishes so the first email speaks to them. |
+| **Write the first email** | Draft the pitch for that person. |
+| **Send the first email** | Send the pitch from your connected mailbox. |
+| **Send a follow-up** | Send the next email when the person has not answered. Hikoo reads this setting for every mail it writes inside a conversation. |
+| **Answer a positive reply** | Reply when the person says yes or asks for details. Read for every mail inside a conversation. |
+| **Answer an unusual objection** | Reply to a question or a refusal outside the usual cases. Read for every mail inside a conversation. |
+
+A sentence under the grid sums it up, for example how many kinds of work Hikoo asks you first for.
+
+## Follow-ups
+
+- **Follow-ups at most, per opportunity**: how many times Hikoo comes back when nobody answers. Three at most. Set it to `0` to turn follow-ups off.
+- **Days of silence before the next one**: how long Hikoo waits.
+
+Whether a follow-up leaves on its own or waits for you is set by the **Send a follow-up** square of the grid.
+
+## People with no address
+
+Sometimes Hikoo finds the right person and no way to email them. Turn on **Hand over their LinkedIn profile** and Hikoo writes the note and gives you the profile to paste. Hikoo does not send on LinkedIn: it holds no account there.
+
+Turn it off for email only. Those opportunities are treated like any other with no usable address: Hikoo keeps looking, tries the address the site publishes, and closes the opportunity if there is none.
+
+## Documents and resources
+
+Add what Hikoo can offer a publisher: an affiliate program, a partner deck, a case study, or the brand's visuals.
+
+1. Click **Add a file** or **Add a link**. Files can be PDF, Word, PNG, JPEG, or WebP, 10 MB max.
+2. Hikoo reads it and prepares the entry: name, summary, and **When to offer it**.
+3. Check what Hikoo read, correct it if needed, and click **Save**.
+
+Resources are always shared as a link, never as an attachment. Use **Move to the media kit** to file visuals together. Deleting a file stops the links already shared with publishers.
+
+## Offer and sender profile
+
+Two more settings are available through the REST API:
+
+- **What the brand offers**: the things the brand can give a publisher who says yes, such as a spokesperson, data, a product to test, imagery, or a discount or trial. Whatever is not listed is not offered. Left empty, Hikoo offers a description of the brand and a link, nothing else.
+- **Sender profile**: how the people in your mailboxes stand toward the brand. They can be an employee, an agency working for the brand (with the agency's name), or a consultant writing on its behalf. Left empty, Hikoo decides per mailbox: "works at the brand" when the mailbox is on one of the brand's domains, "writing on behalf of" otherwise.
+
+## Do-not-contact list
+
+The workspace keeps one do-not-contact list, shared by all its sites. An entry blocks a single address or a whole domain. Adding an entry cancels any draft already queued for it.
+
+Entries are added when you close an opportunity with **Do not contact**. Choose **Everyone at** the domain or the person only. You can also list, add, and remove entries through the REST API.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Outreach" icon="send" href="/guides/outreach/overview">
+    See how Hikoo works an opportunity from start to finish.
+  </Card>
+  <Card title="Decisions" icon="list-checks" href="/guides/outreach/decisions">
+    Answer what Hikoo brings you.
+  </Card>
+</Columns>
